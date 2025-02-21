@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:formatting": "prettier --check .",
+    "check:types": "tsc --noEmit"
   },
   "dependencies": {
     "esbuild": "^0.25.0",

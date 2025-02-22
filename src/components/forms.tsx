@@ -46,7 +46,7 @@ type FormFieldContextValue<
 };
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
+  {} as FormFieldContextValue,
 );
 
 /**
@@ -75,7 +75,7 @@ type FormItemContextValue = {
 };
 
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+  {} as FormItemContextValue,
 );
 
 /**
@@ -167,7 +167,7 @@ const Label = React.forwardRef<
       className={cn(
         error && "text-destructive",
         disabled && "cursor-not-allowed opacity-70",
-        className
+        className,
       )}
       htmlFor={formItemId}
       {...props}
@@ -205,5 +205,4 @@ const Message = React.forwardRef<
 });
 Message.displayName = "FormMessage";
 
- 
 export { Control, Field, Item, Label, Message, Root, useFormField };

@@ -2,7 +2,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { looseStudentFormSchema } from "./looseStudentFormSchema";
 import { z } from "zod";
 import * as F from "@/components/forms";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Select,

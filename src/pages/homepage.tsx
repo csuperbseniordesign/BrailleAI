@@ -1,5 +1,7 @@
+import StudentForm from "./StudentForm";
+
 const HomePage = () => {
-  return <div>homepage</div>;
+  return <StudentForm />;
 };
 
 export default HomePage;

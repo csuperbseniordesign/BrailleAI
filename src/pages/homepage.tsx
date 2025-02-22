@@ -1,4 +1,4 @@
-import StudentForm from "./StudentForm";
+import StudentForm from "../feature/studentForm/StudentForm";
 
 const HomePage = () => {
   return <StudentForm />;

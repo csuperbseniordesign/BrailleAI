@@ -4,7 +4,7 @@ import { AuthRequestHeader } from './type';
 
 const axios = axiosModule.create({
     baseURL: baseUrl,
-    timeout: 5000,
+    timeout: 30000, // Set timeout to 30 seconds for deepseek to answer a difficult question
 });
 
 

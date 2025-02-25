@@ -7,11 +7,13 @@ export async function generateResponse(prompt: String, accessToken?: AccessToken
         url: '/api/generate',
         method: 'POST',
         data: {
+            "model": "deepseek-r1:7b",
             'prompt': prompt,
+            'stream': false,
         },
         accessToken
 
     })
 
-    return response.result;
+    return response;
 }

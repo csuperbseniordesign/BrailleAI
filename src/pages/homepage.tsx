@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { baseUrl } from "@/api/config";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -16,6 +17,8 @@ const HomePage = () => {
   const handleSubmit = (data: FormValues) => {
     console.log(data);
   };
+
+  console.log(baseUrl);
   return (
     <div>
       <div className="flex justify-center items-center h-[90vh]">

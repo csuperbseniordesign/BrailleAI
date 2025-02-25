@@ -10,31 +10,28 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ModeToggle } from "@/components/mode-toggle";
-import { generateResponse } from "@/api/apiCalls";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { createContext } from "@/util/createContext";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
-const createContext = (
-  ethnicity: string,
-  gender: string,
-  gradeLevel: string
-): string => {
-  return `In the given paragraph below modify the name to fit for an ${gradeLevel} ${ethnicity} ${gender}. Change only the name based off the instructions given. [Optional: Change pronouns if necessary]`;
-};
-
 const HomePage = () => {
   const navigate = useNavigate();
-  const handleSubmit = async (data: FormValues) => {
+  const handleSubmit = (data: FormValues) => {
     const prompt =
       createContext(data.ethnicity, data.gender, data.gradeLevel) +
       "\n" +
       data.paragraph;
 
-    const response = await generateResponse(data.paragraph);
-    console.log(response);
-    //navigate("/response");
+    sessionStorage.setItem("prompt", prompt);
+    navigate("/response");
   };
+
+  // Clears prompt data only
+  useEffect(() => {
+    sessionStorage.removeItem("prompt");
+  }, []);
 
   return (
     <div>

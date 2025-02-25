@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,10 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Download, RotateCcw } from "lucide-react";
 import { useState } from "react";
 
 const GeneratedParagraphPage = () => {
-  const [response, setResponse] = useState<string>("");
+  const [response] = useState<string>("");
+  const storedData = sessionStorage.getItem("prompt");
 
   return (
     <div>
@@ -22,8 +25,8 @@ const GeneratedParagraphPage = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {response !== "" ? (
-                <h3 className="font-bold text-lg break-words">{response}</h3>
+              {storedData !== "" ? (
+                <h3 className="font-bold text-lg break-words">{storedData}</h3>
               ) : (
                 <Skeleton
                   className="h-[250px] w-full rounded-xl"
@@ -32,10 +35,17 @@ const GeneratedParagraphPage = () => {
               )}
             </CardContent>
             <CardFooter>
-              <h3 className="text-xl">
-                Note: Your data is not saved and will be deleted after the
-                session.
-              </h3>
+              <div className="flex justify-end w-full gap-x-4 mt-[25px]">
+                <Button>
+                  {" "}
+                  <Download className="w-5 h-5 mr-2" />
+                  Download
+                </Button>
+                <Button>
+                  <RotateCcw className="w-5 h-5 mr-2" />
+                  Re-generate
+                </Button>
+              </div>
             </CardFooter>
           </Card>
         </div>

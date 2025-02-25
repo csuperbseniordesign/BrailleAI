@@ -24,5 +24,5 @@ export async function request<T = any>(
 
     catch(error) {
         throw error instanceof Error ? error : new Error('An unkown error occured');
-    }
+    } 
 }

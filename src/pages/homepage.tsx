@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { baseUrl } from "@/api/config";
+import { ModeToggle } from "@/components/mode-toggle";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -21,6 +22,9 @@ const HomePage = () => {
   console.log(baseUrl);
   return (
     <div>
+      <div className="flex justify-end py-[10px] px-[10px]">
+        <ModeToggle />
+      </div>
       <div className="flex justify-center items-center h-[90vh]">
         <div className="max-w-screen-md">
           <Card>

@@ -7,12 +7,28 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import useGenerateResponse from "@/feature/hooks/useGenerateResponse";
 import { Download, RotateCcw } from "lucide-react";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const GeneratedParagraphPage = () => {
-  const [response] = useState<string>("");
-  const storedData = sessionStorage.getItem("prompt");
+  const navigate = useNavigate();
+  const prompt = sessionStorage.getItem("prompt");
+
+  useEffect(() => {
+    if (!prompt) {
+      navigate("/");
+    }
+  }, []);
+
+  const { response, loading, fetchResponse } = useGenerateResponse(prompt);
+
+  useEffect(() => {
+    fetchResponse();
+  }, [fetchResponse]);
+
+  console.log(response);
 
   return (
     <div>
@@ -25,8 +41,10 @@ const GeneratedParagraphPage = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {storedData !== "" ? (
-                <h3 className="font-bold text-lg break-words">{storedData}</h3>
+              {!loading && response ? (
+                <h3 className="font-bold text-lg break-words">
+                  {response.replace(/<think>.*?<\/think>/gs, "").trim()}
+                </h3>
               ) : (
                 <Skeleton
                   className="h-[250px] w-full rounded-xl"
@@ -37,7 +55,6 @@ const GeneratedParagraphPage = () => {
             <CardFooter>
               <div className="flex justify-end w-full gap-x-4 mt-[25px]">
                 <Button>
-                  {" "}
                   <Download className="w-5 h-5 mr-2" />
                   Download
                 </Button>

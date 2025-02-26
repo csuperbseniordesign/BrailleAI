@@ -8,10 +8,11 @@ export interface ApiResponse<T> {
     message: string;
     folio: string;
     result: T;
+    response: string;
 }
 
 export interface DeepSeekResponse {
     status: string;
-    data: string; 
+    response: string; 
     error?: string;
 } 

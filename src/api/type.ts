@@ -12,7 +12,6 @@ export interface ApiResponse<T> {
 }
 
 export interface DeepSeekResponse {
-    status: string;
+    model: string;
     response: string; 
-    error?: string;
 } 

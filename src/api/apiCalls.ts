@@ -1,9 +1,9 @@
 import { request } from "./base";
-import { AccessToken, ApiResponse, DeepSeekResponse } from "./type";
+import { AccessToken, DeepSeekResponse } from "./type";
 
 export async function generateResponse(prompt: String, accessToken?: AccessToken) {
 
-    const response = await request<ApiResponse<DeepSeekResponse>>({
+    const response = await request<DeepSeekResponse>({
         url: '/api/generate',
         method: 'POST',
         data: {

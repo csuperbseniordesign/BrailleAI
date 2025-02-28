@@ -9,12 +9,18 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import useGenerateResponse from "@/feature/hooks/useGenerateResponse";
 import { Download, RotateCcw } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const GeneratedParagraphPage = () => {
   const navigate = useNavigate();
   const prompt = sessionStorage.getItem("prompt");
+  const ref = useRef(false);
+
+  const handleReload = async () => {
+    console.log("reload");
+    await fetchResponse();
+  };
 
   useEffect(() => {
     if (!prompt) {
@@ -22,11 +28,17 @@ const GeneratedParagraphPage = () => {
     }
   }, []);
 
-  const { response, loading, fetchResponse } = useGenerateResponse(prompt);
+  const { response, loading, fetchResponse } = useGenerateResponse(
+    prompt,
+    false
+  );
 
   useEffect(() => {
-    fetchResponse();
-  }, [fetchResponse]);
+    if (!ref.current) {
+      fetchResponse();
+      ref.current = false;
+    }
+  }, []);
 
   console.log(response);
 
@@ -58,7 +70,7 @@ const GeneratedParagraphPage = () => {
                   <Download className="w-5 h-5 mr-2" />
                   Download
                 </Button>
-                <Button>
+                <Button onClick={handleReload} disabled={loading}>
                   <RotateCcw className="w-5 h-5 mr-2" />
                   Re-generate
                 </Button>

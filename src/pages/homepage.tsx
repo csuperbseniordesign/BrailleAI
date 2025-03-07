@@ -20,7 +20,12 @@ const HomePage = () => {
   const navigate = useNavigate();
   const handleSubmit = (data: FormValues) => {
     const prompt =
-      createContext(data.ethnicity, data.gender, data.gradeLevel) +
+      createContext(
+        data.ethnicity,
+        data.gender,
+        data.gradeLevel,
+        data.primaryInterest
+      ) +
       "\n" +
       data.paragraph;
 

@@ -14,3 +14,4 @@ export const gradeLevelOptions = [
     "Grade 11",
     "Grade 12",
 ] as const;
+export const primaryInterestOptions = ['Reading', 'Watching Television', 'Sports', 'Video Game', 'Music', 'Cooking', 'Traveling'] as const;

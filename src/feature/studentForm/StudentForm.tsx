@@ -17,6 +17,7 @@ import {
   ethnicityOptions,
   genderOptions,
   gradeLevelOptions,
+  primaryInterestOptions,
 } from "./studentFormOptions";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
@@ -31,6 +32,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
       gradeLevel: gradeLevelOptions[0],
       ethnicity: ethnicityOptions[0],
       gender: genderOptions[0],
+      primaryInterest: primaryInterestOptions[0],
       paragraph: "",
     },
   });
@@ -115,6 +117,35 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                         {ethnicityOptions.map((ethnicity, index) => (
                           <SelectItem value={ethnicity} key={index}>
                             {ethnicity}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">Interest</h4>
+          <F.Field
+            name="primaryInterest"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {primaryInterestOptions.map((interest, index) => (
+                          <SelectItem value={interest} key={index}>
+                            {interest}
                           </SelectItem>
                         ))}
                       </SelectContent>

@@ -7,40 +7,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import useGenerateResponse from "@/feature/hooks/useGenerateResponse";
 import { Download, RotateCcw } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
+import { queryClient } from "@/config/queryClient";
+import { QueryKeys } from "@/config/queryKeys";
 
 const GeneratedParagraphPage = () => {
   const navigate = useNavigate();
   const prompt = sessionStorage.getItem("prompt");
-  const ref = useRef(false);
+  const {
+    data: responseData,
+    refetch: refetch,
+    isFetching: fetching,
+  } = useGenerateResponse(prompt!);
+  console.log(responseData);
 
-  const handleReload = async () => {
-    console.log("reload");
-    await fetchResponse();
+  const handleReGenerate = () => {
+    console.log("Regenerating...");
+    refetch();
   };
-
-  useEffect(() => {
-    if (!prompt) {
-      navigate("/");
-    }
-  }, []);
-
-  const { response, loading, fetchResponse } = useGenerateResponse(
-    prompt,
-    false
-  );
-
-  useEffect(() => {
-    if (!ref.current) {
-      fetchResponse();
-      ref.current = false;
-    }
-  }, []);
-
-  console.log(response);
 
   return (
     <div>
@@ -53,9 +39,11 @@ const GeneratedParagraphPage = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {!loading && response ? (
+              {responseData != null && !fetching ? (
                 <h3 className="font-bold text-lg break-words">
-                  {response.replace(/<think>.*?<\/think>/gs, "").trim()}
+                  {responseData?.response
+                    .replace(/<think>.*?<\/think>/gs, "")
+                    .trim()}
                 </h3>
               ) : (
                 <Skeleton
@@ -66,11 +54,11 @@ const GeneratedParagraphPage = () => {
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full gap-x-4 mt-[25px]">
-                <Button>
+                <Button disabled={fetching}>
                   <Download className="w-5 h-5 mr-2" />
                   Download
                 </Button>
-                <Button onClick={handleReload} disabled={loading}>
+                <Button onClick={handleReGenerate} disabled={fetching}>
                   <RotateCcw className="w-5 h-5 mr-2" />
                   Re-generate
                 </Button>

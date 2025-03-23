@@ -13,6 +13,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { createContext } from "@/util/createContext";
+import { queryClient } from "@/config/queryClient";
+import { QueryKeys } from "@/config/queryKeys";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -30,6 +32,9 @@ const HomePage = () => {
       data.paragraph;
 
     sessionStorage.setItem("prompt", prompt);
+    queryClient.invalidateQueries({
+      queryKey: [QueryKeys.RESPONSE],
+    });
     navigate("/response");
   };
 

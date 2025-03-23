@@ -32,15 +32,15 @@ const HomePage = () => {
       data.paragraph;
 
     sessionStorage.setItem("prompt", prompt);
-    queryClient.invalidateQueries({
-      queryKey: [QueryKeys.RESPONSE],
-    });
     navigate("/response");
   };
 
   // Clears prompt data only
   useEffect(() => {
     sessionStorage.removeItem("prompt");
+    queryClient.removeQueries({
+      queryKey: [QueryKeys.RESPONSE],
+    });
   }, []);
 
   return (

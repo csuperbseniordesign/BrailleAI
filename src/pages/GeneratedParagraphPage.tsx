@@ -28,6 +28,8 @@ const GeneratedParagraphPage = () => {
     refetch();
   };
 
+  console.log(prompt);
+
   return (
     <div>
       <div className="flex justify-center items-center h-[90vh]">

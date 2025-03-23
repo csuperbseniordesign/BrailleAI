@@ -9,7 +9,10 @@ export function useGenerateResponse(prompt: string) {
     queryKey: [QueryKeys.RESPONSE],
     queryFn: () => generateResponse(prompt),
     staleTime: FIVE_MINS_IN_MILLIS,
-    
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    gcTime: 0,
   });
 
   return query;

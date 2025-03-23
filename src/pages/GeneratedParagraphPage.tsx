@@ -8,14 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download, RotateCcw } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
-import { queryClient } from "@/config/queryClient";
-import { QueryKeys } from "@/config/queryKeys";
 
 const GeneratedParagraphPage = () => {
-  const navigate = useNavigate();
   const prompt = sessionStorage.getItem("prompt");
+  const primaryInterest = sessionStorage.getItem("interest");
+
   const {
     data: responseData,
     refetch: refetch,
@@ -26,6 +24,10 @@ const GeneratedParagraphPage = () => {
   const handleReGenerate = () => {
     console.log("Regenerating...");
     refetch();
+  };
+
+  const handleSave = () => {
+    console.log(primaryInterest);
   };
 
   console.log(prompt);
@@ -56,9 +58,9 @@ const GeneratedParagraphPage = () => {
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full gap-x-4 mt-[25px]">
-                <Button disabled={fetching}>
+                <Button disabled={fetching} onClick={handleSave}>
                   <Download className="w-5 h-5 mr-2" />
-                  Download
+                  Save
                 </Button>
                 <Button onClick={handleReGenerate} disabled={fetching}>
                   <RotateCcw className="w-5 h-5 mr-2" />

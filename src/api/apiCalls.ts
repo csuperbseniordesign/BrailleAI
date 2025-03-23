@@ -13,7 +13,7 @@ export async function generateResponse(prompt: String, accessToken?: AccessToken
         },
         accessToken
 
-    })
+    });
 
     return response;
 }

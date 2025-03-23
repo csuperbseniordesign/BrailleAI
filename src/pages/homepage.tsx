@@ -22,22 +22,21 @@ const HomePage = () => {
   const navigate = useNavigate();
   const handleSubmit = (data: FormValues) => {
     const prompt =
-      createContext(
-        data.ethnicity,
-        data.gender,
-        data.gradeLevel,
-        data.primaryInterest
-      ) +
+      createContext(data.ethnicity, data.gender, data.gradeLevel) +
       "\n" +
       data.paragraph;
 
+    const primaryInterest = data.primaryInterest;
+
     sessionStorage.setItem("prompt", prompt);
+    sessionStorage.setItem("interest", primaryInterest);
     navigate("/response");
   };
 
-  // Clears prompt data only
+  // Clears prompt data && query cache on initial render
   useEffect(() => {
     sessionStorage.removeItem("prompt");
+    sessionStorage.removeItem("interest");
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
     });

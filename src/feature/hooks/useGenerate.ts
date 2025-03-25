@@ -1,5 +1,5 @@
 import { generateResponse } from "@/api/apiCalls";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export const useGenerate = () => {

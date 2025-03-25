@@ -2,7 +2,7 @@ import { request } from "./base";
 import { AccessToken, DeepSeekResponse } from "./type";
 
 export async function generateResponse(
-  prompt: String,
+  prompt: string,
   accessToken?: AccessToken,
 ) {
   const response = await request<DeepSeekResponse>({

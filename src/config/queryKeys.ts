@@ -1,3 +1,3 @@
 export enum QueryKeys {
-    RESPONSE = 'response',
+  RESPONSE = "response",
 }

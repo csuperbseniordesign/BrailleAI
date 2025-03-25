@@ -1,17 +1,17 @@
 export type AccessToken = string;
 
 export interface AuthRequestHeader {
-    accessToken?: AccessToken;
+  accessToken?: AccessToken;
 }
 
 export interface ApiResponse<T> {
-    message: string;
-    folio: string;
-    result: T;
-    response: string;
+  message: string;
+  folio: string;
+  result: T;
+  response: string;
 }
 
 export interface DeepSeekResponse {
-    model: string;
-    response: string; 
-} 
+  model: string;
+  response: string;
+}

@@ -13,6 +13,12 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  ethnicityOptions,
+  genderOptions,
+  gradeLevelOptions,
+  primaryInterestOptions,
+} from "./studentFormOptions";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 type StudentFormProps = {
@@ -23,9 +29,10 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
-      gradeLevel: "Grade 1",
-      ethnicity: "Hispanic",
-      gender: "male",
+      gradeLevel: gradeLevelOptions[0],
+      ethnicity: ethnicityOptions[0],
+      gender: genderOptions[0],
+      primaryInterest: primaryInterestOptions[0],
       paragraph: "",
     },
   });
@@ -44,23 +51,16 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
               <F.Item>
                 <F.Control>
                   {
-                    <Select>
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Grade 1" {...field} />
+                        <SelectValue placeholder={field.value} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Grade 1">Grade 1</SelectItem>
-                        <SelectItem value="Grade 2">Grade 2</SelectItem>
-                        <SelectItem value="Grade 3">Grade 3</SelectItem>
-                        <SelectItem value="Grade 4">Grade 4</SelectItem>
-                        <SelectItem value="Grade 5">Grade 5</SelectItem>
-                        <SelectItem value="Grade 6">Grade 6</SelectItem>
-                        <SelectItem value="Grade 7">Grade 7</SelectItem>
-                        <SelectItem value="Grade 8">Grade 8</SelectItem>
-                        <SelectItem value="Grade 9">Grade 9</SelectItem>
-                        <SelectItem value="Grade 10">Grade 10</SelectItem>
-                        <SelectItem value="Grade 11">Grade 11</SelectItem>
-                        <SelectItem value="Grade 12">Grade 12</SelectItem>
+                        {gradeLevelOptions.map((gradeLevel, index) => (
+                          <SelectItem value={gradeLevel} key={index}>
+                            {gradeLevel}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   }
@@ -80,13 +80,16 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
               <F.Item>
                 <F.Control>
                   {
-                    <Select>
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Male" {...field} />
+                        <SelectValue placeholder={field.value} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
+                        {genderOptions.map((gender, index) => (
+                          <SelectItem value={gender} key={index}>
+                            {gender}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   }
@@ -106,27 +109,45 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
               <F.Item>
                 <F.Control>
                   {
-                    <Select>
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Hispanic" {...field} />
+                        <SelectValue placeholder={field.value} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="hispanic">Hispanic</SelectItem>
-                        <SelectItem value="non-hispanic">
-                          Non-Hispanic
-                        </SelectItem>
-                        <SelectItem value="white">White</SelectItem>
-                        <SelectItem value="black">
-                          Black or African American
-                        </SelectItem>
-                        <SelectItem value="asian">Asian</SelectItem>
-                        <SelectItem value="native-american">
-                          Native American
-                        </SelectItem>
-                        <SelectItem value="pacific-islander">
-                          Pacific Islander
-                        </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        {ethnicityOptions.map((ethnicity, index) => (
+                          <SelectItem value={ethnicity} key={index}>
+                            {ethnicity}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">Interest</h4>
+          <F.Field
+            name="primaryInterest"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {primaryInterestOptions.map((interest, index) => (
+                          <SelectItem value={interest} key={index}>
+                            {interest}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   }

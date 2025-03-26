@@ -9,10 +9,20 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download, RotateCcw } from "lucide-react";
 import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const GeneratedParagraphPage = () => {
   const prompt = sessionStorage.getItem("prompt");
   const primaryInterest = sessionStorage.getItem("interest");
+  const gradeLevel = sessionStorage.getItem("gradeLevel");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (prompt == null || primaryInterest == null || gradeLevel == null) {
+      navigate("/");
+    }
+  });
 
   const {
     data: responseData,

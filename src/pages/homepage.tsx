@@ -21,15 +21,14 @@ type FormValues = z.infer<typeof looseStudentFormSchema>;
 const HomePage = () => {
   const navigate = useNavigate();
   const handleSubmit = (data: FormValues) => {
-    const prompt =
-      createContext(data.ethnicity, data.gender, data.gradeLevel) +
-      "\n" +
-      data.paragraph;
+    const prompt = createContext(data.ethnicity, data.gender, data.gradeLevel);
 
     const primaryInterest = data.primaryInterest;
+    const gradeLevel = data.gradeLevel;
 
     sessionStorage.setItem("prompt", prompt);
     sessionStorage.setItem("interest", primaryInterest);
+    sessionStorage.setItem("gradeLevel", gradeLevel);
     navigate("/response");
   };
 
@@ -37,6 +36,7 @@ const HomePage = () => {
   useEffect(() => {
     sessionStorage.removeItem("prompt");
     sessionStorage.removeItem("interest");
+    sessionStorage.removeItem("gradeLevel");
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
     });

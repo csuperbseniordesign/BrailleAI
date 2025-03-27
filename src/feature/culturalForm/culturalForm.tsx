@@ -34,10 +34,12 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
 
   return (
     <F.Root formMethods={formMethods}>
-      <div className="space-y-3">
+      <div className="space-y-5">
         {questions.map((question, index) => (
           <div>
-            <h4 className="text-lg py-[5px]">{question.question}</h4>
+            <h4 className="text-lg py-[5px] w-[600px]">
+              {index + 1 + ". " + question.question}
+            </h4>
             <F.Field
               name={question.id as keyof FormValues}
               control={formMethods.control}
@@ -50,13 +52,20 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                         onValueChange={field.onChange}
                       >
                         <div className="flex item-center space-x-20 py-[15px] text-center">
-                          <div>
+                          <div className="flex flex-col items-center w-20">
                             <RadioGroupItem value="4" id="r1" />
                             <p>{question.bestOption}</p>
                           </div>
-                          <RadioGroupItem value="3" id="r2" />
-                          <RadioGroupItem value="2" id="r3" />
-                          <div>
+
+                          <div className="flex flex-col items-center w-20">
+                            <RadioGroupItem value="3" id="r2" />
+                          </div>
+
+                          <div className="flex flex-col items-center w-20">
+                            <RadioGroupItem value="2" id="r3" />
+                          </div>
+
+                          <div className="flex flex-col items-center w-20">
                             <RadioGroupItem value="1" id="r4" />
                             <p>{question.worseOption}</p>
                           </div>
@@ -70,7 +79,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end py-[15px]">
         <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
     </F.Root>

@@ -1,11 +1,11 @@
-import { request } from "./base";
-import { AccessToken, DeepSeekResponse } from "./type";
+import { deepseekRequest, request } from "./base";
+import { AccessToken, DeepSeekResponse, ParagraphResponse } from "./type";
 
 export async function generateResponse(
   prompt: string,
   accessToken?: AccessToken,
 ) {
-  const response = await request<DeepSeekResponse>({
+  const response = await deepseekRequest<DeepSeekResponse>({
     url: "/api/generate",
     method: "POST",
     data: {
@@ -14,6 +14,22 @@ export async function generateResponse(
       stream: false,
     },
     accessToken,
+  });
+
+  return response;
+}
+
+export async function requestParagraph(
+  interest: string,
+  minAtos: number,
+  maxAtos: number,
+  accessToken?: AccessToken,
+) {
+ 
+  const response = await request<ParagraphResponse>({
+    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}`,
+    method: "GET",
+    
   });
 
   return response;

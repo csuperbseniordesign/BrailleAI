@@ -15,28 +15,55 @@ import { useEffect } from "react";
 import { createContext } from "@/util/createContext";
 import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
+import { useRequestParagraph } from "@/feature/hooks/useRequestParagraph";
+import { atosMapper, cleanText } from "@/util/utils";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const handleSubmit = (data: FormValues) => {
-    const prompt = createContext(data.ethnicity, data.gender, data.gradeLevel);
+  const { mutate: requestParagraph, data: paragraphData } =
+    useRequestParagraph();
 
+  const handleSubmit = async (data: FormValues) => {
     const primaryInterest = data.primaryInterest;
     const gradeLevel = data.gradeLevel;
+    const ethnicityOptions = data.ethnicity;
+    const gender = data.gender;
+    const [minAtos, maxAtos] = atosMapper(gradeLevel);
 
-    sessionStorage.setItem("prompt", prompt);
-    sessionStorage.setItem("interest", primaryInterest);
-    sessionStorage.setItem("gradeLevel", gradeLevel);
-    navigate("/response");
+    requestParagraph(
+      {
+        interest: primaryInterest,
+        minAtos: minAtos,
+        maxAtos: maxAtos,
+        accessToken: "accessToken",
+      },
+      {
+        onSuccess: (paragraphData) => {
+          if (!paragraphData) {
+            return;
+          }
+          const paragraph = cleanText(paragraphData!.paragraph);
+          const prompt = createContext(
+            ethnicityOptions,
+            gender,
+            gradeLevel,
+            paragraph
+          );
+
+          sessionStorage.setItem("prompt", prompt);
+          sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
+          navigate("/response");
+        },
+      }
+    );
   };
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
     sessionStorage.removeItem("prompt");
-    sessionStorage.removeItem("interest");
-    sessionStorage.removeItem("gradeLevel");
+    sessionStorage.removeItem("paragraphId");
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
     });

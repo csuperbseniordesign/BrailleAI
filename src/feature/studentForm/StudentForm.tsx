@@ -33,7 +33,6 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
       ethnicity: ethnicityOptions[0],
       gender: genderOptions[0],
       primaryInterest: primaryInterestOptions[0],
-      paragraph: "",
     },
   });
 
@@ -150,28 +149,6 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                         ))}
                       </SelectContent>
                     </Select>
-                  }
-                </F.Control>
-                <F.Message />
-              </F.Item>
-            )}
-          />
-        </div>
-
-        <div>
-          <h4 className="text-lg py-[5px]">Copy/Paste Paragraph</h4>
-          <F.Field
-            name="paragraph"
-            control={formMethods.control}
-            render={({ field }) => (
-              <F.Item>
-                <F.Control>
-                  {
-                    <Textarea
-                      placeholder="paragraph"
-                      {...field}
-                      className="w-full"
-                    />
                   }
                 </F.Control>
                 <F.Message />

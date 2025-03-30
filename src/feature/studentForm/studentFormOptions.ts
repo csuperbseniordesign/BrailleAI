@@ -22,11 +22,7 @@ export const gradeLevelOptions = [
   "Grade 12",
 ] as const;
 export const primaryInterestOptions = [
-  "Reading",
-  "Watching Television",
-  "Sports",
-  "Video Game",
-  "Music",
-  "Cooking",
-  "Traveling",
+ "Entertainment",
+ "Sports and Leisure",
+ "Wildlife and Nature"
 ] as const;

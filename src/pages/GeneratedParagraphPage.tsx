@@ -7,19 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Download, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const GeneratedParagraphPage = () => {
   const prompt = sessionStorage.getItem("prompt");
-  const primaryInterest = sessionStorage.getItem("interest");
-  const gradeLevel = sessionStorage.getItem("gradeLevel");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (prompt == null || primaryInterest == null || gradeLevel == null) {
+    if (prompt == null) {
       navigate("/");
     }
   });
@@ -34,10 +32,6 @@ const GeneratedParagraphPage = () => {
   const handleReGenerate = () => {
     console.log("Regenerating...");
     refetch();
-  };
-
-  const handleSave = () => {
-    console.log(primaryInterest);
   };
 
   console.log(prompt);
@@ -73,9 +67,7 @@ const GeneratedParagraphPage = () => {
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full gap-x-4 mt-[25px]">
-                <Button disabled={fetching} onClick={handleSave}>
-                  Next {" >"}
-                </Button>
+                <Button disabled={fetching}>Next {" >"}</Button>
               </div>
             </CardFooter>
           </Card>

@@ -11,5 +11,4 @@ export const looseStudentFormSchema = z.object({
   ethnicity: z.enum(ethnicityOptions),
   gender: z.enum(genderOptions),
   primaryInterest: z.enum(primaryInterestOptions),
-  paragraph: z.string().min(1, "Enter a valid Paragraph"),
 });

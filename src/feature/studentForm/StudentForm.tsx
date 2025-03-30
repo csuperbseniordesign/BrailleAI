@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "@/components/ui/textarea";
 import {
   ethnicityOptions,
   genderOptions,

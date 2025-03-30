@@ -1,19 +1,18 @@
-import { requestParagraph } from "@/api/apiCalls"
-import { AccessToken } from "@/api/type"
-import { useMutation } from "@tanstack/react-query"
-import toast from "react-hot-toast"
+import { requestParagraph } from "@/api/apiCalls";
+import { ParagraphResponse } from "@/api/type";
+import { QueryKeys } from "@/config/queryKeys";
+import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
+import { useQuery } from "@tanstack/react-query";
 
-export const useRequestParagraph = () => {
-    return useMutation({
-        mutationFn: ({ interest, minAtos, maxAtos, accessToken }: { interest: string; minAtos: number; maxAtos: number; accessToken?: AccessToken }) => 
-            requestParagraph(interest, minAtos, maxAtos, accessToken),
-        onSuccess: (data) => {
-            toast.success('Paragraph Fetched Successfully')
-            return data
-        },
-        onError: (error) => {
-            toast.error('Failed to fetch paragraph \n' + error)
-        }
-        
-    })
+export function useRequestParagraph(paragraphId: string) {
+    const query = useQuery<ParagraphResponse>({
+        queryKey: [QueryKeys.PARAGRAPH],
+        queryFn: () => requestParagraph(paragraphId),
+        staleTime: FIVE_MINS_IN_MILLIS,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+      
+    });
+
+    return query;
 }

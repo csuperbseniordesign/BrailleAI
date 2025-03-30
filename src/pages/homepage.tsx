@@ -15,15 +15,14 @@ import { useEffect } from "react";
 import { createContext } from "@/util/createContext";
 import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
-import { useRequestParagraph } from "@/feature/hooks/useRequestParagraph";
+import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { atosMapper, cleanText } from "@/util/utils";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { mutate: requestParagraph, data: paragraphData } =
-    useRequestParagraph();
+  const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
     const primaryInterest = data.primaryInterest;
@@ -32,7 +31,7 @@ const HomePage = () => {
     const gender = data.gender;
     const [minAtos, maxAtos] = atosMapper(gradeLevel);
 
-    requestParagraph(
+    requestRandomParagraph(
       {
         interest: primaryInterest,
         minAtos: minAtos,

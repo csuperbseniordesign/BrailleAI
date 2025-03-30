@@ -24,7 +24,7 @@ export interface ParagraphResponse {
   q1a1: string;
   q1a2: string;
   q1a3: string;
-  q2a4: string;
+  q1a4: string;
   
 }
 

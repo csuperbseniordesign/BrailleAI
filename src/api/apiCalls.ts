@@ -19,7 +19,7 @@ export async function generateResponse(
   return response;
 }
 
-export async function requestParagraph(
+export async function requestRandomParagraph(
   interest: string,
   minAtos: number,
   maxAtos: number,
@@ -28,8 +28,19 @@ export async function requestParagraph(
  
   const response = await request<ParagraphResponse>({
     url: `/paragraphs/${interest}/${minAtos}/${maxAtos}`,
-    method: "GET",
-    
+    method: 'GET',
+  });
+
+  return response;
+}
+
+export async function requestParagraph(
+  paragraphId: string,
+  accessToken?: AccessToken
+) {
+  const response = await request<ParagraphResponse>({
+    url: `/paragraph/${paragraphId}`,
+    method: 'GET'
   });
 
   return response;

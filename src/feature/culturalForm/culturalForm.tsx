@@ -1,13 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import { z } from "zod";
 import * as F from "@/components/forms";
 import { looseCulturalFormSchema } from "./looseCulturalFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { questions } from "./formData";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Radio } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type FormValues = z.infer<typeof looseCulturalFormSchema>;

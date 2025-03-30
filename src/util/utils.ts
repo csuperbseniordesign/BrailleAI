@@ -33,3 +33,13 @@ export const atosMapper = (gradeLevel: string) => {
 export const cleanText = (text: string) => {
     return text.replace(/\\/g, '');
 }
+
+export const cleanOptions = (options: string[]): string[] => {
+  return options.map(option => option.replace(/\\\*/, '').trim());
+};
+
+// Function to find the correct answer
+export const findCorrectAnswer = (options: string[]): string | null => {
+  const correct = options.find(option => option.startsWith("\\*"));
+  return correct ? correct.replace(/\\\*/, '').trim() : null;
+};

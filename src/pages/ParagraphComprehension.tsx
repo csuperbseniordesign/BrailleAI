@@ -30,9 +30,21 @@ const ParagraphComprehension = () => {
         paragraphData.q1a4,
       ]
     : [];
-  const question = paragraphData?.q1;
+
+  const options2 = paragraphData
+    ? [
+        paragraphData.q2a1,
+        paragraphData.q2a2,
+        paragraphData.q2a3,
+        paragraphData.q2a4,
+      ]
+    : [];
+  const question1 = paragraphData?.q1;
   const refinedOptions = paragraphData ? cleanOptions(options) : [];
   const correctAnswer = paragraphData ? findCorrectAnswer(options) : "";
+  const question2 = paragraphData?.q2;
+  const refinedOption2 = paragraphData ? cleanOptions(options2) : [];
+  const correctAnswer2 = paragraphData ? findCorrectAnswer(options2) : "";
 
   const onSubmit = (data: FormValues) => {
     // add student's score in database then go to cultural-questionaire
@@ -56,8 +68,10 @@ const ParagraphComprehension = () => {
           <CardContent>
             <ComprehensionQuestionaireForm
               onSubmit={onSubmit}
-              question={question}
-              options={refinedOptions}
+              question1={question1}
+              options1={refinedOptions}
+              question2={question2}
+              options2={refinedOption2}
             />
           </CardContent>
         </Card>

@@ -3,6 +3,7 @@ import ComprehensionQuestionaireForm from "@/feature/comprehensionForm/comprehen
 import { looseComprehensionQuestionaireFormSchema } from "@/feature/comprehensionForm/looseComprehensionQuestionaireFormSchema";
 import { useRequestParagraph } from "@/feature/hooks/useRequestParagraph";
 import { cleanOptions, findCorrectAnswer } from "@/util/utils";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
@@ -12,12 +13,14 @@ const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     if (paragraphId == null) {
-  //       navigate("/");
-  //     }
-  //   });
-  const { data: paragraphData } = useRequestParagraph("3");
+  useEffect(() => {
+    if (paragraphId == null) {
+      navigate("/");
+    }
+  });
+  const { data: paragraphData } = useRequestParagraph(
+    paragraphId ? paragraphId : "1"
+  );
   console.log(paragraphData);
   const options = paragraphData
     ? [
@@ -32,6 +35,7 @@ const ParagraphComprehension = () => {
   const correctAnswer = paragraphData ? findCorrectAnswer(options) : "";
 
   const onSubmit = (data: FormValues) => {
+    // add student's score in database then go to cultural-questionaire
     if (data.answer == correctAnswer) {
       console.log("correct");
     } else {

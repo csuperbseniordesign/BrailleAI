@@ -1,3 +1,4 @@
+import CompletionPage from "@/pages/CompletionPage";
 import CulturalQuestionaire from "@/pages/CulturalQuestionaire";
 import GeneratedParagraphPage from "@/pages/GeneratedParagraphPage";
 import HomePage from "@/pages/homepage";
@@ -13,4 +14,5 @@ export const routerConfig: RouteObject[] = [
   { path: "/response", element: <GeneratedParagraphPage /> },
   { path: "/cultural-questionaire", element: <CulturalQuestionaire /> },
   { path: "/comprehension", element: <ParagraphComprehension /> },
+  { path: "/complete", element: <CompletionPage /> },
 ];

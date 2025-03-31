@@ -67,7 +67,12 @@ const GeneratedParagraphPage = () => {
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full gap-x-4 mt-[25px]">
-                <Button disabled={fetching}>Next {" >"}</Button>
+                <Button
+                  disabled={fetching}
+                  onClick={() => navigate("/comprehension")}
+                >
+                  Next {" >"}
+                </Button>
               </div>
             </CardFooter>
           </Card>

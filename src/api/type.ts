@@ -39,16 +39,15 @@ export interface RequestParagraph {
   maxAtos: number;
 }
 
-export interface Paragraph {
-  paragraph: string;
+export interface ParagraphQuestions {
   question: string;
-  answer1: string;
-  answer2: string;
-  answer3: string;
-  answer4: string;
+  options: string[]
 }
 
-export interface ParagraphList {
-  Paragraph1: Paragraph[]
-  Paragraph2: Paragraph[]
+export interface FormattedParagraphResponse {
+  id: number,
+  title: string,
+  paragraph: string;
+  questions: ParagraphQuestions[]
+  
 }

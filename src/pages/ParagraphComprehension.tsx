@@ -18,42 +18,21 @@ const ParagraphComprehension = () => {
       navigate("/");
     }
   });
+
   const { data: paragraphData } = useRequestParagraph(
     paragraphId ? paragraphId : "1"
   );
-  console.log(paragraphData);
-  const options = paragraphData
-    ? [
-        paragraphData.q1a1,
-        paragraphData.q1a2,
-        paragraphData.q1a3,
-        paragraphData.q1a4,
-      ]
-    : [];
 
-  const options2 = paragraphData
-    ? [
-        paragraphData.q2a1,
-        paragraphData.q2a2,
-        paragraphData.q2a3,
-        paragraphData.q2a4,
-      ]
-    : [];
-  const question1 = paragraphData?.q1;
-  const refinedOptions = paragraphData ? cleanOptions(options) : [];
-  const correctAnswer = paragraphData ? findCorrectAnswer(options) : "";
-  const question2 = paragraphData?.q2;
-  const refinedOption2 = paragraphData ? cleanOptions(options2) : [];
-  const correctAnswer2 = paragraphData ? findCorrectAnswer(options2) : "";
+  const questionList = paragraphData ? paragraphData.questions : [];
 
   const onSubmit = (data: FormValues) => {
     // add student's score in database then go to cultural-questionaire
-    if (data.answer == correctAnswer) {
-      console.log("correct");
-    } else {
-      console.log("incorrect");
-    }
-    navigate("/cultural-questionaire");
+    // if (data.answer == correctAnswer) {
+    //   console.log("correct");
+    // } else {
+    //   console.log("incorrect");
+    // }
+    // navigate("/cultural-questionaire");
   };
 
   return (
@@ -68,10 +47,7 @@ const ParagraphComprehension = () => {
           <CardContent>
             <ComprehensionQuestionaireForm
               onSubmit={onSubmit}
-              question1={question1}
-              options1={refinedOptions}
-              question2={question2}
-              options2={refinedOption2}
+              formattedPargraphQuestions={paragraphData?.questions}
             />
           </CardContent>
         </Card>

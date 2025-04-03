@@ -41,7 +41,8 @@ export interface RequestParagraph {
 
 export interface ParagraphQuestions {
   question: string;
-  options: string[]
+  options: string[];
+  answer: string;
 }
 
 export interface FormattedParagraphResponse {

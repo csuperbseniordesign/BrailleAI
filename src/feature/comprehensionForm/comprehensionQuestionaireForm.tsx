@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { FormattedParagraphResponse, ParagraphQuestions } from "@/api/type";
+import { ParagraphQuestions } from "@/api/type";
 
 type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 type ComprehensionFormProps = {
@@ -24,7 +24,8 @@ const ComprehensionQuestionaireForm = ({
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseComprehensionQuestionaireFormSchema),
     defaultValues: {
-      answer: "",
+      "0": "",
+      "1": "",
     },
   });
 
@@ -43,7 +44,7 @@ const ComprehensionQuestionaireForm = ({
               )}
             </div>
             <F.Field
-              name="answer"
+              name={("" + index) as keyof FormValues}
               control={formMethods.control}
               render={({ field }) => (
                 <F.Item>

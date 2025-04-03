@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ComprehensionQuestionaireForm from "@/feature/comprehensionForm/comprehensionQuestionaireForm";
 import { looseComprehensionQuestionaireFormSchema } from "@/feature/comprehensionForm/looseComprehensionQuestionaireFormSchema";
 import { useRequestParagraph } from "@/feature/hooks/useRequestParagraph";
-import { cleanOptions, findCorrectAnswer } from "@/util/utils";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -13,11 +12,11 @@ const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (paragraphId == null) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (paragraphId == null) {
+  //     navigate("/");
+  //   }
+  // });
 
   const { data: paragraphData } = useRequestParagraph(
     paragraphId ? paragraphId : "1"
@@ -25,15 +24,7 @@ const ParagraphComprehension = () => {
 
   const questionList = paragraphData ? paragraphData.questions : [];
 
-  const onSubmit = (data: FormValues) => {
-    // add student's score in database then go to cultural-questionaire
-    // if (data.answer == correctAnswer) {
-    //   console.log("correct");
-    // } else {
-    //   console.log("incorrect");
-    // }
-    // navigate("/cultural-questionaire");
-  };
+  const onSubmit = (data: FormValues) => {};
 
   return (
     <div className="flex justify-center min-h-screen py-[50px]">
@@ -47,7 +38,7 @@ const ParagraphComprehension = () => {
           <CardContent>
             <ComprehensionQuestionaireForm
               onSubmit={onSubmit}
-              formattedPargraphQuestions={paragraphData?.questions}
+              formattedPargraphQuestions={questionList}
             />
           </CardContent>
         </Card>

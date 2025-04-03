@@ -2,9 +2,7 @@ export const ethnicityOptions = [
   "Hispanic",
   "White",
   "Black",
-  "Native American",
-  "Chinese American",
-  "Pacific Islander",
+  "Asian",
 ] as const;
 export const genderOptions = ["Male", "Female"] as const;
 export const gradeLevelOptions = [

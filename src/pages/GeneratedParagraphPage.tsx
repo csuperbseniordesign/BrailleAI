@@ -22,19 +22,17 @@ const GeneratedParagraphPage = () => {
     }
   });
 
-  const {
-    data: responseData,
-    refetch: refetch,
-    isFetching: fetching,
-  } = useGenerateResponse(prompt!);
+  const { data: responseData, isFetching: fetching } = useGenerateResponse(
+    prompt!
+  );
   console.log(responseData);
 
-  const handleReGenerate = () => {
-    console.log("Regenerating...");
-    refetch();
-  };
-
-  console.log(prompt);
+  if (responseData) {
+    sessionStorage.setItem(
+      "modifiedParagraph",
+      responseData.response?.replace(/<think>.*?<\/think>/gs, "").trim()
+    );
+  }
 
   return (
     <div>
@@ -45,7 +43,7 @@ const GeneratedParagraphPage = () => {
               <CardTitle className="font-bold text-3xl">
                 <div className="flex space-x-6">
                   <h2>AI Modified Paragraph</h2>
-                  <Button onClick={handleReGenerate} disabled={fetching}>
+                  <Button disabled={fetching}>
                     <RotateCcw className="w-2 h-2" />
                   </Button>
                 </div>

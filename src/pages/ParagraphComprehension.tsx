@@ -12,11 +12,11 @@ const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (paragraphId == null) {
-  //     navigate("/");
-  //   }
-  // });
+  useEffect(() => {
+    if (paragraphId == null) {
+      navigate("/");
+    }
+  });
 
   const { data: paragraphData } = useRequestParagraph(
     paragraphId ? paragraphId : "1"
@@ -24,7 +24,9 @@ const ParagraphComprehension = () => {
 
   const questionList = paragraphData ? paragraphData.questions : [];
 
-  const onSubmit = (data: FormValues) => {};
+  const onSubmit = (data: FormValues) => {
+    console.log(data[0]);
+  };
 
   return (
     <div className="flex justify-center min-h-screen py-[50px]">

@@ -17,6 +17,7 @@ import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { atosMapper, cleanText } from "@/util/utils";
+import { Ethnicity, Gender } from "@/util/names";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -27,8 +28,8 @@ const HomePage = () => {
   const handleSubmit = async (data: FormValues) => {
     const primaryInterest = data.primaryInterest;
     const gradeLevel = data.gradeLevel;
-    const ethnicityOptions = data.ethnicity;
-    const gender = data.gender;
+    const ethnicityOptions = data.ethnicity as Ethnicity;
+    const gender = data.gender as Gender;
     const [minAtos, maxAtos] = atosMapper(gradeLevel);
 
     requestRandomParagraph(
@@ -44,6 +45,7 @@ const HomePage = () => {
             return;
           }
           const paragraph = cleanText(paragraphData!.paragraph);
+
           const prompt = createContext(
             ethnicityOptions,
             gender,
@@ -53,6 +55,8 @@ const HomePage = () => {
 
           sessionStorage.setItem("prompt", prompt);
           sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
+          sessionStorage.setItem("ethnicity", ethnicityOptions);
+          sessionStorage.setItem("gender", gender);
           navigate("/response");
         },
       }
@@ -63,6 +67,9 @@ const HomePage = () => {
   useEffect(() => {
     sessionStorage.removeItem("prompt");
     sessionStorage.removeItem("paragraphId");
+    sessionStorage.removeItem("ethnicity");
+    sessionStorage.removeItem("gender");
+
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
     });

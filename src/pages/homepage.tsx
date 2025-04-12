@@ -17,7 +17,7 @@ import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { atosMapper, cleanText } from "@/util/utils";
-import { Ethnicity, Gender } from "@/util/names";
+import { Ethnicity, Gender, getNamesByEthnicityAndGender } from "@/util/names";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -46,17 +46,18 @@ const HomePage = () => {
           }
           const paragraph = cleanText(paragraphData!.paragraph);
 
-          const prompt = createContext(
+          const context = createContext(ethnicityOptions, gender);
+
+          const selected_name = getNamesByEthnicityAndGender(
             ethnicityOptions,
-            gender,
-            gradeLevel,
-            paragraph
+            gender
           );
 
-          sessionStorage.setItem("prompt", prompt);
+          sessionStorage.setItem("context", context);
+          sessionStorage.setItem("paragraph", paragraph);
           sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
-          sessionStorage.setItem("ethnicity", ethnicityOptions);
-          sessionStorage.setItem("gender", gender);
+          sessionStorage.setItem("name", selected_name);
+
           navigate("/response");
         },
       }
@@ -65,10 +66,10 @@ const HomePage = () => {
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    sessionStorage.removeItem("prompt");
+    sessionStorage.removeItem("context");
+    sessionStorage.removeItem("paragraph");
     sessionStorage.removeItem("paragraphId");
-    sessionStorage.removeItem("ethnicity");
-    sessionStorage.removeItem("gender");
+    sessionStorage.removeItem("name");
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

@@ -3,7 +3,7 @@ import axiosModule, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthRequestHeader } from "./type";
 
 const deepseekAxiosRequest = axiosModule.create({
-  baseURL: 'http://localhost:11434/',
+  baseURL: 'https://api.deepseek.com',
   timeout: 30000, // Set timeout to 30 seconds for deepseek to answer a difficult question
 });
 

@@ -13,7 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const GeneratedParagraphPage = () => {
-  const prompt = sessionStorage.getItem("prompt");
+  const context = sessionStorage.getItem("context");
+  const paragraph = sessionStorage.getItem("paragraph");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +25,8 @@ const GeneratedParagraphPage = () => {
   });
 
   const { data: responseData, isFetching: fetching } = useGenerateResponse(
-    prompt!
+    context!,
+    paragraph!
   );
   console.log(responseData);
 

@@ -2,18 +2,31 @@ import { deepseekRequest, request } from "./base";
 import { AccessToken, DeepSeekResponse, FormattedParagraphResponse, ParagraphResponse } from "./type";
 
 export async function generateResponse(
-  prompt: string,
+  context: string,
+  paragraph: string,
   accessToken?: AccessToken,
 ) {
   const response = await deepseekRequest<DeepSeekResponse>({
-    url: "/api/generate",
+    url: "/chat/completions",
     method: "POST",
-    data: {
-      model: "deepseek-r1:7b",
-      prompt: prompt,
-      stream: false,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`,
     },
-    accessToken,
+    data: {
+      "model": "deepseek-chat",
+      "messages": [
+        {
+          role: "system", "content": context, 
+        },
+        {
+          role: "user",
+          content: paragraph,
+        }
+      ],
+      "stream": false,
+    },
+    
   });
 
   return response;

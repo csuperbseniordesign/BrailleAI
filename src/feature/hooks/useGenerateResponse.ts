@@ -6,7 +6,8 @@ import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
 import { useNavigate } from "react-router-dom";
 
 export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = process.env.DEEPSEEK_API;
+  const apiKey = import.meta.env.VITE_API_KEY;
+  console.log(apiKey);
   const navigate = useNavigate();
 
   if (!apiKey) {

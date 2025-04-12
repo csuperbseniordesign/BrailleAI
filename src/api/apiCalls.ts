@@ -4,7 +4,7 @@ import { AccessToken, DeepSeekResponse, FormattedParagraphResponse, ParagraphRes
 export async function generateResponse(
   context: string,
   paragraph: string,
-  accessToken?: AccessToken,
+  accessToken: AccessToken,
 ) {
   const response = await deepseekRequest<DeepSeekResponse>({
     url: "/chat/completions",

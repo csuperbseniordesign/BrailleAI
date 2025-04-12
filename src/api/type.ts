@@ -11,9 +11,17 @@ export interface ApiResponse<T> {
   response: string;
 }
 
+export interface deepseekChoices {
+  index: number;
+  message: {
+    role: string;
+    content: string;
+  }
+}
+
 export interface DeepSeekResponse {
   model: string;
-  response: string;
+  choices: deepseekChoices[];
 }
 
 export interface ParagraphResponse {

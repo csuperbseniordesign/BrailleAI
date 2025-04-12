@@ -33,7 +33,9 @@ const GeneratedParagraphPage = () => {
   if (responseData) {
     sessionStorage.setItem(
       "modifiedParagraph",
-      responseData.response?.replace(/<think>.*?<\/think>/gs, "").trim()
+      responseData.choices[0].message.content
+        ?.replace(/<think>.*?<\/think>/gs, "")
+        .trim()
     );
   }
 
@@ -55,9 +57,7 @@ const GeneratedParagraphPage = () => {
             <CardContent className="w-[800px]">
               {responseData != null && !fetching ? (
                 <p className="font-bold text-lg break-words w-[700px]">
-                  {responseData?.response
-                    .replace(/<think>.*?<\/think>/gs, "")
-                    .trim()}
+                  {responseData?.choices[0].message.content.trim()}
                 </p>
               ) : (
                 <Skeleton

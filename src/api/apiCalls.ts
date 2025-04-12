@@ -49,10 +49,11 @@ export async function requestRandomParagraph(
 
 export async function requestParagraph(
   paragraphId: string,
+  selectedName: string,
   accessToken?: AccessToken
 ) {
   const response = await request<FormattedParagraphResponse>({
-    url: `/paragraph/${paragraphId}`,
+    url: `/paragraph/${paragraphId}/${selectedName}`,
     method: 'GET'
   });
 

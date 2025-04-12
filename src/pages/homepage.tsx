@@ -46,12 +46,11 @@ const HomePage = () => {
           }
           const paragraph = cleanText(paragraphData!.paragraph);
 
-          const context = createContext(ethnicityOptions, gender);
-
           const selected_name = getNamesByEthnicityAndGender(
             ethnicityOptions,
             gender
           );
+          const context = createContext(selected_name, gender);
 
           sessionStorage.setItem("context", context);
           sessionStorage.setItem("paragraph", paragraph);

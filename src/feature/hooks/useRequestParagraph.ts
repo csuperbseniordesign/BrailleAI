@@ -4,10 +4,10 @@ import { QueryKeys } from "@/config/queryKeys";
 import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
 import { useQuery } from "@tanstack/react-query";
 
-export function useRequestParagraph(paragraphId: string) {
+export function useRequestParagraph(paragraphId: string, selectedName: string) {
     const query = useQuery<FormattedParagraphResponse>({
         queryKey: [QueryKeys.PARAGRAPH],
-        queryFn: () => requestParagraph(paragraphId),
+        queryFn: () => requestParagraph(paragraphId, selectedName),
         staleTime: FIVE_MINS_IN_MILLIS,
         refetchOnMount: false,
         refetchOnWindowFocus: false,

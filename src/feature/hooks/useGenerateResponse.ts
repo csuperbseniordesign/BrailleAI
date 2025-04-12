@@ -3,16 +3,20 @@ import { generateResponse } from "@/api/apiCalls";
 import { DeepSeekResponse } from "@/api/type";
 import { QueryKeys } from "@/config/queryKeys";
 import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = import.meta.env.VITE_API_KEY;
-  console.log(apiKey);
+  const apiKey = 'apiKey';
   const navigate = useNavigate();
-
-  if (!apiKey) {
-    navigate('/');
-  }
+  console.log(apiKey);
+  
+  useEffect(() => {
+    if(!apiKey) {
+      navigate('/')
+    }
+  });
+  
 
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],

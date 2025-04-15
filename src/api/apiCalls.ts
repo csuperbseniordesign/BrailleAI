@@ -1,5 +1,5 @@
 import { deepseekRequest, request } from "./base";
-import { AccessToken, DeepSeekResponse, FormattedParagraphResponse, ParagraphResponse } from "./type";
+import { AccessToken, DeepSeekResponse, ParagraphQuestions, ParagraphResponse } from "./type";
 
 export async function generateResponse(
   context: string,
@@ -52,7 +52,7 @@ export async function requestParagraph(
   selectedName: string,
   accessToken?: AccessToken
 ) {
-  const response = await request<FormattedParagraphResponse>({
+  const response = await request<ParagraphQuestions>({
     url: `/paragraph/${paragraphId}/${selectedName}`,
     method: 'GET'
   });

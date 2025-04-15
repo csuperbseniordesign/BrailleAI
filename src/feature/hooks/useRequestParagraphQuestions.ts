@@ -1,11 +1,11 @@
 import { requestParagraph } from "@/api/apiCalls";
-import { FormattedParagraphResponse } from "@/api/type";
+import { ParagraphQuestions } from "@/api/type";
 import { QueryKeys } from "@/config/queryKeys";
 import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
 import { useQuery } from "@tanstack/react-query";
 
-export function useRequestParagraph(paragraphId: string, selectedName: string) {
-    const query = useQuery<FormattedParagraphResponse>({
+export function useRequestParagraphQuestions(paragraphId: string, selectedName: string) {
+    const query = useQuery<ParagraphQuestions>({
         queryKey: [QueryKeys.PARAGRAPH],
         queryFn: () => requestParagraph(paragraphId, selectedName),
         staleTime: FIVE_MINS_IN_MILLIS,

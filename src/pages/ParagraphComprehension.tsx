@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ComprehensionQuestionaireForm from "@/feature/comprehensionForm/comprehensionQuestionaireForm";
 import { looseComprehensionQuestionaireFormSchema } from "@/feature/comprehensionForm/looseComprehensionQuestionaireFormSchema";
-import { useRequestParagraph } from "@/feature/hooks/useRequestParagraph";
+import { useRequestParagraphQuestions } from "@/feature/hooks/useRequestParagraphQuestions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -10,6 +10,7 @@ type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 
 const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
+  const selectedName = sessionStorage.getItem("name");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,8 +19,8 @@ const ParagraphComprehension = () => {
     }
   });
 
-  const { data: paragraphData } = useRequestParagraph(
-    paragraphId ? paragraphId : "1"
+  const { data: paragraphData } = useRequestParagraphQuestions(
+    paragraphId ? paragraphId : "1", selectedName!
   );
 
   const questionList = paragraphData ? paragraphData.questions : [];

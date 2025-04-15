@@ -53,10 +53,6 @@ export interface ParagraphQuestions {
   answer: string;
 }
 
-export interface FormattedParagraphResponse {
-  id: number,
-  title: string,
-  paragraph: string;
+export interface ParagraphQuestions {
   questions: ParagraphQuestions[]
-  
 }

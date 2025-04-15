@@ -1,4 +1,3 @@
-import Loader from "@/components/loader/Loader";
 import CompletionPage from "@/pages/CompletionPage";
 import CulturalQuestionaire from "@/pages/CulturalQuestionaire";
 import GeneratedParagraphPage from "@/pages/GeneratedParagraphPage";
@@ -16,5 +15,4 @@ export const routerConfig: RouteObject[] = [
   { path: "/cultural-questionaire", element: <CulturalQuestionaire /> },
   { path: "/comprehension", element: <ParagraphComprehension /> },
   { path: "/complete", element: <CompletionPage /> },
-  { path: "/load", element: <Loader /> },
 ];

@@ -94,12 +94,6 @@ const HomePage = () => {
             <CardContent>
               <StudentForm onSubmit={handleSubmit} />
             </CardContent>
-            <CardFooter>
-              <h3 className="text-xl">
-                Note: Your data is not saved and will be deleted after the
-                session.
-              </h3>
-            </CardFooter>
           </Card>
         </div>
       </div>

@@ -11,6 +11,7 @@ import { RotateCcw } from "lucide-react";
 import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Loader } from "@/components/loader/Loader";
 
 const GeneratedParagraphPage = () => {
   const context = sessionStorage.getItem("context");
@@ -37,6 +38,10 @@ const GeneratedParagraphPage = () => {
         ?.replace(/<think>.*?<\/think>/gs, "")
         .trim()
     );
+  }
+
+  if (!responseData) {
+    return <Loader />;
   }
 
   return (

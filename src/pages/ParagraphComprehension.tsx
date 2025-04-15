@@ -1,3 +1,4 @@
+import Loader from "@/components/loader/Loader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ComprehensionQuestionaireForm from "@/feature/comprehensionForm/comprehensionQuestionaireForm";
 import { looseComprehensionQuestionaireFormSchema } from "@/feature/comprehensionForm/looseComprehensionQuestionaireFormSchema";
@@ -30,6 +31,10 @@ const ParagraphComprehension = () => {
     console.log(data[0]);
     navigate("/cultural-questionaire");
   };
+
+  if (!paragraphData) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex justify-center min-h-screen py-[50px]">

@@ -15,18 +15,20 @@ const ParagraphComprehension = () => {
 
   useEffect(() => {
     if (paragraphId == null) {
-      navigate("/");
+      navigate("/cultural-questionaire");
     }
   });
 
   const { data: paragraphData } = useRequestParagraphQuestions(
-    paragraphId ? paragraphId : "1", selectedName!
+    paragraphId ? paragraphId : "1",
+    selectedName!
   );
 
   const questionList = paragraphData ? paragraphData.questions : [];
 
   const onSubmit = (data: FormValues) => {
     console.log(data[0]);
+    navigate("/cultural-questionaire");
   };
 
   return (

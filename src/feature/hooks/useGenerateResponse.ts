@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = 'apiKey';
+  const apiKey = import.meta.env.DEEPSEEK_API;
   const navigate = useNavigate();
   console.log(apiKey);
   
@@ -16,6 +16,7 @@ export function useGenerateResponse(context: string, paragraph: string) {
       navigate('/')
     }
   });
+
   
 
   const query = useQuery<DeepSeekResponse>({

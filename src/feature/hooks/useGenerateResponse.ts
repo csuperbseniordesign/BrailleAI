@@ -21,7 +21,7 @@ export function useGenerateResponse(context: string, paragraph: string) {
 
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],
-    queryFn: () => generateResponse(context, paragraph, apiKey),
+    queryFn: () => generateResponse(context, paragraph, 'sk-515cc4ddab0a4262bdb11f95a378ce56'),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,
     refetchOnReconnect: false,

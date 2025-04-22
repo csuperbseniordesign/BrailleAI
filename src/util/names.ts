@@ -1,5 +1,5 @@
 export type Ethnicity = 'asian' | 'white' | 'hispanic' | 'black';
-export type Gender = 'male' | 'female';
+export type Gender = 'male' | 'female' | 'nonbinary';
 
 export function getNamesByEthnicityAndGender(ethnicity: Ethnicity, gender: Gender) {
     const ethnicityLower = ethnicity.toLowerCase() as Ethnicity;
@@ -8,21 +8,25 @@ export function getNamesByEthnicityAndGender(ethnicity: Ethnicity, gender: Gende
         asian: {
             male: ['Li', 'Jin', 'Chen', 'Tao', 'Wei'],
             female: ['Mei', 'Xiu', 'Li', 'Hua', 'Ying'],
+            nonbinary: [],
         },
     
         white: {
             male: ['John', 'James', 'Michael', 'David', 'Robert'],
             female: ['Sarah', 'Emily', 'Jessica', 'Anna', 'Lauren'],
+            nonbinary: [],
         },
         
         hispanic: {
             male: ['Carlos', 'Juan', 'Pedro', 'Miguel', 'Luis'],
             female: ['Maria', 'Sofia', 'Isabella', 'Ana', 'Lucia'],
+            nonbinary: [],
         },
 
         black: {
-            male: [],
-            female: []
+            male: ['Caleb', 'Marcus', 'Jaden', 'Tyrone', 'Jamal', 'DeShawn', 'Lamar', 'Marquis'],
+            female: ['Aaliyah', 'Maya', 'Nia', 'Tia', 'Brianna', 'Zoe', 'Jada'],
+            nonbinary: [],
         }
     };
     
@@ -32,5 +36,9 @@ export function getNamesByEthnicityAndGender(ethnicity: Ethnicity, gender: Gende
         return names[randomIndex]
     }   
 
-    return 'James'
+    if(gender == 'male') {
+        return 'John'
+    }
+
+    return 'Ellie'
 }

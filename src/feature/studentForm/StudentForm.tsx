@@ -14,6 +14,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ethnicityOptions,
+  ethnicSubgroupOptions,
   genderOptions,
   gradeLevelOptions,
   primaryInterestOptions,
@@ -24,12 +25,20 @@ type StudentFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseStudentFormSchema>>;
 };
 
+/**
+ * StudentForm Component
+ * This component renders a student demographic form that collects information
+ * about a student's grade level, gender, ethnicity, and primary interest.
+ * The collected data is used to determine the appropriate paragraph to
+ * generate for a specific student.
+ */
 const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
       gradeLevel: gradeLevelOptions[0],
       ethnicity: ethnicityOptions[0],
+      ethnicSubgroup: ethnicSubgroupOptions[0],
       gender: genderOptions[0],
       primaryInterest: primaryInterestOptions[0],
     },
@@ -126,6 +135,42 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             )}
           />
         </div>
+
+        {formMethods.watch("ethnicity") == "Asian" && (
+          <div>
+            <h4 className="text-lg py-[5px]">Ethnicity</h4>
+            <F.Field
+              name="ethnicSubgroup"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    {
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={field.value} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {ethnicSubgroupOptions.map(
+                            (ethnicSubgroup, index) => (
+                              <SelectItem value={ethnicSubgroup} key={index}>
+                                {ethnicSubgroup}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                    }
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
 
         <div>
           <h4 className="text-lg py-[5px]">Interest</h4>

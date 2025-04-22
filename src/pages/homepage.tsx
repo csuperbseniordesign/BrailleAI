@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -32,6 +31,7 @@ const HomePage = () => {
     const gender = data.gender as Gender;
     const [minAtos, maxAtos] = atosMapper(gradeLevel);
 
+    // Request random paragraph using random paragraph api
     requestRandomParagraph(
       {
         interest: primaryInterest,
@@ -40,6 +40,7 @@ const HomePage = () => {
         accessToken: "accessToken",
       },
       {
+        // redirect to response page if paragraph is received
         onSuccess: (paragraphData) => {
           if (!paragraphData) {
             return;

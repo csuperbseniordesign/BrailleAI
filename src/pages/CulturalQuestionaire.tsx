@@ -16,6 +16,8 @@ const CulturalQuestionaire = () => {
     const score = calculateCulturalRelevanceScore(data);
     console.log(score);
     navigate("/complete");
+
+    // make api call to post the student data here
   };
 
   return (

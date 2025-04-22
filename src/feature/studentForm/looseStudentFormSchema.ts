@@ -1,6 +1,7 @@
 import * as z from "zod";
 import {
   ethnicityOptions,
+  ethnicSubgroupOptions,
   genderOptions,
   gradeLevelOptions,
   primaryInterestOptions,
@@ -9,6 +10,8 @@ import {
 export const looseStudentFormSchema = z.object({
   gradeLevel: z.enum(gradeLevelOptions),
   ethnicity: z.enum(ethnicityOptions),
+  ethnicSubgroup: z.enum(ethnicSubgroupOptions),
   gender: z.enum(genderOptions),
   primaryInterest: z.enum(primaryInterestOptions),
+ 
 });

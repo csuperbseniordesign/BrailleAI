@@ -18,7 +18,7 @@ export const ethnicSubgroupOptions = [
   "Cambodian",
   "Thai",
 ] as const;
-export const genderOptions = ["Male", "Female"] as const;
+export const genderOptions = ["Male", "Female", "Non-binary", "Prefer not to say"] as const;
 export const gradeLevelOptions = [
   "Grade 1",
   "Grade 2",
@@ -38,3 +38,12 @@ export const primaryInterestOptions = [
  "Sports and Leisure",
  "Wildlife and Nature"
 ] as const;
+export const birthPlace = ["United States", "Outside of the United States"] as const;
+export const regionOptions = [
+  "Northeast",
+  "Southeast",
+  "Midwest",
+  "Southwest",
+  "Northwest",
+] as const;
+export const familyBackgroundOptions = ["Yes", "No", "I'm not sure"] as const;

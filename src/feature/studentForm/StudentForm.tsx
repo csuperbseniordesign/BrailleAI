@@ -13,11 +13,14 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  birthPlace,
   ethnicityOptions,
   ethnicSubgroupOptions,
+  familyBackgroundOptions,
   genderOptions,
   gradeLevelOptions,
   primaryInterestOptions,
+  regionOptions,
 } from "./studentFormOptions";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
@@ -37,10 +40,14 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
       gradeLevel: gradeLevelOptions[0],
+      readingLevel: gradeLevelOptions[0],
       ethnicity: ethnicityOptions[0],
       ethnicSubgroup: ethnicSubgroupOptions[0],
       gender: genderOptions[0],
+      birthPlace: birthPlace[0],
+      region: regionOptions[0],
       primaryInterest: primaryInterestOptions[0],
+      familyBackground: familyBackgroundOptions[0],
     },
   });
 
@@ -50,7 +57,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
     <F.Root formMethods={formMethods}>
       <div className="space-y-3">
         <div>
-          <h4 className="text-lg py-[5px]">Grade Level</h4>
+          <h4 className="text-lg py-[5px]">What grade are you in now?</h4>
           <F.Field
             name="gradeLevel"
             control={formMethods.control}
@@ -79,7 +86,36 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         </div>
 
         <div>
-          <h4 className="text-lg py-[5px]">Gender</h4>
+          <h4 className="text-lg py-[5px]">What is your reading level?</h4>
+          <F.Field
+            name="readingLevel"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {gradeLevelOptions.map((gradeLevel, index) => (
+                          <SelectItem value={gradeLevel} key={index}>
+                            {gradeLevel}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">What is your gender?</h4>
           <F.Field
             name="gender"
             control={formMethods.control}
@@ -106,9 +142,40 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             )}
           />
         </div>
+        <div>
+          <h4 className="text-lg py-[5px]">
+            Is your family from places like Mexico, Puerto Rico, Cuba, or other
+            parts of Central or South America?
+          </h4>
+          <F.Field
+            name="familyBackground"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {familyBackgroundOptions.map((background, index) => (
+                          <SelectItem value={background} key={index}>
+                            {background}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
 
         <div>
-          <h4 className="text-lg py-[5px]">Ethnicity</h4>
+          <h4 className="text-lg py-[5px]">What is your race or background?</h4>
           <F.Field
             name="ethnicity"
             control={formMethods.control}
@@ -138,7 +205,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
 
         {formMethods.watch("ethnicity") == "Asian" && (
           <div>
-            <h4 className="text-lg py-[5px]">Ethnicity</h4>
+            <h4 className="text-lg py-[5px]">What is your ethnic subgroup?</h4>
             <F.Field
               name="ethnicSubgroup"
               control={formMethods.control}
@@ -173,7 +240,82 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         )}
 
         <div>
-          <h4 className="text-lg py-[5px]">Interest</h4>
+          <h4 className="text-lg py-[5px]">Where were you born?</h4>
+          <F.Field
+            name="birthPlace"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {birthPlace.map((birthPlace, index) => (
+                          <SelectItem value={birthPlace} key={index}>
+                            {birthPlace}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">
+            What state or place in the U.S. did you grow up in most of the time?{" "}
+            <a
+              href="https://www.aph.org/educational-resources/outreach/regional-support/"
+              className="text-blue-500 underline"
+            >
+              Learn More
+            </a>
+          </h4>
+
+          <img
+            src="/outreach-map-all.jpg"
+            className="flex w-[700px] h-[400px] justify-center mb-[10px]"
+            alt="Map of the United State with regions by the American Printing House"
+          />
+
+          <F.Field
+            name="region"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {regionOptions.map((region, index) => (
+                          <SelectItem value={region} key={index}>
+                            {region}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">
+            What category are you interested in?
+          </h4>
           <F.Field
             name="primaryInterest"
             control={formMethods.control}

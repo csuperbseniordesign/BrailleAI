@@ -21,47 +21,49 @@ import { Ethnicity, Gender, getNamesByEthnicityAndGender } from "@/util/names";
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
-  const navigate = useNavigate();
-  const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
+  //const navigate = useNavigate();
+  //const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
-    const primaryInterest = data.primaryInterest;
-    const gradeLevel = data.gradeLevel;
-    const ethnicityOptions = data.ethnicity as Ethnicity;
-    const gender = data.gender as Gender;
-    const [minAtos, maxAtos] = atosMapper(gradeLevel);
+    // const primaryInterest = data.primaryInterest;
+    // const gradeLevel = data.gradeLevel;
+    // const ethnicityOptions = data.ethnicity as Ethnicity;
+    // const gender = data.gender as Gender;
+    // const [minAtos, maxAtos] = atosMapper(gradeLevel);
+
+    console.log(data);
 
     // Request random paragraph using random paragraph api
-    requestRandomParagraph(
-      {
-        interest: primaryInterest,
-        minAtos: minAtos,
-        maxAtos: maxAtos,
-        accessToken: "accessToken",
-      },
-      {
-        // redirect to response page if paragraph is received
-        onSuccess: (paragraphData) => {
-          if (!paragraphData) {
-            return;
-          }
-          const paragraph = cleanText(paragraphData!.paragraph);
+    // requestRandomParagraph(
+    //   {
+    //     interest: primaryInterest,
+    //     minAtos: minAtos,
+    //     maxAtos: maxAtos,
+    //     accessToken: "accessToken",
+    //   },
+    //   {
+    //     // redirect to response page if paragraph is received
+    //     onSuccess: (paragraphData) => {
+    //       if (!paragraphData) {
+    //         return;
+    //       }
+    //       const paragraph = cleanText(paragraphData!.paragraph);
 
-          const selected_name = getNamesByEthnicityAndGender(
-            ethnicityOptions,
-            gender
-          );
-          const context = createContext(selected_name, gender);
+    //       const selected_name = getNamesByEthnicityAndGender(
+    //         ethnicityOptions,
+    //         gender
+    //       );
+    //       const context = createContext(selected_name, gender);
 
-          sessionStorage.setItem("context", context);
-          sessionStorage.setItem("paragraph", paragraph);
-          sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
-          sessionStorage.setItem("name", selected_name);
+    //       sessionStorage.setItem("context", context);
+    //       sessionStorage.setItem("paragraph", paragraph);
+    //       sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
+    //       sessionStorage.setItem("name", selected_name);
 
-          navigate("/response");
-        },
-      }
-    );
+    //       navigate("/response");
+    //     },
+    //   }
+    // );
   };
 
   // Clears prompt data && query cache on initial render
@@ -78,10 +80,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="flex justify-end py-[10px] px-[10px]">
+      <div className="flex justify-end py-[5px] px-[5px]">
         <ModeToggle />
       </div>
-      <div className="flex justify-center items-center h-[90vh]">
+      <div className="flex justify-center items-center overflow-y-auto py-[25px]">
         <div className="max-w-screen-md">
           <Card>
             <CardHeader>

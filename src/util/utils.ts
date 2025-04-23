@@ -1,5 +1,5 @@
 
-export const atosMapper = (gradeLevel: string) => {
+export const AtosMapper = (gradeLevel: string) => {
     switch (gradeLevel) {
         case "Grade 1":
           return [1.0, 2.5];

@@ -15,8 +15,9 @@ import { createContext } from "@/util/createContext";
 import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
-import { atosMapper, cleanText } from "@/util/utils";
-import { Ethnicity, Gender, getNamesByEthnicityAndGender } from "@/util/names";
+import { AtosMapper, cleanText } from "@/util/utils";
+import { genderType } from "@/util/names";
+import { getNamesByEthnicityAndGender } from "@/util/names";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -25,13 +26,20 @@ const HomePage = () => {
   //const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
-    // const primaryInterest = data.primaryInterest;
-    // const gradeLevel = data.gradeLevel;
-    // const ethnicityOptions = data.ethnicity as Ethnicity;
-    // const gender = data.gender as Gender;
-    // const [minAtos, maxAtos] = atosMapper(gradeLevel);
+    const primaryInterest = data.primaryInterest;
+    const gradeLevel = data.gradeLevel;
+    const ethnicityOptions = data.ethnicity;
+    const gender = data.gender as genderType;
+    const [minAtos, maxAtos] = AtosMapper(gradeLevel);
 
     console.log(data);
+    console.log(
+      getNamesByEthnicityAndGender(
+        ethnicityOptions,
+        "Male",
+        data.ethnicSubgroup
+      )
+    );
 
     // Request random paragraph using random paragraph api
     // requestRandomParagraph(

@@ -16,8 +16,8 @@ import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { AtosMapper, cleanText } from "@/util/utils";
-import { genderType } from "@/util/names";
-import { getNamesByEthnicityAndGender } from "@/util/names";
+import { genderType } from "@/util/preselectNames";
+import { getNamesByEthnicityAndGender } from "@/util/preselectNames";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -36,7 +36,7 @@ const HomePage = () => {
     console.log(
       getNamesByEthnicityAndGender(
         ethnicityOptions,
-        "Male",
+        gender,
         data.ethnicSubgroup
       )
     );

@@ -17,6 +17,7 @@ export const ethnicSubgroupOptions = [
   "Laotian",
   "Cambodian",
   "Thai",
+  "Other"
 ] as const;
 export const genderOptions = ["Male", "Female", "Non-binary", "Prefer not to say"] as const;
 export const gradeLevelOptions = [

@@ -16,62 +16,66 @@ import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { AtosMapper, cleanText } from "@/util/utils";
-import { genderType } from "@/util/preselectNames";
 import { getNamesByEthnicityAndGender } from "@/util/preselectNames";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
-  //const navigate = useNavigate();
-  //const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
+  const navigate = useNavigate();
+  const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
+    // Retrieve necesary data from the form
     const primaryInterest = data.primaryInterest;
     const gradeLevel = data.gradeLevel;
     const ethnicityOptions = data.ethnicity;
-    const gender = data.gender as genderType;
-    const [minAtos, maxAtos] = AtosMapper(gradeLevel);
+    const gender = data.gender;
+    const ethnicSubgroup = data.ethnicSubgroup;
+    const readingLevel = data.readingLevel;
+    // const familyBackground = data.familyBackground;
+    // const birthPlace = data.birthPlace;
 
-    console.log(data);
-    console.log(
-      getNamesByEthnicityAndGender(
-        ethnicityOptions,
-        gender,
-        data.ethnicSubgroup
-      )
-    );
+    // convert grade level into ATOS range for paragraph request
+    const [minAtos, maxAtos] = AtosMapper(readingLevel);
 
     // Request random paragraph using random paragraph api
-    // requestRandomParagraph(
-    //   {
-    //     interest: primaryInterest,
-    //     minAtos: minAtos,
-    //     maxAtos: maxAtos,
-    //     accessToken: "accessToken",
-    //   },
-    //   {
-    //     // redirect to response page if paragraph is received
-    //     onSuccess: (paragraphData) => {
-    //       if (!paragraphData) {
-    //         return;
-    //       }
-    //       const paragraph = cleanText(paragraphData!.paragraph);
+    requestRandomParagraph(
+      {
+        interest: primaryInterest,
+        minAtos: minAtos,
+        maxAtos: maxAtos,
+        accessToken: "accessToken",
+      },
+      {
+        // redirect to response page if paragraph is received
+        onSuccess: (paragraphData) => {
+          if (!paragraphData) {
+            return;
+          }
 
-    //       const selected_name = getNamesByEthnicityAndGender(
-    //         ethnicityOptions,
-    //         gender
-    //       );
-    //       const context = createContext(selected_name, gender);
+          // clean paragraph text to make it readable
+          const paragraph = cleanText(paragraphData!.paragraph);
 
-    //       sessionStorage.setItem("context", context);
-    //       sessionStorage.setItem("paragraph", paragraph);
-    //       sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
-    //       sessionStorage.setItem("name", selected_name);
+          // get preselected name based on ethnicity and gender
+          const selected_name = getNamesByEthnicityAndGender(
+            ethnicityOptions,
+            gender,
+            ethnicSubgroup
+          );
 
-    //       navigate("/response");
-    //     },
-    //   }
-    // );
+          // creating instruction for the model when editing paragraph
+          const context = createContext(selected_name, gender);
+
+          // temporarily store user data in session storage, later stored in database after questionaire
+          sessionStorage.setItem("context", context);
+          sessionStorage.setItem("name", selected_name);
+          sessionStorage.setItem("paragraph", paragraph);
+          sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
+
+          navigate("/response");
+        },
+      }
+    );
   };
 
   // Clears prompt data && query cache on initial render

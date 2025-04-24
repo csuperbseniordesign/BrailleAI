@@ -3,41 +3,40 @@ import { asianNamesByEthnicity, NameGroups, namesByEthnicityAndGender } from "./
 
 export type genderType = 'Male' | 'Female' | 'Non-binary';
 
-export function getValue(ethnicNames: NameGroups, gender: genderType, ethnicity: string) {
+function getRandomName(ethnicNames: NameGroups, gender: genderType, ethnicity: string) {
+    const nameList = ethnicNames[ethnicity][gender];
+    const randomIndex = Math.floor(Math.random() * nameList.length);
+    return nameList[randomIndex];
+}
+
+// checks if valid ethnicty and gender key exist
+function checkKeys(ethnicNames: NameGroups, gender: genderType, ethnicity: string) {
     const ethnicities = ethnicNames[ethnicity];
-    console.log(ethnicities)
 
     // if ethnicity and gender exist
     if(ethnicities && ethnicities[gender]) {
-        console.log(gender)
-        console.log(ethnicities[gender])
-        const nameList = ethnicNames[ethnicity][gender]
-        const randomIndex = Math.floor(Math.random() * nameList.length);
-        return nameList[randomIndex];
+        return getRandomName(ethnicNames, gender, ethnicity)
     }
 
     // if ethnicity doesn't exist, gender exist
-    if(!ethnicities && ethnicNames['White'][gender]) {
-        console.log(gender)
-        const nameList = ethnicNames['White'][gender]
-        const randomIndex = Math.floor(Math.random() * nameList.length);
-        return nameList[randomIndex];
+    else if(!ethnicities && ethnicNames['White'][gender]) {
+        return getRandomName(ethnicNames, gender, 'White')
+    }
+
+    else if(ethnicities && !ethnicities[gender]) {
+        return getRandomName(ethnicNames, 'Non-binary', ethnicity)
     }
 
     // if ethnicity and gender keys exist, return a random name from the list
-    const nameList = ethnicNames['White']['Non-binary'];
-    const randomIndex = Math.floor(Math.random() * nameList.length);
-
-    return nameList[randomIndex];
-        
+    return getRandomName(ethnicNames, 'Non-binary', 'White')
 }
 
 
 export function getNamesByEthnicityAndGender(ethnicity: string, gender: string, ethnicSubgroup: string) {
     if(ethnicity == "Asian") {
-       return getValue(asianNamesByEthnicity, 
+       return checkKeys(asianNamesByEthnicity, 
         gender as genderType, ethnicSubgroup)
     }
 
-    return getValue(namesByEthnicityAndGender, gender as genderType, ethnicity);
+    return checkKeys(namesByEthnicityAndGender, gender as genderType, ethnicity);
 }

@@ -25,4 +25,12 @@ export const looseStudentFormSchema = z.object({
     "Northwest",
   ]),
   primaryInterest: z.enum(primaryInterestOptions),
+  year: z.string().min(4).max(4).refine(
+    (val) => {
+      return Number(val) >= 2007 && Number(val) <= new Date().getFullYear();
+    },
+    {
+      message: `Year must be between 2007 and ${new Date().getFullYear()}`,
+    }
+  )
 });

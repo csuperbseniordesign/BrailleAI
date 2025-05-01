@@ -1,3 +1,5 @@
+import ParagraphComprehension from "@/pages/ParagraphComprehension";
+
 export type AccessToken = string;
 
 export interface AuthRequestHeader {
@@ -55,4 +57,21 @@ export interface ParagraphQuestions {
 
 export interface ParagraphQuestions {
   questions: ParagraphQuestions[]
+}
+
+export interface initialUserData {
+  gradeLevel: string;
+  readingLevel: string;
+  gender: string;
+  ethnicity: string;
+  ethnicSubgroup?: string;
+  familyBackground: string;
+  birthPlace: string;
+  region: string;
+  primaryInterest: string;
+  birthYear: string;
+}
+
+export interface userQuestionaireData {
+
 }

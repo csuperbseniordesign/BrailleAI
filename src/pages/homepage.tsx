@@ -32,8 +32,8 @@ const HomePage = () => {
     const gender = data.gender;
     const ethnicSubgroup = data.ethnicSubgroup;
     const readingLevel = data.readingLevel;
-    // const familyBackground = data.familyBackground;
-    // const birthPlace = data.birthPlace;
+    const familyBackground = data.familyBackground;
+    const birthPlace = data.birthPlace;
 
     // convert grade level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);

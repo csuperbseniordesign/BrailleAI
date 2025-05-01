@@ -22,6 +22,7 @@ import {
   primaryInterestOptions,
   regionOptions,
 } from "./studentFormOptions";
+import { Input } from "@/components/ui/input";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 type StudentFormProps = {
@@ -106,6 +107,28 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                         ))}
                       </SelectContent>
                     </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">What year were you born?</h4>
+          <F.Field
+            name="year"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      type="number"
+                    />
                   }
                 </F.Control>
                 <F.Message />

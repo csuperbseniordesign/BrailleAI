@@ -39,17 +39,17 @@ type StudentFormProps = {
 const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
-    defaultValues: {
-      gradeLevel: gradeLevelOptions[0],
-      readingLevel: gradeLevelOptions[0],
-      ethnicity: ethnicityOptions[0],
-      ethnicSubgroup: ethnicSubgroupOptions[0],
-      gender: genderOptions[0],
-      birthPlace: birthPlace[0],
-      region: regionOptions[0],
-      primaryInterest: primaryInterestOptions[0],
-      familyBackground: familyBackgroundOptions[0],
-    },
+    // defaultValues: {
+    //   gradeLevel: gradeLevelOptions[0],
+    //   readingLevel: gradeLevelOptions[0],
+    //   ethnicity: ethnicityOptions[0],
+    //   ethnicSubgroup: ethnicSubgroupOptions[0],
+    //   gender: genderOptions[0],
+    //   birthPlace: birthPlace[0],
+    //   region: regionOptions[0],
+    //   primaryInterest: primaryInterestOptions[0],
+    //   familyBackground: familyBackgroundOptions[0],
+    // },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);

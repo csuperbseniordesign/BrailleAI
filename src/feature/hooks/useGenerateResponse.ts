@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export function useGenerateResponse(context: string, paragraph: string) {
   const apiKey = 'apikey'
   const navigate = useNavigate();
-  console.log(apiKey);
   
   useEffect(() => {
     if(!apiKey) {
@@ -21,7 +20,7 @@ export function useGenerateResponse(context: string, paragraph: string) {
 
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],
-    queryFn: () => generateResponse(context, paragraph, 'sk-515cc4ddab0a4262bdb11f95a378ce56'),
+    queryFn: () => generateResponse(context, paragraph, apiKey),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,
     refetchOnReconnect: false,

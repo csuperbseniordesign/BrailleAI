@@ -25,6 +25,7 @@ const HomePage = () => {
   const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
+    console.log("submit");
     // Retrieve necesary data from the form
     const primaryInterest = data.primaryInterest;
     const gradeLevel = data.gradeLevel;
@@ -84,6 +85,7 @@ const HomePage = () => {
     sessionStorage.removeItem("paragraph");
     sessionStorage.removeItem("paragraphId");
     sessionStorage.removeItem("name");
+    sessionStorage.removeItem("modifiedParagraph");
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

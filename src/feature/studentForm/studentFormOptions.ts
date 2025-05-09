@@ -48,3 +48,4 @@ export const regionOptions = [
   "Northwest",
 ] as const;
 export const familyBackgroundOptions = ["Yes", "No", "I'm not sure"] as const;
+export const languages = ["English", "Spanish", "Mandarin", "Cantonese", "French", "Arabic", "Tagalog", "Vietnamese", "Korean", "German", "Russian", "Hindi", "Portuguese", "Italian", "Japanese", "Other (please specify)"] as const;

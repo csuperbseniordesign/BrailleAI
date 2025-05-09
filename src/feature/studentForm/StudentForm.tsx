@@ -19,6 +19,7 @@ import {
   familyBackgroundOptions,
   genderOptions,
   gradeLevelOptions,
+  languages,
   primaryInterestOptions,
   regionOptions,
 } from "./studentFormOptions";
@@ -39,17 +40,20 @@ type StudentFormProps = {
 const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
-    // defaultValues: {
-    //   gradeLevel: gradeLevelOptions[0],
-    //   readingLevel: gradeLevelOptions[0],
-    //   ethnicity: ethnicityOptions[0],
-    //   ethnicSubgroup: ethnicSubgroupOptions[0],
-    //   gender: genderOptions[0],
-    //   birthPlace: birthPlace[0],
-    //   region: regionOptions[0],
-    //   primaryInterest: primaryInterestOptions[0],
-    //   familyBackground: familyBackgroundOptions[0],
-    // },
+    defaultValues: {
+      gradeLevel: gradeLevelOptions[0],
+      readingLevel: gradeLevelOptions[0],
+      ethnicity: ethnicityOptions[0],
+      ethnicSubgroup: ethnicSubgroupOptions[0],
+      gender: genderOptions[0],
+      birthPlace: birthPlace[0],
+      region: regionOptions[0],
+      country: "",
+      otherLanguage: "",
+      primaryInterest: primaryInterestOptions[0],
+      familyBackground: familyBackgroundOptions[0],
+      languages: languages[0],
+    },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);
@@ -198,7 +202,9 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         </div>
 
         <div>
-          <h4 className="text-lg py-[5px]">What is your race or background?</h4>
+          <h4 className="text-lg py-[5px]">
+            Which race or background feels most like you?
+          </h4>
           <F.Field
             name="ethnicity"
             control={formMethods.control}
@@ -263,7 +269,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         )}
 
         <div>
-          <h4 className="text-lg py-[5px]">Where were you born?</h4>
+          <h4 className="text-lg py-[5px]">Where did you grow up?</h4>
           <F.Field
             name="birthPlace"
             control={formMethods.control}
@@ -291,25 +297,83 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
           />
         </div>
 
+        {formMethods.watch("birthPlace") == "United States" && (
+          <div>
+            <h4 className="text-lg py-[5px]">
+              What state or place in the U.S. did you grow up in most of the
+              time?{" "}
+              <a
+                href="https://www.aph.org/educational-resources/outreach/regional-support/"
+                className="text-blue-500 underline"
+              >
+                Learn More
+              </a>
+            </h4>
+
+            <img
+              src="/outreach-map-all.jpg"
+              className="flex w-[700px] h-[400px] justify-center mb-[10px]"
+              alt="Map of the United State with regions by the American Printing House"
+            />
+
+            <F.Field
+              name="region"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    {
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder={field.value} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {regionOptions.map((region, index) => (
+                            <SelectItem value={region} key={index}>
+                              {region}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    }
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
+
+        {formMethods.watch("birthPlace") == "Outside of the United States" && (
+          <div>
+            <h4 className="text-lg py-[5px]">
+              What country did you grow up in most of the time?
+            </h4>
+            <F.Field
+              name="country"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    <Input value={field.value} onChange={field.onChange} />
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
+
         <div>
           <h4 className="text-lg py-[5px]">
-            What state or place in the U.S. did you grow up in most of the time?{" "}
-            <a
-              href="https://www.aph.org/educational-resources/outreach/regional-support/"
-              className="text-blue-500 underline"
-            >
-              Learn More
-            </a>
+            What languages do you speak or understand at home? (Check all that
+            apply)
           </h4>
-
-          <img
-            src="/outreach-map-all.jpg"
-            className="flex w-[700px] h-[400px] justify-center mb-[10px]"
-            alt="Map of the United State with regions by the American Printing House"
-          />
-
           <F.Field
-            name="region"
+            name="languages"
             control={formMethods.control}
             render={({ field }) => (
               <F.Item>
@@ -320,9 +384,9 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                         <SelectValue placeholder={field.value} />
                       </SelectTrigger>
                       <SelectContent>
-                        {regionOptions.map((region, index) => (
-                          <SelectItem value={region} key={index}>
-                            {region}
+                        {languages.map((language, index) => (
+                          <SelectItem value={language} key={index}>
+                            {language}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -334,6 +398,26 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             )}
           />
         </div>
+
+        {formMethods.watch("languages") == "Other (please specify)" && (
+          <div>
+            <h4 className="text-lg py-[5px]">
+              What country did you grow up in most of the time?
+            </h4>
+            <F.Field
+              name="otherLanguage"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    <Input value={field.value} onChange={field.onChange} />
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
 
         <div>
           <h4 className="text-lg py-[5px]">

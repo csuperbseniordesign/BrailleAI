@@ -41,18 +41,19 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
-      gradeLevel: gradeLevelOptions[0],
-      readingLevel: gradeLevelOptions[0],
-      ethnicity: ethnicityOptions[0],
-      ethnicSubgroup: ethnicSubgroupOptions[0],
-      gender: genderOptions[0],
-      birthPlace: birthPlace[0],
-      region: regionOptions[0],
+      //gradeLevel: gradeLevelOptions[0],
+      //readingLevel: gradeLevelOptions[0],
+      //ethnicity: ethnicityOptions[0],
+      //ethnicSubgroup: ethnicSubgroupOptions[0],
+      //gender: genderOptions[0],
+      //birthPlace: birthPlace[0],
+      //region: regionOptions[0],
+      year: "",
       country: "",
       otherLanguage: "",
-      primaryInterest: primaryInterestOptions[0],
-      familyBackground: familyBackgroundOptions[0],
-      languages: languages[0],
+      //primaryInterest: primaryInterestOptions[0],
+      //familyBackground: familyBackgroundOptions[0],
+      //languages: languages[0],
     },
   });
 
@@ -402,7 +403,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         {formMethods.watch("languages") == "Other (please specify)" && (
           <div>
             <h4 className="text-lg py-[5px]">
-              What country did you grow up in most of the time?
+              What languages do you speak or understand at home?
             </h4>
             <F.Field
               name="otherLanguage"
@@ -450,7 +451,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
           />
         </div>
 
-        <Button onClick={handleFormSubmit}>Generate Paragraph</Button>
+        <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
     </F.Root>
   );

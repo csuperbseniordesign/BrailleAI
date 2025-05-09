@@ -11,25 +11,25 @@ import {
 } from "./studentFormOptions";
 
 export const looseStudentFormSchema = z.object({
-  gradeLevel: z.enum(gradeLevelOptions),
-  readingLevel: z.enum(gradeLevelOptions),
-  ethnicity: z.enum(ethnicityOptions),
-  ethnicSubgroup: z.enum(ethnicSubgroupOptions),
-  gender: z.enum(genderOptions),
-  familyBackground: z.enum(familyBackgroundOptions),
-  birthPlace: z.enum(birthPlace),
+  gradeLevel: z.enum(gradeLevelOptions, {errorMap: () => ({message: 'Please select your grade level'})}),
+  readingLevel: z.enum(gradeLevelOptions, {errorMap: () => ({message: 'Please select your reading level'})}),
+  ethnicity: z.enum(ethnicityOptions, {errorMap: () => ({message: 'Please select your ethnicity'})}),
+  ethnicSubgroup: z.enum(ethnicSubgroupOptions).optional(),
+  gender: z.enum(genderOptions, {errorMap: () => ({message: 'Please select your ethnicity subgroup'})}),
+  familyBackground: z.enum(familyBackgroundOptions, {errorMap: () => ({message: 'Please select your family background'})}),
+  birthPlace: z.enum(birthPlace, {errorMap: () => ({message: 'Please select your birthplace'})}),
   region: z.enum([
     "Northeast",
     "Southeast",
     "Midwest",
     "Southwest",
     "Northwest",
-  ]),
-  primaryInterest: z.enum(primaryInterestOptions),
-  languages: z.enum(languages),
+  ]).optional(),
+  primaryInterest: z.enum(primaryInterestOptions, {errorMap: () => ({message: 'Please select your primary interest'})}),
+  languages: z.enum(languages, {errorMap: () => ({message: 'Please select your language'})}),
   otherLanguage: z.string().optional(),
   country: z.string().optional(),
-  year: z.string().min(4).max(4).refine(
+  year: z.string({errorMap: () => ({message: 'Please enter your birth year'})}).min(4).max(4).refine(
     (val) => {
       return Number(val) >= 2007 && Number(val) <= new Date().getFullYear();
     },
@@ -40,7 +40,7 @@ export const looseStudentFormSchema = z.object({
 }).refine(
   (data) => {
     if (data.languages === "Other (please specify)") {
-      return !!data.otherLanguage;
+      return data.otherLanguage!!;
     }
     return true;
   },
@@ -60,31 +60,27 @@ export const looseStudentFormSchema = z.object({
     message: "Country is required if birth place is not United States",
     path: ["country"],
   }
-);
-
-/**
- *   otherLanguage: z.string().optional(),}).refine(
-    (data) => {
-      if(data.languages != "Other (please specify)") {
-        return true;
-      }
-      return !!data.otherLanguage;
-    },
-    {
-      message: "Please specify the language"
-    }
-  ),
-  country: z.string().optional(),
-}).refine(
+).refine(
   (data) => {
-    if (data.birthPlace === "United States") {
-      return true; // country is optional
+    if (data.ethnicity === 'Asian') {
+      return !!data.ethnicSubgroup;
     }
-    return !!data.country; // country is required
+
+    return true;
   },
   {
-    message: "Country is required if birth place is not United States",
-    path: ["country"],
+    message: "Please select your ethnic subgroup",
+    path: ['ethnicSubgroup']
   }
-);
- */
+).refine(
+  (data) => {
+    if(data.birthPlace === "Outside of the United States") {
+      return true;
+    }
+    return !!data.region;
+  },
+  {
+    message: 'Please select your region',
+    path: ['region'],
+  }
+)

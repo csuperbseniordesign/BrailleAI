@@ -1,12 +1,30 @@
 export const ethnicityOptions = [
-  "Hispanic",
+  "American Indian or Alaska Native",
+  "Asian",
+  "Black or African American",
+  "Middle Eastern or North African",
+  "Native Hawaiian or Other Pacific Islander",
   "White",
-  "Black",
-  "Native American",
-  "Chinese American",
-  "Pacific Islander",
+  "Prefer not to say",
 ] as const;
-export const genderOptions = ["Male", "Female"] as const;
+export const ethnicSubgroupOptions = [
+  "Chinese",
+  "Japanese",
+  "Filipino",
+  "Korean",
+  "Vietnamese",
+  "Asian Indian",
+  "Laotian",
+  "Cambodian",
+  "Thai",
+  "Other",
+] as const;
+export const genderOptions = [
+  "Male",
+  "Female",
+  "Non-binary",
+  "Prefer not to say",
+] as const;
 export const gradeLevelOptions = [
   "Grade 1",
   "Grade 2",
@@ -22,11 +40,37 @@ export const gradeLevelOptions = [
   "Grade 12",
 ] as const;
 export const primaryInterestOptions = [
-  "Reading",
-  "Watching Television",
-  "Sports",
-  "Video Game",
-  "Music",
-  "Cooking",
-  "Traveling",
+  "Entertainment",
+  "Sports and Leisure",
+  "Wildlife and Nature",
+] as const;
+export const birthPlace = [
+  "United States",
+  "Outside of the United States",
+] as const;
+export const regionOptions = [
+  "Northeast",
+  "Southeast",
+  "Midwest",
+  "Southwest",
+  "Northwest",
+] as const;
+export const familyBackgroundOptions = ["Yes", "No", "I'm not sure"] as const;
+export const languages = [
+  "English",
+  "Spanish",
+  "Mandarin",
+  "Cantonese",
+  "French",
+  "Arabic",
+  "Tagalog",
+  "Vietnamese",
+  "Korean",
+  "German",
+  "Russian",
+  "Hindi",
+  "Portuguese",
+  "Italian",
+  "Japanese",
+  "Other (please specify)",
 ] as const;

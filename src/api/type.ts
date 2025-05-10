@@ -1,5 +1,3 @@
-import ParagraphComprehension from "@/pages/ParagraphComprehension";
-
 export type AccessToken = string;
 
 export interface AuthRequestHeader {
@@ -18,7 +16,7 @@ export interface deepseekChoices {
   message: {
     role: string;
     content: string;
-  }
+  };
 }
 
 export interface DeepSeekResponse {
@@ -27,10 +25,10 @@ export interface DeepSeekResponse {
 }
 
 export interface ParagraphResponse {
-  id: number,
-  title: string,
+  id: number;
+  title: string;
   paragraph: string;
-  q1: string,
+  q1: string;
   q1a1: string;
   q1a2: string;
   q1a3: string;
@@ -40,7 +38,6 @@ export interface ParagraphResponse {
   q2a2: string;
   q2a3: string;
   q2a4: string;
-  
 }
 
 export interface RequestParagraph {
@@ -56,7 +53,7 @@ export interface ParagraphQuestions {
 }
 
 export interface ParagraphQuestions {
-  questions: ParagraphQuestions[]
+  questions: ParagraphQuestions[];
 }
 
 export interface initialUserData {
@@ -70,8 +67,4 @@ export interface initialUserData {
   region: string;
   primaryInterest: string;
   birthYear: string;
-}
-
-export interface userQuestionaireData {
-
 }

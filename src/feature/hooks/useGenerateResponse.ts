@@ -7,16 +7,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = 'apikey'
+  const apiKey = "apikey";
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    if(!apiKey) {
-      navigate('/')
+    if (!apiKey) {
+      navigate("/");
     }
   });
-
-  
 
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],

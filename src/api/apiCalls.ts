@@ -1,5 +1,10 @@
 import { deepseekRequest, request } from "./base";
-import { AccessToken, DeepSeekResponse, ParagraphQuestions, ParagraphResponse } from "./type";
+import {
+  AccessToken,
+  DeepSeekResponse,
+  ParagraphQuestions,
+  ParagraphResponse,
+} from "./type";
 
 export async function generateResponse(
   context: string,
@@ -11,22 +16,22 @@ export async function generateResponse(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     data: {
-      "model": "deepseek-chat",
-      "messages": [
+      model: "deepseek-chat",
+      messages: [
         {
-          role: "system", "content": context, 
+          role: "system",
+          content: context,
         },
         {
           role: "user",
           content: paragraph,
-        }
+        },
       ],
-      "stream": false,
+      stream: false,
     },
-    
   });
 
   return response;
@@ -36,12 +41,10 @@ export async function requestRandomParagraph(
   interest: string,
   minAtos: number,
   maxAtos: number,
-  accessToken?: AccessToken,
 ) {
- 
   const response = await request<ParagraphResponse>({
     url: `/paragraphs/${interest}/${minAtos}/${maxAtos}`,
-    method: 'GET',
+    method: "GET",
   });
 
   return response;
@@ -50,11 +53,10 @@ export async function requestRandomParagraph(
 export async function requestParagraph(
   paragraphId: string,
   selectedName: string,
-  accessToken?: AccessToken
 ) {
   const response = await request<ParagraphQuestions>({
     url: `/paragraph/${paragraphId}/${selectedName}`,
-    method: 'GET'
+    method: "GET",
   });
 
   return response;

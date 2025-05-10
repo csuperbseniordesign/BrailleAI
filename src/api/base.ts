@@ -3,7 +3,7 @@ import axiosModule, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthRequestHeader } from "./type";
 
 const deepseekAxiosRequest = axiosModule.create({
-  baseURL: 'https://api.deepseek.com',
+  baseURL: "https://api.deepseek.com",
   timeout: 30000, // Set timeout to 30 seconds for deepseek to answer a difficult question
 });
 
@@ -39,7 +39,10 @@ export async function deepseekRequest<T = any>(
   }
 
   try {
-    const response: AxiosResponse<T> = await deepseekAxiosRequest({ ...config, headers });
+    const response: AxiosResponse<T> = await deepseekAxiosRequest({
+      ...config,
+      headers,
+    });
     return response.data;
   } catch (error) {
     throw error instanceof Error ? error : new Error("An unkown error occured");

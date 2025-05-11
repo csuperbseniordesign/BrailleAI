@@ -74,3 +74,4 @@ export const languages = [
   "Japanese",
   "Other (please specify)",
 ] as const;
+export const region = ["Northeast", "Southeast", "Midwest", "Southwest", "Northwest"] as const;

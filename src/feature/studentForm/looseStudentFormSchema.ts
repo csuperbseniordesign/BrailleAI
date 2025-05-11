@@ -8,6 +8,7 @@ import {
   gradeLevelOptions,
   languages,
   primaryInterestOptions,
+  region,
 } from "./studentFormOptions";
 
 export const looseStudentFormSchema = z
@@ -23,7 +24,7 @@ export const looseStudentFormSchema = z
     }),
     ethnicSubgroup: z.enum(ethnicSubgroupOptions).optional(),
     gender: z.enum(genderOptions, {
-      errorMap: () => ({ message: "Please select your ethnicity subgroup" }),
+      errorMap: () => ({ message: "Please select your gender" }),
     }),
     familyBackground: z.enum(familyBackgroundOptions, {
       errorMap: () => ({ message: "Please select your family background" }),
@@ -32,7 +33,7 @@ export const looseStudentFormSchema = z
       errorMap: () => ({ message: "Please select your birthplace" }),
     }),
     region: z
-      .enum(["Northeast", "Southeast", "Midwest", "Southwest", "Northwest"])
+      .enum(region)
       .optional(),
     primaryInterest: z.enum(primaryInterestOptions, {
       errorMap: () => ({ message: "Please select your primary interest" }),

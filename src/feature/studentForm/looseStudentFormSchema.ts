@@ -32,9 +32,7 @@ export const looseStudentFormSchema = z
     birthPlace: z.enum(birthPlace, {
       errorMap: () => ({ message: "Please select your birthplace" }),
     }),
-    region: z
-      .enum(region)
-      .optional(),
+    region: z.enum(region).optional(),
     primaryInterest: z.enum(primaryInterestOptions, {
       errorMap: () => ({ message: "Please select your primary interest" }),
     }),

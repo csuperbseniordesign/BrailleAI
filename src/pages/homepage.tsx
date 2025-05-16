@@ -115,11 +115,62 @@ const HomePage = () => {
         <div className="max-w-screen-md">
           <Card>
             <CardHeader>
-              <CardTitle className="font-bold text-3xl">
-                Student Demographic Form
+              <CardTitle className="font-bold text-3xl text-center underline">
+                Student Demographic Survey
               </CardTitle>
-              <CardDescription className="text-2xl">
-                Fill out the form to receive a personalized reading paragraph.
+              <CardDescription className="space-y-2 text-card-foreground">
+                <h1 className="text-xl font-bold mt-[8px]">
+                  Instruction for Teachers/Support Staff:
+                </h1>
+
+                <p className="text-lg">
+                  This questionnaire is part of a reading assessment to help us
+                  understand students' backgrounds, reading experiences and
+                  interests. The answers will help us choose the right reading
+                  materials for each student.
+                </p>
+
+                <ul className="list-disc list-outside pl-6 text-lg">
+                  <li>
+                    Please read each question out loud to the student clearly
+                    and slowly
+                  </li>
+                  <li>
+                    If the student needs help understanding a question, you may
+                    explain it using simple, age-appropriate words, but do not
+                    guide them to any specific answer.
+                  </li>
+                  <li>
+                    If the student prefers to respond verbally, you may select
+                    or enter the answer on their behalf.
+                  </li>
+                  <li>
+                    Ensure the student knows there are no “right” or “wrong”
+                    answers—just honest ones.
+                  </li>
+                  <li>
+                    Take breaks as needed. Some students may need more time.
+                  </li>
+                </ul>
+
+                <p className="text-lg">
+                  Thank you so much for your kind support!
+                </p>
+
+                <h1 className="text-xl font-bold py-[5px]">
+                  Instruction for students:
+                </h1>
+
+                <p className="text-lg">
+                  Hi! We want to learn more about you so we can pick the best
+                  reading for you. This is not a test. There are no right or
+                  wrong answers. Just tell us what's true for you. If you don't
+                  know an answer or don't want to answer, that's okay—just say
+                  so. You can ask your teacher or helper to read the questions
+                  out loud or help you answer them.
+                </p>
+
+                <p className="text-lg ">Let's get started when you're ready!</p>
               </CardDescription>
             </CardHeader>
             <CardContent>

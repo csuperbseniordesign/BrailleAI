@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { RotateCcw } from "lucide-react";
 import { useGenerateResponse } from "@/feature/hooks/useGenerateResponse";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,7 +26,7 @@ const GeneratedParagraphPage = () => {
 
   const { data: responseData, isFetching: fetching } = useGenerateResponse(
     context!,
-    paragraph!,
+    paragraph!
   );
   console.log(responseData);
 
@@ -36,7 +35,7 @@ const GeneratedParagraphPage = () => {
       "modifiedParagraph",
       responseData.choices[0].message.content
         ?.replace(/<think>.*?<\/think>/gs, "")
-        .trim(),
+        .trim()
     );
   }
 
@@ -53,9 +52,6 @@ const GeneratedParagraphPage = () => {
               <CardTitle className="font-bold text-3xl">
                 <div className="flex space-x-6">
                   <h2>AI Modified Paragraph</h2>
-                  <Button disabled={fetching}>
-                    <RotateCcw className="w-2 h-2" />
-                  </Button>
                 </div>
               </CardTitle>
             </CardHeader>

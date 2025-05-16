@@ -40,7 +40,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
       <div>
         <hr className="solid" />
         <h1 className="py-[10px] text-2xl font-bold">About the Story </h1>
-        <ul className="space-y-3 list-disc list-outside">
+        <ul className="space-y-3 list-disc list-outside px-[10px]">
           {storyQuestions.map((question, index) => (
             <li key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">

@@ -101,7 +101,7 @@ const CulturalQuestionaire = () => {
               </p>
 
               <h1 className="text-xl font-bold py-[5px]">
-                Instructions for Teachers/Support Staff:
+                Instructions for Student:
               </h1>
 
               <p className="text-lg">

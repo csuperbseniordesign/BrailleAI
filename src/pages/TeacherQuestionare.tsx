@@ -13,7 +13,7 @@ type FormValues = z.infer<typeof looseTeacherFormSchema>;
 
 const TeacherQuestionare = () => {
   const onSubmit = (data: FormValues) => {
-    console.log("submitted");
+    console.log(data);
   };
   return (
     <div className="flex justify-center items-center overflow-y-auto max-h-90 py-[10px] w-full">

@@ -5,15 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { looseTeacherFormSchema } from "@/feature/teacherForm/loseTeacherFormSchema";
-import { z } from "zod";
-
-type FormValues = z.infer<typeof looseTeacherFormSchema>;
-
 const TeacherQuestionare = () => {
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-  };
   return (
     <div className="flex justify-center items-center overflow-y-auto max-h-90 py-[10px] w-full">
       <div className="max-w-screen-md">

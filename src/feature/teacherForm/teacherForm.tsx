@@ -14,7 +14,7 @@ type TeacherFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseTeacherFormSchema>>;
 };
 
-const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
+const TeacherForm = ({}: TeacherFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseTeacherFormSchema),
   });

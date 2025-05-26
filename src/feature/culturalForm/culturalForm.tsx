@@ -10,7 +10,6 @@ import {
   endingQuestion,
 } from "./formData";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 
 type FormValues = z.infer<typeof looseCulturalFormSchema>;
@@ -18,7 +17,7 @@ type CulturalFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseCulturalFormSchema>>;
 };
 
-const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
+const CulturalForm = ({}: CulturalFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseCulturalFormSchema),
     // defaultValues: {

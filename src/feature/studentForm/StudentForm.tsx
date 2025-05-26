@@ -520,7 +520,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
               Tell us about how you are accessing the web-app.
             </h4>
             <F.Field
-              name="appAccess"
+              name="otherAppAccess"
               control={formMethods.control}
               render={({ field }) => (
                 <F.Item>
@@ -572,7 +572,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
               text.
             </h4>
             <F.Field
-              name="digitalTextAccess"
+              name="otherDigitalAccess"
               control={formMethods.control}
               render={({ field }) => (
                 <F.Item>

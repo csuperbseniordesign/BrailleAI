@@ -19,12 +19,12 @@ import { AtosMapper } from "@/util/utils";
 // import { getNamesByEthnicityAndGender } from "@/util/preselectNames";
 // import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 // import { createContext } from "@/util/createContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   //const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
 
   const handleSubmit = async (data: FormValues) => {
@@ -87,7 +87,7 @@ const HomePage = () => {
     //       sessionStorage.setItem("paragraph", paragraph);
     //       sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
 
-    //       navigate("/response");
+    navigate("/cultural-questionaire");
     //     },
     //   }
     // );
@@ -150,6 +150,15 @@ const HomePage = () => {
                   </li>
                   <li>
                     Take breaks as needed. Some students may need more time.
+                  </li>
+                  <li>
+                    If a student does not wish to answer a question, you may
+                    quit the web-app and either try another day or end
+                    participation in the study
+                  </li>
+                  <li>
+                    By continuing with the questions you are providing assent to
+                    participate.
                   </li>
                 </ul>
 

@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { looseTeacherFormSchema } from "@/feature/teacherForm/loseTeacherFormSchema";
-import TeacherForm from "@/feature/teacherForm/teacherForm";
 import { z } from "zod";
 
 type FormValues = z.infer<typeof looseTeacherFormSchema>;
@@ -42,9 +41,7 @@ const TeacherQuestionare = () => {
               <p className="text-lg">Thank you for your valuable input!</p>
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <TeacherForm onSubmit={onSubmit} />
-          </CardContent>
+          <CardContent></CardContent>
         </Card>
       </div>
     </div>

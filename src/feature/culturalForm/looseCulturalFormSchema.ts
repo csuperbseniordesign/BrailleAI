@@ -1,12 +1,14 @@
 import * as z from "zod";
+import {blank } from "./formData";
 
 export const looseCulturalFormSchema = z.object({
-  question1: z.string(),
-  question2: z.string(),
-  question3: z.string(),
-  question4: z.string(),
-  question5: z.string(),
-  question6: z.string(),
-  question7: z.string(),
-  question8: z.string(),
+  question1: z.string().optional(),
+  question2: z.string().optional(),
+  question3: z.string().optional(),
+  question4: z.string().optional(), 
+  question5: z.string().optional(),
+  question6: z.string().optional(),
+  question7: z.string().optional(),
+  question8: z.string().optional(),
+  blank: z.string().optional(),
 });

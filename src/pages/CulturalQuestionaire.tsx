@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import CulturalForm from "@/feature/culturalForm/culturalForm";
+import TeacherForm from "@/feature/teacherForm/teacherForm";
 import { looseCulturalFormSchema } from "@/feature/culturalForm/looseCulturalFormSchema";
-import { calculateCulturalRelevanceScore } from "@/util/calculateScore";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
@@ -19,11 +19,17 @@ const CulturalQuestionaire = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    const score = calculateCulturalRelevanceScore(data);
-    console.log(score);
-    navigate("/complete");
+    // Commented out for IRB version
+    // If you want to calculate the cultural relevance score, uncomment the following lines
+    //const score = calculateCulturalRelevanceScore(data);
+    //console.log(score);
+    navigate("/teacher-survey");
 
     // make api call to post the student data here
+  };
+
+  const onSubmitTeacher = (data: FormValues) => {
+    console.log(data);
   };
 
   return (
@@ -93,6 +99,15 @@ const CulturalQuestionaire = () => {
                   Encourage breaks if needed to ensure the student remains
                   comfortable and focused.
                 </li>
+                <li>
+                  If a student does not wish to answer a question, you may quit
+                  the web-app and either try another day or end participation in
+                  the study.
+                </li>
+                <li>
+                  By continuing with the questions you are providing assent to
+                  participate.
+                </li>
               </ul>
 
               <p className="text-lg">
@@ -116,6 +131,42 @@ const CulturalQuestionaire = () => {
           </CardHeader>
           <CardContent>
             <CulturalForm onSubmit={onSubmit} />
+          </CardContent>
+          <div>
+            <p className="text-lg text-center font-bold">Thank you!</p>
+            <p className="text-lg text-center font-bold pb-10">
+              This marks the end of the student section. The following items are
+              questions for the teacher to answer.
+            </p>
+          </div>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-bold text-3xl text-center">
+              Exit Questionnaire - Teacher
+            </CardTitle>
+            <CardDescription className="space-y-2 text-card-foreground">
+              <h1 className="text-xl font-bold py-[5px]">
+                Instructions for Teachers/Support Staff:
+              </h1>
+
+              <p className="text-lg">
+                This exit questionnaire is designed to gather your feedback on
+                the reading passage the student just completed. Please consider
+                the student's experience with the passage and respond honestly
+                to each statement. Use the response options provided, and
+                remember to reflect on the passage's accessibility, cultural and
+                linguistic relevance, and engagement level for the student. If
+                you have any additional comments or observations, please share
+                them in the space provided.
+              </p>
+
+              <p className="text-lg">Thank you for your valuable input!</p>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TeacherForm onSubmit={onSubmitTeacher} />
           </CardContent>
         </Card>
       </div>

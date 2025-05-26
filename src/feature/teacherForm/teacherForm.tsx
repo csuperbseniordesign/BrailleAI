@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import * as F from "@/components/forms";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { teacherQuestions } from "./formData";
+import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 type FormValues = z.infer<typeof looseTeacherFormSchema>;
 type TeacherFormProps = {
@@ -17,7 +19,13 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
     resolver: zodResolver(looseTeacherFormSchema),
   });
 
-  const handleFormSubmit = formMethods.handleSubmit(onSubmit);
+  // const handleFormSubmit = formMethods.handleSubmit(onSubmit);
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate("/");
+  };
 
   return (
     <F.Root formMethods={formMethods}>
@@ -73,8 +81,32 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
         </ul>
       </div>
 
-      <div className="flex justify-end py-[15px]">
-        <Button onClick={handleFormSubmit}>Submit</Button>
+      <div>
+        <h4 className="text-lg py-[5px]">
+          Is there anything you would like to share about this passage?
+        </h4>
+        <F.Field
+          name="blank"
+          control={formMethods.control}
+          render={({ field }) => (
+            <F.Item>
+              <F.Control>
+                {
+                  <Input
+                    value={field.value}
+                    onChange={field.onChange}
+                    type="text"
+                  />
+                }
+              </F.Control>
+              <F.Message />
+            </F.Item>
+          )}
+        />
+      </div>
+
+      <div className="flex py-[15px]">
+        <Button onClick={goBack}>Go Back</Button>
       </div>
     </F.Root>
   );

@@ -1,61 +1,43 @@
 import * as z from "zod";
 import {
+  appAccess,
   birthPlace,
+  digitalTextAccess,
   ethnicityOptions,
   ethnicSubgroupOptions,
   familyBackgroundOptions,
   genderOptions,
   gradeLevelOptions,
   languages,
+  preferredMedia,
   primaryInterestOptions,
   region,
+  vision,
 } from "./studentFormOptions";
 
 export const looseStudentFormSchema = z
   .object({
-    gradeLevel: z.enum(gradeLevelOptions, {
-      errorMap: () => ({ message: "Please select your grade level" }),
-    }),
-    readingLevel: z.enum(gradeLevelOptions, {
-      errorMap: () => ({ message: "Please select your reading level" }),
-    }),
-    ethnicity: z.enum(ethnicityOptions, {
-      errorMap: () => ({ message: "Please select your ethnicity" }),
-    }),
+    gradeLevel: z.enum(gradeLevelOptions).optional(),
+    readingLevel: z.enum(gradeLevelOptions).optional(),
+    ethnicity: z.enum(ethnicityOptions).optional(),
     ethnicSubgroup: z.enum(ethnicSubgroupOptions).optional(),
-    gender: z.enum(genderOptions, {
-      errorMap: () => ({ message: "Please select your gender" }),
-    }),
-    familyBackground: z.enum(familyBackgroundOptions, {
-      errorMap: () => ({ message: "Please select your family background" }),
-    }),
-    birthPlace: z.enum(birthPlace, {
-      errorMap: () => ({ message: "Please select your birthplace" }),
-    }),
+    gender: z.enum(genderOptions).optional(),
+    familyBackground: z.enum(familyBackgroundOptions).optional(),
+    birthPlace: z.enum(birthPlace).optional(),
     region: z.enum(region).optional(),
-    primaryInterest: z.enum(primaryInterestOptions, {
-      errorMap: () => ({ message: "Please select your primary interest" }),
-    }),
-    languages: z.enum(languages, {
-      errorMap: () => ({ message: "Please select your language" }),
-    }),
+    primaryInterest: z.enum(primaryInterestOptions).optional(),
+    languages: z.enum(languages).optional(),
     otherLanguage: z.string().optional(),
     country: z.string().optional(),
-    year: z
-      .string({ errorMap: () => ({ message: "Please enter your birth year" }) })
-      .min(4)
-      .max(4)
-      .refine(
-        (val) => {
-          return Number(val) >= 2007 && Number(val) <= new Date().getFullYear();
-        },
-        {
-          message: `Year must be between 2007 and ${new Date().getFullYear()}`,
-        },
-      ),
+    year: z.string().optional(),
+    vision: z.enum(vision).optional(),
+    preferredMedia: z.enum(preferredMedia).optional(),
+    appAccess: z.enum(appAccess).optional(),
+    digitalTextAccess: z.enum(digitalTextAccess).optional(),
   })
   .refine(
     (data) => {
+      if(!data.languages) return true;
       if (data.languages === "Other (please specify)") {
         return !!data.otherLanguage;
       }
@@ -68,6 +50,7 @@ export const looseStudentFormSchema = z
   )
   .refine(
     (data) => {
+      if (!data.birthPlace) return true;
       if (data.birthPlace === "United States") {
         return true;
       }
@@ -80,6 +63,7 @@ export const looseStudentFormSchema = z
   )
   .refine(
     (data) => {
+      if (!data.ethnicity) return true;
       if (data.ethnicity === "Asian") {
         return !!data.ethnicSubgroup;
       }
@@ -93,6 +77,7 @@ export const looseStudentFormSchema = z
   )
   .refine(
     (data) => {
+      if (!data.birthPlace) return true;
       if (data.birthPlace === "Outside of the United States") {
         return true;
       }
@@ -102,4 +87,33 @@ export const looseStudentFormSchema = z
       message: "Please select your region",
       path: ["region"],
     },
-  );
+  )
+  .refine(
+   (data) => {
+    if(!data.appAccess) return true;
+     if (data.appAccess === "Other (please specify)") {
+       return !!data.appAccess;
+     }
+     return true;
+   },
+   {
+     message: "Please specify how you access the web-app",
+     path: ["otherAccess"],
+   },
+ )
+ .refine(
+   (data) => {
+    if(!data.digitalTextAccess) return true;
+     if (data.digitalTextAccess === "Other (please specify)") {
+       return !!data.digitalTextAccess;
+     }
+     return true;
+   },
+   {
+     message: "Please specify about any digital text access you may use.",
+     path: ["otherDigitalAccess"],
+   },
+ );
+
+
+

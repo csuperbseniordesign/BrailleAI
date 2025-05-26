@@ -25,9 +25,9 @@ export const teacherQuestions = [
     question:
       "Overall, the passage had appropriate content, readability, and cultural relevance.",
   },
-
-  {
-    id: "question7",
-    question: "Is there anything you would like to share about this passage?",
-  },
 ];
+export const blank = [
+ "Is there anything you would like to share about this passage?"
+] as const;
+
+

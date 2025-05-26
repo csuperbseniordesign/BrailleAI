@@ -10,7 +10,8 @@ import {
   endingQuestion,
 } from "./formData";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 type FormValues = z.infer<typeof looseCulturalFormSchema>;
 type CulturalFormProps = {
@@ -32,7 +33,12 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
     // },
   });
 
-  const handleFormSubmit = formMethods.handleSubmit(onSubmit);
+  // const handleFormSubmit = formMethods.handleSubmit(onSubmit);
+  // const navigate = useNavigate();
+
+  // const goBack = () => {
+  //   navigate("/");
+  // };
 
   return (
     <F.Root formMethods={formMethods}>
@@ -251,8 +257,34 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
           ))}
         </ul>
       </div>
-      <div className="flex justify-end py-[15px]">
-        <Button onClick={handleFormSubmit}>Submit</Button>
+
+      <div>
+        <h4 className="text-lg py-[5px]">
+          Do you want to tell use anything more about how you felt about this
+          passage?
+        </h4>
+        <F.Field
+          name="blank"
+          control={formMethods.control}
+          render={({ field }) => (
+            <F.Item>
+              <F.Control>
+                {
+                  <Input
+                    value={field.value}
+                    onChange={field.onChange}
+                    type="text"
+                  />
+                }
+              </F.Control>
+              <F.Message />
+            </F.Item>
+          )}
+        />
+      </div>
+
+      <div className="flex justify-between mt-4">
+        {/* <Button onClick={goBack}>Go Back</Button> */}
       </div>
     </F.Root>
   );

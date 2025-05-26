@@ -33,7 +33,9 @@ export const looseStudentFormSchema = z
     vision: z.enum(vision).optional(),
     preferredMedia: z.enum(preferredMedia).optional(),
     appAccess: z.enum(appAccess).optional(),
+    otherAppAccess: z.string().optional(),
     digitalTextAccess: z.enum(digitalTextAccess).optional(),
+    otherDigitalAccess: z.string().optional(),
   })
   .refine(
     (data) => {
@@ -92,20 +94,20 @@ export const looseStudentFormSchema = z
    (data) => {
     if(!data.appAccess) return true;
      if (data.appAccess === "Other (please specify)") {
-       return !!data.appAccess;
+       return !!data.otherAppAccess;
      }
      return true;
    },
    {
      message: "Please specify how you access the web-app",
-     path: ["otherAccess"],
+     path: ["otherAppAccess"],
    },
  )
  .refine(
    (data) => {
     if(!data.digitalTextAccess) return true;
      if (data.digitalTextAccess === "Other (please specify)") {
-       return !!data.digitalTextAccess;
+       return !!data.otherDigitalAccess;
      }
      return true;
    },

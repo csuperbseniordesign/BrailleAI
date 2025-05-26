@@ -18,7 +18,7 @@ type FormValues = z.infer<typeof looseCulturalFormSchema>;
 const CulturalQuestionaire = () => {
   const navigate = useNavigate();
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = () => {
     // Commented out for IRB version
     // If you want to calculate the cultural relevance score, uncomment the following lines
     //const score = calculateCulturalRelevanceScore(data);

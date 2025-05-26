@@ -80,11 +80,16 @@ export const languages = [
   "Other (please specify)",
 ] as const;
 export const region = [
-  "Northeast",
-  "Southeast",
-  "Midwest",
-  "Southwest",
-  "Northwest",
+  "AL", "AK", "AZ", "AR", "CA", "CO", 
+ "CT", "DE", "FL", "GA", "HI", "ID", 
+ "IL", "IN", "IA", "KS", "KY", "LA", 
+ "ME", "MD", "MA", "MI", "MN", "MS", 
+ "MO", "MT", "NE", "NV", "NH", "NJ", 
+ "NM", "NY", "NC", "ND", "OH", "OK", 
+ "OR", "PA", "RI", "SC", "SD", "TN", 
+ "TX", "UT", "VT", "VA", "WA", "WV", 
+ "WI", "WY", "DC", "AS", "GU", "MP", 
+ "PR", "VI"
 ] as const;
 export const vision = [
  "I am Sighted",

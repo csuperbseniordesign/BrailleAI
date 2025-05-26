@@ -35,7 +35,7 @@ const HomePage = () => {
     const ethnicityOptions = data.ethnicity;
     const gender = data.gender;
     const ethnicSubgroup = data.ethnicSubgroup;
-    const readingLevel = data.readingLevel;
+    const readingLevel = data.readingLevel ?? "Grade 1";
     const familyBackground = data.familyBackground;
     const birthPlace = data.birthPlace;
 

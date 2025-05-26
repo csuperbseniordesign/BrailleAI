@@ -22,6 +22,10 @@ import {
   languages,
   primaryInterestOptions,
   regionOptions,
+  vision,
+  preferredMedia,
+  appAccess,
+  digitalTextAccess,
 } from "./studentFormOptions";
 import { Input } from "@/components/ui/input";
 
@@ -172,8 +176,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         </div>
         <div>
           <h4 className="text-lg py-[5px]">
-            Is your family from places like Mexico, Puerto Rico, Cuba, or other
-            parts of Central or South America?
+            Do you identify as Hispanic, Latino or of Spanish origin?
           </h4>
           <F.Field
             name="familyBackground"
@@ -256,7 +259,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                               <SelectItem value={ethnicSubgroup} key={index}>
                                 {ethnicSubgroup}
                               </SelectItem>
-                            ),
+                            )
                           )}
                         </SelectContent>
                       </Select>
@@ -303,19 +306,19 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             <h4 className="text-lg py-[5px]">
               What state or place in the U.S. did you grow up in most of the
               time?{" "}
-              <a
+              {/* <a
                 href="https://www.aph.org/educational-resources/outreach/regional-support/"
                 className="text-blue-500 underline"
               >
                 Learn More
-              </a>
+              </a> */}
             </h4>
 
-            <img
+            {/* <img
               src="/outreach-map-all.jpg"
               className="flex w-[700px] h-[400px] justify-center mb-[10px]"
               alt="Map of the United State with regions by the American Printing House"
-            />
+            /> */}
 
             <F.Field
               name="region"
@@ -421,6 +424,169 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         )}
 
         <div>
+          <h4 className="text-lg py-[5px]">Tell us about your vision.</h4>
+          <F.Field
+            name="vision"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {vision.map((vision, index) => (
+                          <SelectItem value={vision} key={index}>
+                            {vision}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">
+            Tell us about your preferred learning media.
+          </h4>
+          <F.Field
+            name="preferredMedia"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {preferredMedia.map((preferredMedia, index) => (
+                          <SelectItem value={preferredMedia} key={index}>
+                            {preferredMedia}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        <div>
+          <h4 className="text-lg py-[5px]">
+            Tell us about how you are accessing the web-app.
+          </h4>
+          <F.Field
+            name="appAccess"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {appAccess.map((appAccess, index) => (
+                          <SelectItem value={appAccess} key={index}>
+                            {appAccess}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        {formMethods.watch("appAccess") == "Other (please specify)" && (
+          <div>
+            <h4 className="text-lg py-[5px]">
+              Tell us about how you are accessing the web-app.
+            </h4>
+            <F.Field
+              name="appAccess"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    <Input value={field.value} onChange={field.onChange} />
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
+
+        <div>
+          <h4 className="text-lg py-[5px]">
+            Tell us about any access technology you use to access digital text.
+          </h4>
+          <F.Field
+            name="digitalTextAccess"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.value} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {digitalTextAccess.map((digitalTextAccess, index) => (
+                          <SelectItem value={digitalTextAccess} key={index}>
+                            {digitalTextAccess}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        {formMethods.watch("digitalTextAccess") == "Other (please specify)" && (
+          <div>
+            <h4 className="text-lg py-[5px]">
+              Tell us about any access technology you use to access digital
+              text.
+            </h4>
+            <F.Field
+              name="digitalTextAccess"
+              control={formMethods.control}
+              render={({ field }) => (
+                <F.Item>
+                  <F.Control>
+                    <Input value={field.value} onChange={field.onChange} />
+                  </F.Control>
+                  <F.Message />
+                </F.Item>
+              )}
+            />
+          </div>
+        )}
+
+        <div>
           <h4 className="text-lg py-[5px]">
             What category are you interested in?
           </h4>
@@ -451,7 +617,9 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
           />
         </div>
 
-        <Button onClick={handleFormSubmit}>Submit</Button>
+        <div className="flex justify-end py-[15px]">
+          <Button onClick={handleFormSubmit}>Next Page</Button>
+        </div>
       </div>
     </F.Root>
   );

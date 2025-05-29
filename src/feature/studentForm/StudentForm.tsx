@@ -48,7 +48,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
       gender: genderOptions[0],
       birthPlace: birthPlace[0],
       region: regionOptions[0],
-      year: "",
+      year: "2007",
       country: "",
       otherLanguage: "",
       primaryInterest: primaryInterestOptions[0],

@@ -20,16 +20,6 @@ type CulturalFormProps = {
 const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseCulturalFormSchema),
-    // defaultValues: {
-    //   question1: "2",
-    //   question2: "2",
-    //   question3: "2",
-    //   question4: "2",
-    //   question5: "2",
-    //   question6: "2",
-    //   question7: "2",
-    //   question8: "2",
-    // },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);

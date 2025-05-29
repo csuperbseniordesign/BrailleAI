@@ -56,6 +56,8 @@ const HomePage = () => {
         interest: primaryInterest,
         minAtos: minAtos,
         maxAtos: maxAtos,
+        ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
+        gender: gender,
         accessToken: "accessToken",
       },
       {
@@ -66,7 +68,7 @@ const HomePage = () => {
           }
 
           // clean paragraph text to make it readable
-          const paragraph = cleanText(paragraphData!.paragraph);
+          const paragraph = cleanText(paragraphData!.data.paragraph);
 
           // get preselected name based on ethnicity and gender
           const selected_name = getNamesByEthnicityAndGender(
@@ -82,7 +84,7 @@ const HomePage = () => {
           sessionStorage.setItem("context", context);
           sessionStorage.setItem("name", selected_name);
           sessionStorage.setItem("paragraph", paragraph);
-          sessionStorage.setItem("paragraphId", "" + paragraphData!.id);
+          sessionStorage.setItem("paragraphId", "" + paragraphData!.data.id);
 
           navigate("/response");
         },

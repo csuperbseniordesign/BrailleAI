@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = "apikey";
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const navigate = useNavigate();
 
   useEffect(() => {

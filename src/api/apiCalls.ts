@@ -41,10 +41,13 @@ export async function requestRandomParagraph(
   interest: string,
   minAtos: number,
   maxAtos: number,
+  ethnicity: string,
+  gender: string,
   accessToken: string | undefined,
+
 ) {
   const response = await request<ParagraphResponse>({
-    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}`,
+    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}/${ethnicity}/${gender}`,
     method: "GET",
     accessToken,
   });

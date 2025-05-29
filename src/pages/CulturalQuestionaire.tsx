@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import CulturalForm from "@/feature/culturalForm/culturalForm";
 import { looseCulturalFormSchema } from "@/feature/culturalForm/looseCulturalFormSchema";
-import { calculateCulturalRelevanceScore } from "@/util/calculateScore";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
@@ -19,9 +18,7 @@ const CulturalQuestionaire = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    const score = calculateCulturalRelevanceScore(data);
-    console.log(score);
-    navigate("/complete");
+    navigate("/teacher-survey");
 
     // make api call to post the student data here
   };

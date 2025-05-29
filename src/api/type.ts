@@ -24,7 +24,7 @@ export interface DeepSeekResponse {
   choices: deepseekChoices[];
 }
 
-export interface ParagraphResponse {
+export interface ParagraphData {
   id: number;
   title: string;
   paragraph: string;
@@ -38,6 +38,11 @@ export interface ParagraphResponse {
   q2a2: string;
   q2a3: string;
   q2a4: string;
+}
+
+export interface ParagraphResponse {
+  source: string;
+  data: ParagraphData;
 }
 
 export interface RequestParagraph {

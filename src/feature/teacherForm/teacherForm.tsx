@@ -15,15 +15,6 @@ type TeacherFormProps = {
 const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseTeacherFormSchema),
-    defaultValues: {
-      response1: "a",
-      response2: "b",
-      response3: "c",
-      response4: "d",
-      response5: "e",
-      response6: "f",
-      response7: "g",
-    },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);

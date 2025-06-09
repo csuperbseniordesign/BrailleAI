@@ -62,6 +62,9 @@ export const endingQuestion = [
 
   {
     id: "endingQuestion4",
-    question: "While I was reading, I had fun.",
+    question: "I thought the passage was interesting.",
   },
 ];
+export const blank = [
+  "Is there anything you would like to share about this passage?",
+] as const;

@@ -150,6 +150,15 @@ const HomePage = () => {
                   <li>
                     Take breaks as needed. Some students may need more time.
                   </li>
+                  <li>
+                    If a student does not wish to answer a question, you may
+                    quit the web-app and either try another day or end
+                    participation in the study.
+                  </li>
+                  <li>
+                    By continuing with the questions you are providing assent to
+                    participate.
+                  </li>
                 </ul>
 
                 <p className="text-lg">

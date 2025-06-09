@@ -8,4 +8,5 @@ export const looseTeacherFormSchema = z.object({
   question5: z.string(),
   question6: z.string(),
   question7: z.string(),
+  blank: z.string().optional(),
 });

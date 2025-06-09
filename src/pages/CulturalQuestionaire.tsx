@@ -19,6 +19,7 @@ const CulturalQuestionaire = () => {
 
   const onSubmit = (data: FormValues) => {
     navigate("/teacher-survey");
+    console.log(data);
 
     // make api call to post the student data here
   };

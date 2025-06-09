@@ -29,7 +29,7 @@ function checkKeys(
     return getRandomName(ethnicNames, gender, ethnicity);
   }
 
-  // if ethnicity doesn't exist, gender exist
+  // if ethnicity doesn't exist, but gender does exist
   else if (!ethnicities && ethnicNames["White"][gender]) {
     return getRandomName(ethnicNames, gender, "White");
   } else if (ethnicities && !ethnicities[gender]) {
@@ -50,6 +50,13 @@ export function getNamesByEthnicityAndGender(
       asianNamesByEthnicity,
       gender as genderType,
       ethnicSubgroup,
+    );
+  }
+  if(ethnicity == "Prefer not to say"){
+    return checkKeys(
+      namesByEthnicityAndGender,
+      gender as genderType,
+      ethnicity,
     );
   }
 

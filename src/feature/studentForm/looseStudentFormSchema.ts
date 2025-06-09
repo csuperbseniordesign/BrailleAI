@@ -18,41 +18,57 @@ import {
 export const looseStudentFormSchema = z
   .object({
     gradeLevel: z.enum(gradeLevelOptions, {
-      errorMap: () => ({ message: "Please select your grade level" }),
+      errorMap: () => ({ message: "Please select your grade level." }),
     }),
     readingLevel: z.enum(gradeLevelOptions, {
-      errorMap: () => ({ message: "Please select your reading level" }),
+      errorMap: () => ({ message: "Please select your reading level." }),
     }),
     ethnicity: z.enum(ethnicityOptions, {
-      errorMap: () => ({ message: "Please select your ethnicity" }),
+      errorMap: () => ({ message: "Please select your ethnicity." }),
     }),
     ethnicSubgroup: z.enum(ethnicSubgroupOptions).optional(),
     gender: z.enum(genderOptions, {
-      errorMap: () => ({ message: "Please select your gender" }),
+      errorMap: () => ({ message: "Please select your gender." }),
     }),
     familyBackground: z.enum(familyBackgroundOptions, {
-      errorMap: () => ({ message: "Please select your family background" }),
+      errorMap: () => ({ message: "Please select your family background." }),
     }),
     birthPlace: z.enum(birthPlace, {
-      errorMap: () => ({ message: "Please select your birthplace" }),
+      errorMap: () => ({ message: "Please select your birthplace." }),
     }),
-    region: z.enum(region).optional(),
+    region: z.enum(region, {
+      errorMap: () => ({ message: "Please select a state or territory." }),
+    }),
     primaryInterest: z.enum(primaryInterestOptions, {
-      errorMap: () => ({ message: "Please select your primary interest" }),
+      errorMap: () => ({ message: "Please select your primary interest." }),
     }),
     languages: z.enum(languages, {
-      errorMap: () => ({ message: "Please select your language" }),
+      errorMap: () => ({ message: "Please select your language." }),
     }),
     otherLanguage: z.string().optional(),
     country: z.string().optional(),
     vision: z.enum(vision).optional(),
-    preferredMedia: z.enum(preferredMedia).optional(),
-    appAccess: z.enum(appAccess).optional(),
+    preferredMedia: z.enum(preferredMedia, {
+      errorMap: () => ({
+        message: "Please select your preferred learning media.",
+      }),
+    }),
+    appAccess: z.enum(appAccess, {
+      errorMap: () => ({
+        message: "Please tell use about how you are accessing the web-app.",
+      }),
+    }),
     otherAppAccess: z.string().optional(),
-    digitalTextAccess: z.enum(digitalTextAccess).optional(),
+    digitalTextAccess: z.enum(digitalTextAccess, {
+      errorMap: () => ({
+        message: "Please tell us about any access technology you use.",
+      }),
+    }),
     otherDigitalAccess: z.string().optional(),
     year: z
-      .string({ errorMap: () => ({ message: "Please enter your birth year" }) })
+      .string({
+        errorMap: () => ({ message: "Please enter your birth year." }),
+      })
       .min(4)
       .max(4)
       .refine(

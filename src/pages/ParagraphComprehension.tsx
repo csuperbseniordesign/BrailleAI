@@ -22,13 +22,25 @@ const ParagraphComprehension = () => {
 
   const { data: paragraphData } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
-    selectedName!,
+    selectedName!
   );
 
   const questionList = paragraphData ? paragraphData.questions : [];
 
   const onSubmit = (data: FormValues) => {
-    console.log(data[0]);
+    let score = 0;
+
+    questionList.forEach((question, index) => {
+      const userAnswer = data[index.toString() as "0" | "1"];
+      const correctAnswer = question.answer;
+
+      if (userAnswer === correctAnswer) {
+        score += 1;
+      }
+    });
+
+    console.log("User answers:", data);
+    console.log("Score:", score);
     navigate("/cultural-questionaire");
   };
 

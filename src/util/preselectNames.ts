@@ -52,7 +52,7 @@ export function getNamesByEthnicityAndGender(
       ethnicSubgroup,
     );
   }
-  if(ethnicity == "Prefer not to say"){
+  if (ethnicity == "Prefer not to say") {
     return checkKeys(
       namesByEthnicityAndGender,
       gender as genderType,

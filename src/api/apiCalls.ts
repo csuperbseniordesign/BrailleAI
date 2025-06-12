@@ -44,7 +44,6 @@ export async function requestRandomParagraph(
   ethnicity: string,
   gender: string,
   accessToken: string | undefined,
-
 ) {
   const response = await request<ParagraphResponse>({
     url: `/paragraphs/${interest}/${minAtos}/${maxAtos}/${ethnicity}/${gender}`,

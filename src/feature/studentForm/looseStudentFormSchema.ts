@@ -77,7 +77,7 @@ export const looseStudentFormSchema = z
         },
         {
           message: `Year must be between 2007 and ${new Date().getFullYear()}`,
-        }
+        },
       ),
   })
   .refine(
@@ -90,7 +90,7 @@ export const looseStudentFormSchema = z
     {
       message: "Please specify the language",
       path: ["otherLanguage"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -102,7 +102,7 @@ export const looseStudentFormSchema = z
     {
       message: "Country is required if birth place is not United States",
       path: ["country"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -115,7 +115,7 @@ export const looseStudentFormSchema = z
     {
       message: "Please select your ethnic subgroup",
       path: ["ethnicSubgroup"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -127,7 +127,7 @@ export const looseStudentFormSchema = z
     {
       message: "Please select your region",
       path: ["region"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -140,7 +140,7 @@ export const looseStudentFormSchema = z
     {
       message: "Please specify how you access the web-app",
       path: ["otherAppAccess"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -153,5 +153,5 @@ export const looseStudentFormSchema = z
     {
       message: "Please specify about any digital text access you may use.",
       path: ["otherDigitalAccess"],
-    }
+    },
   );

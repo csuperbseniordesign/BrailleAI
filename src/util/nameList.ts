@@ -36,20 +36,20 @@ export const namesByEthnicityAndGender: NameGroups = {
   },
 
   "American Indian or Alaska Native": {
-    Male: ["Dakota" , "Logan", "Lance", "Hunter", "Shawn"],
-    Female: ["Autumn" , "Savannah", "Maya", "Destiny", "Sky"],
-    "Non-binary": ["Dakota", "Ash", "River", "Sky", "Awan"]
+    Male: ["Dakota", "Logan", "Lance", "Hunter", "Shawn"],
+    Female: ["Autumn", "Savannah", "Maya", "Destiny", "Sky"],
+    "Non-binary": ["Dakota", "Ash", "River", "Sky", "Awan"],
   },
   "Middle Eastern or North African": {
-    Male: ["Omar" , "Samir", "Ali", "Amir", "Rami"],
-    Female: ["Layla" , "Amina", "Nadia", "Maya", "Hana"],
-    "Non-binary": ["Amani", "Rami", "Adel", "Elias", "Kamal"]
+    Male: ["Omar", "Samir", "Ali", "Amir", "Rami"],
+    Female: ["Layla", "Amina", "Nadia", "Maya", "Hana"],
+    "Non-binary": ["Amani", "Rami", "Adel", "Elias", "Kamal"],
   },
   "Native Hawaiian or Other Pacific Islander": {
-    Male: ["Koa" , "Mana", "Tama", "Kale", "Tui"],
-    Female: ["Moana" , "Nalani", "Kiana", "Kalani", "Anela"],
-    "Non-binary": ["Noe", "Kai", "Mana", "Tala", "Lani"]
-  }
+    Male: ["Koa", "Mana", "Tama", "Kale", "Tui"],
+    Female: ["Moana", "Nalani", "Kiana", "Kalani", "Anela"],
+    "Non-binary": ["Noe", "Kai", "Mana", "Tala", "Lani"],
+  },
 };
 
 export const asianNamesByEthnicity: NameGroups = {
@@ -104,5 +104,5 @@ export const asianNamesByEthnicity: NameGroups = {
     Male: ["Jason", "David", "Lian", "Brian", "Kai", "Chen"],
     Female: ["Shopia", "Michelle", "Amy", "Jessica", "Linda", "Ashley"],
     "Non-binary": ["Chen", "Yun", "Tian", "Liang", "Hui", "Ming"],
-  }
+  },
 };

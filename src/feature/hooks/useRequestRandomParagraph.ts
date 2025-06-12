@@ -19,7 +19,15 @@ export const useRequestRandomParagraph = () => {
       ethnicity: string;
       gender: string;
       accessToken?: AccessToken;
-    }) => requestRandomParagraph(interest, minAtos, maxAtos, ethnicity, gender, accessToken),
+    }) =>
+      requestRandomParagraph(
+        interest,
+        minAtos,
+        maxAtos,
+        ethnicity,
+        gender,
+        accessToken,
+      ),
     onSuccess: (data) => {
       toast.success("Paragraph Fetched Successfully");
       return data;

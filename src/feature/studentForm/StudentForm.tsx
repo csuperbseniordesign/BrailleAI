@@ -261,7 +261,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                               <SelectItem value={ethnicSubgroup} key={index}>
                                 {ethnicSubgroup}
                               </SelectItem>
-                            )
+                            ),
                           )}
                         </SelectContent>
                       </Select>

@@ -47,7 +47,11 @@ export const looseStudentFormSchema = z
     }),
     otherLanguage: z.string().optional(),
     country: z.string().optional(),
-    vision: z.enum(vision).optional(),
+    vision: z.enum(vision, {
+      errorMap: () => ({
+        message: "Please select your current vision status.",
+      }),
+    }),
     preferredMedia: z.enum(preferredMedia, {
       errorMap: () => ({
         message: "Please select your preferred learning media.",

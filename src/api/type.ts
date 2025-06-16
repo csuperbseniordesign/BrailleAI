@@ -62,14 +62,24 @@ export interface ParagraphQuestions {
 }
 
 export interface initialUserData {
+  code_id: string;
   gradeLevel: string;
   readingLevel: string;
-  gender: string;
   ethnicity: string;
-  ethnicSubgroup?: string;
+  gender: string;
   familyBackground: string;
   birthPlace: string;
   region: string;
   primaryInterest: string;
-  birthYear: string;
+  languages: string;
+  country: string;
+  vision: string;
+  preferredMedia: string;
+  appAccess: string;
+  digitalTextAccess: string;
+  year: string;
+}
+
+export interface initialUserDataResponse {
+  id: string;
 }

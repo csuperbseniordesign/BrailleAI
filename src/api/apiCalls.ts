@@ -2,6 +2,8 @@ import { deepseekRequest, request } from "./base";
 import {
   AccessToken,
   DeepSeekResponse,
+  initialUserData,
+  initialUserDataResponse,
   ParagraphQuestions,
   ParagraphResponse,
 } from "./type";
@@ -61,6 +63,16 @@ export async function requestParagraph(
   const response = await request<ParagraphQuestions>({
     url: `/paragraph/${paragraphId}/${selectedName}`,
     method: "GET",
+  });
+
+  return response;
+}
+
+export async function createStudentData(studentData: initialUserData) {
+  const response = await request<initialUserDataResponse>({
+    url: `/students/`,
+    method: "POST",
+    data: studentData,
   });
 
   return response;

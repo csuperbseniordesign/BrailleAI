@@ -17,12 +17,14 @@ import { getNamesByEthnicityAndGender } from "@/util/preselectNames";
 import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 import { createContext } from "@/util/createContext";
 import { useNavigate } from "react-router-dom";
+import { useCreateInitialStudentData } from "@/feature/hooks/useCreateInitialStudentData";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
+  const { mutate: createStudentData } = useCreateInitialStudentData();
 
   const handleSubmit = async (data: FormValues) => {
     console.log("submit");
@@ -35,6 +37,14 @@ const HomePage = () => {
     const readingLevel = data.readingLevel;
     const familyBackground = data.familyBackground;
     const birthPlace = data.birthPlace;
+    const region = data.region;
+    const languages = data.languages;
+    const country = data.country;
+    const vision = data.vision;
+    const preferredMedia = data.preferredMedia;
+    const appAccess = data.appAccess;
+    const digitalTextAccess = data.digitalTextAccess;
+    const birthYear = data.year;
 
     // convert grade level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -49,6 +59,40 @@ const HomePage = () => {
     console.log(familyBackground);
     console.log(birthPlace);
     console.log(minAtos, maxAtos);
+
+    createStudentData(
+      {
+        studentData: {
+          code_id: "1234",
+          gradeLevel: gradeLevel,
+          readingLevel: readingLevel,
+          ethnicity: ethnicityOptions,
+          gender: gender,
+          familyBackground: familyBackground,
+          birthPlace: birthPlace,
+          region: region,
+          primaryInterest: primaryInterest,
+          languages: languages,
+          country: country ? country : "United States",
+          vision: vision,
+          preferredMedia: preferredMedia,
+          appAccess: appAccess,
+          digitalTextAccess: digitalTextAccess,
+          year: birthYear,
+        },
+      },
+      {
+        onSuccess: (studentData) => {
+          if (!studentData) {
+            return;
+          }
+
+          const student_id = studentData.id;
+
+          sessionStorage.setItem("studentId", student_id);
+        },
+      },
+    );
 
     // Request random paragraph using random paragraph api
     requestRandomParagraph(
@@ -74,7 +118,7 @@ const HomePage = () => {
           const selected_name = getNamesByEthnicityAndGender(
             ethnicityOptions,
             gender,
-            ethnicSubgroup ? ethnicSubgroup : "white"
+            ethnicSubgroup ? ethnicSubgroup : "white",
           );
 
           // creating instruction for the model when editing paragraph
@@ -88,7 +132,7 @@ const HomePage = () => {
 
           navigate("/response");
         },
-      }
+      },
     );
   };
 
@@ -99,6 +143,7 @@ const HomePage = () => {
     sessionStorage.removeItem("paragraphId");
     sessionStorage.removeItem("name");
     sessionStorage.removeItem("modifiedParagraph");
+    sessionStorage.removeItem("studentId");
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

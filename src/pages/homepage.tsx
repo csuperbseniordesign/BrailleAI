@@ -45,8 +45,9 @@ const HomePage = () => {
     const appAccess = data.appAccess;
     const digitalTextAccess = data.digitalTextAccess;
     const birthYear = data.year;
+    const timeStamp = Date.now().toString();
 
-    // convert grade level into ATOS range for paragraph request
+    // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
 
     // temporarily for test deployment
@@ -79,6 +80,7 @@ const HomePage = () => {
           appAccess: appAccess,
           digitalTextAccess: digitalTextAccess,
           year: birthYear,
+          timeStamp: timeStamp,
         },
       },
       {
@@ -91,7 +93,7 @@ const HomePage = () => {
 
           sessionStorage.setItem("studentId", student_id);
         },
-      },
+      }
     );
 
     // Request random paragraph using random paragraph api
@@ -118,7 +120,7 @@ const HomePage = () => {
           const selected_name = getNamesByEthnicityAndGender(
             ethnicityOptions,
             gender,
-            ethnicSubgroup ? ethnicSubgroup : "white",
+            ethnicSubgroup ? ethnicSubgroup : "white"
           );
 
           // creating instruction for the model when editing paragraph
@@ -132,7 +134,7 @@ const HomePage = () => {
 
           navigate("/response");
         },
-      },
+      }
     );
   };
 
@@ -144,6 +146,7 @@ const HomePage = () => {
     sessionStorage.removeItem("name");
     sessionStorage.removeItem("modifiedParagraph");
     sessionStorage.removeItem("studentId");
+    sessionStorage.removeItem("readingTime");
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

@@ -36,7 +36,7 @@ export const namesByEthnicityAndGender: NameGroups = {
   },
 
   "American Indian or Alaska Native": {
-    Male: ["Dakota", "Logan", "Lance", "Hunter", "Shawn"],
+    Male: ["Dakota", "Logan", "Lance", "Hunter"],
     Female: ["Autumn", "Savannah", "Maya", "Destiny", "Sky"],
     "Non-binary": ["Dakota", "Ash", "River", "Sky", "Awan"],
   },

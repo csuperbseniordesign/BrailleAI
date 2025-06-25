@@ -45,19 +45,23 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
-      // gradeLevel: gradeLevelOptions[0],
-      // readingLevel: gradeLevelOptions[0],
-      // ethnicity: ethnicityOptions[0],
-      // ethnicSubgroup: ethnicSubgroupOptions[0],
-      // gender: genderOptions[0],
-      // birthPlace: birthPlace[0],
-      // region: regionOptions[1],
-      year: "",
+      gradeLevel: gradeLevelOptions[0],
+      readingLevel: gradeLevelOptions[0],
+      ethnicity: ethnicityOptions[0],
+      ethnicSubgroup: ethnicSubgroupOptions[0],
+      gender: genderOptions[0],
+      birthPlace: birthPlace[0],
+      region: regionOptions[1],
+      year: "2017",
       country: "",
+      languages: languages[1],
       otherLanguage: "",
-      // primaryInterest: primaryInterestOptions[0],
-      // familyBackground: familyBackgroundOptions[0],
-      // languages: languages[0],
+      primaryInterest: primaryInterestOptions[0],
+      familyBackground: familyBackgroundOptions[0],
+      vision: vision[0],
+      preferredMedia: preferredMedia[0],
+      appAccess: appAccess[0],
+      digitalTextAccess: digitalTextAccess[1],
       otherAppAccess: "",
       otherDigitalAccess: "",
     },
@@ -261,7 +265,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                               <SelectItem value={ethnicSubgroup} key={index}>
                                 {ethnicSubgroup}
                               </SelectItem>
-                            ),
+                            )
                           )}
                         </SelectContent>
                       </Select>

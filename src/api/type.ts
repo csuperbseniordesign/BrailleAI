@@ -78,6 +78,7 @@ export interface initialUserData {
   appAccess: string;
   digitalTextAccess: string;
   year: string;
+  timeStamp: string;
 }
 
 export interface initialUserDataResponse {

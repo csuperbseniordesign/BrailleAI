@@ -93,7 +93,7 @@ const HomePage = () => {
 
           sessionStorage.setItem("studentId", student_id);
         },
-      }
+      },
     );
 
     // Request random paragraph using random paragraph api
@@ -120,7 +120,7 @@ const HomePage = () => {
           const selected_name = getNamesByEthnicityAndGender(
             ethnicityOptions,
             gender,
-            ethnicSubgroup ? ethnicSubgroup : "white"
+            ethnicSubgroup ? ethnicSubgroup : "white",
           );
 
           // creating instruction for the model when editing paragraph
@@ -134,7 +134,7 @@ const HomePage = () => {
 
           navigate("/response");
         },
-      }
+      },
     );
   };
 

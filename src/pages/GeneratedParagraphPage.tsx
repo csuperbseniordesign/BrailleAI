@@ -51,7 +51,7 @@ const GeneratedParagraphPage = () => {
 
   const { data: responseData, isFetching: fetching } = useGenerateResponse(
     context!,
-    paragraph!
+    paragraph!,
   );
 
   // console.log(responseData);
@@ -61,7 +61,7 @@ const GeneratedParagraphPage = () => {
       "modifiedParagraph",
       responseData.choices[0].message.content
         ?.replace(/<think>.*?<\/think>/gs, "")
-        .trim()
+        .trim(),
     );
   }
 

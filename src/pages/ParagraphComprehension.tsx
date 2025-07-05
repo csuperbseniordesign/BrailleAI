@@ -41,6 +41,7 @@ const ParagraphComprehension = () => {
 
     console.log("User answers:", data);
     console.log("Score:", score);
+    sessionStorage.setItem("comprehension_score", score.toString());
     navigate("/cultural-questionaire");
   };
 

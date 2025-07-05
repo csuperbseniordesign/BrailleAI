@@ -81,6 +81,38 @@ export interface initialUserData {
   timeStamp: string;
 }
 
+export interface finalUserData {
+  question1: string;
+  question2: string;
+  question3: string;
+  characterQuestion1: string;
+  characterQuestion2: string;
+  characterQuestion3: string;
+  characterQuestion4: string;
+  experienceQuestion1: string;
+  endingQuestion1: string;
+  endingQuestion2: string;
+  endingQuestion3: string;
+  endingQuestion4: string;
+  blank: string;
+  teacher_question1: string;
+  teacher_question2: string;
+  teacher_question3: string;
+  teacher_question4: string;
+  teacher_question5: string;
+  teacher_question6: string;
+  teacher_question7: string;
+  teacher_blank: string;
+  comprehension_score: number;
+  timeInSeconds: number;
+  modified_paragraph_id: number;
+  cr_avg: number;
+}
+
+export interface finalUserDataResponse {
+  id: string;
+}
+
 export interface initialUserDataResponse {
   id: string;
 }

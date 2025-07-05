@@ -20,6 +20,33 @@ const CulturalQuestionaire = () => {
   const onSubmit = (data: FormValues) => {
     navigate("/teacher-survey");
     console.log(data);
+    const question1 = data.question1;
+    const question2 = data.question2;
+    const question3 = data.question3;
+    const characterQuestion1 = data.characterQuestion1;
+    const characterQuestion2 = data.characterQuestion2;
+    const characterQuestion3 = data.characterQuestion3;
+    const characterQuestion4 = data.characterQuestion4;
+    const experienceQuestion1 = data.experienceQuestion1;
+    const endingQuestion1 = data.endingQuestion1;
+    const endingQuestion2 = data.endingQuestion2;
+    const endingQuestion3 = data.endingQuestion3;
+    const endingQuestion4 = data.endingQuestion4;
+    const blank = data.blank;
+
+    sessionStorage.setItem("question1", question1);
+    sessionStorage.setItem("question2", question2);
+    sessionStorage.setItem("question3", question3);
+    sessionStorage.setItem("characterQuestion1", characterQuestion1);
+    sessionStorage.setItem("characterQuestion2", characterQuestion2);
+    sessionStorage.setItem("characterQuestion3", characterQuestion3);
+    sessionStorage.setItem("characterQuestion4", characterQuestion4);
+    sessionStorage.setItem("experienceQuestion1", experienceQuestion1);
+    sessionStorage.setItem("endingQuestion1", endingQuestion1);
+    sessionStorage.setItem("endingQuestion2", endingQuestion2);
+    sessionStorage.setItem("endingQuestion3", endingQuestion3);
+    sessionStorage.setItem("endingQuestion4", endingQuestion4);
+    sessionStorage.setItem("blank", blank ? blank : "");
 
     // make api call to post the student data here
   };

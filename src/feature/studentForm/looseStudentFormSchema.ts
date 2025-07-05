@@ -17,6 +17,9 @@ import {
 
 export const looseStudentFormSchema = z
   .object({
+    code_id: z.string({
+      errorMap: () => ({ message: "Please enter your birth year." }),
+    }),
     gradeLevel: z.enum(gradeLevelOptions, {
       errorMap: () => ({ message: "Please select your grade level." }),
     }),

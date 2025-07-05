@@ -45,6 +45,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
+      code_id: "1234",
       gradeLevel: gradeLevelOptions[0],
       readingLevel: gradeLevelOptions[0],
       ethnicity: ethnicityOptions[0],
@@ -72,6 +73,28 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   return (
     <F.Root formMethods={formMethods}>
       <div className="space-y-3">
+        <div>
+          <h4 className="text-lg py-[5px]">Please enter your ID</h4>
+          <F.Field
+            name="code_id"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  {
+                    <Input
+                      value={field.value}
+                      onChange={field.onChange}
+                      type="string"
+                    />
+                  }
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
         <div>
           <h4 className="text-lg py-[5px]">What grade are you in now?</h4>
           <F.Field

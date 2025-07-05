@@ -29,6 +29,7 @@ const HomePage = () => {
   const handleSubmit = async (data: FormValues) => {
     console.log("submit");
     // Retrieve necesary data from the form
+    const code_id = data.code_id;
     const primaryInterest = data.primaryInterest;
     const gradeLevel = data.gradeLevel;
     const ethnicityOptions = data.ethnicity;
@@ -45,26 +46,50 @@ const HomePage = () => {
     const appAccess = data.appAccess;
     const digitalTextAccess = data.digitalTextAccess;
     const birthYear = data.year;
-    const timeStamp = Date.now().toString();
+    const timeStamp = new Date()
+      .toLocaleString("sv-SE", {
+        timeZone: "America/Los_Angeles",
+        hour12: false,
+      })
+      .replace(" ", "T");
 
     // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
 
     // temporarily for test deployment
-    console.log(primaryInterest);
-    console.log(gradeLevel);
-    console.log(ethnicityOptions);
-    console.log(gender);
-    console.log(ethnicSubgroup);
-    console.log(readingLevel);
-    console.log(familyBackground);
-    console.log(birthPlace);
-    console.log(minAtos, maxAtos);
+    // console.log(primaryInterest);
+    // console.log(gradeLevel);
+    // console.log(ethnicityOptions);
+    // console.log(gender);
+    // console.log(ethnicSubgroup);
+    // console.log(readingLevel);
+    // console.log(familyBackground);
+    // console.log(birthPlace);
+    // console.log(minAtos, maxAtos);
+    console.log({
+      code_id: code_id,
+      gradeLevel: gradeLevel,
+      readingLevel: readingLevel,
+      ethnicity: ethnicityOptions,
+      gender: gender,
+      familyBackground: familyBackground,
+      birthPlace: birthPlace,
+      region: region,
+      primaryInterest: primaryInterest,
+      languages: languages,
+      country: country ? country : "United States",
+      vision: vision,
+      preferredMedia: preferredMedia,
+      appAccess: appAccess,
+      digitalTextAccess: digitalTextAccess,
+      year: birthYear,
+      timeStamp: timeStamp,
+    });
 
     createStudentData(
       {
         studentData: {
-          code_id: "1234",
+          code_id: code_id,
           gradeLevel: gradeLevel,
           readingLevel: readingLevel,
           ethnicity: ethnicityOptions,
@@ -88,9 +113,7 @@ const HomePage = () => {
           if (!studentData) {
             return;
           }
-
-          const student_id = studentData.id;
-
+          const student_id = String(studentData);
           sessionStorage.setItem("studentId", student_id);
         },
       },
@@ -140,13 +163,28 @@ const HomePage = () => {
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    sessionStorage.removeItem("context");
-    sessionStorage.removeItem("paragraph");
-    sessionStorage.removeItem("paragraphId");
-    sessionStorage.removeItem("name");
-    sessionStorage.removeItem("modifiedParagraph");
-    sessionStorage.removeItem("studentId");
-    sessionStorage.removeItem("readingTime");
+    // sessionStorage.removeItem("context");
+    // sessionStorage.removeItem("paragraph");
+    // sessionStorage.removeItem("paragraphId");
+    // sessionStorage.removeItem("name");
+    // sessionStorage.removeItem("modifiedParagraph");
+    // sessionStorage.removeItem("studentId");
+    // sessionStorage.removeItem("readingTime");
+    // sessionStorage.removeItem("question1");
+    // sessionStorage.removeItem("question2");
+    // sessionStorage.removeItem("question3");
+    // sessionStorage.removeItem("characterQuestion1");
+    // sessionStorage.removeItem("characterQuestion2");
+    // sessionStorage.removeItem("characterQuestion3");
+    // sessionStorage.removeItem("characterQuestion4");
+    // sessionStorage.removeItem("experienceQuestion1");
+    // sessionStorage.removeItem("endingQuestion1");
+    // sessionStorage.removeItem("endingQuestion2");
+    // sessionStorage.removeItem("endingQuestion3");
+    // sessionStorage.removeItem("endingQuestion4");
+    // sessionStorage.removeItem("blank");
+    // sessionStorage.removeItem("teacher_question1");
+    sessionStorage.clear();
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

@@ -2,6 +2,8 @@ import { deepseekRequest, request } from "./base";
 import {
   AccessToken,
   DeepSeekResponse,
+  finalUserData,
+  finalUserDataResponse,
   initialUserData,
   initialUserDataResponse,
   ParagraphQuestions,
@@ -72,6 +74,19 @@ export async function createStudentData(studentData: initialUserData) {
   const response = await request<initialUserDataResponse>({
     url: `/students/`,
     method: "POST",
+    data: studentData,
+  });
+
+  return response;
+}
+
+export async function addFinalStudentData(
+  studentId: number,
+  studentData: finalUserData,
+) {
+  const response = await request<finalUserDataResponse>({
+    url: `/students/${studentId}`,
+    method: "PUT",
     data: studentData,
   });
 

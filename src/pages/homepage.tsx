@@ -52,6 +52,8 @@ const HomePage = () => {
         hour12: false,
       })
       .replace(" ", "T");
+    //store code-id to retrieve for future endpoints
+    sessionStorage.setItem("student-code-id", code_id);
 
     // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -107,6 +109,7 @@ const HomePage = () => {
           year: birthYear,
           timeStamp: timeStamp,
         },
+        accessToken: code_id,
       },
       {
         onSuccess: (studentData) => {
@@ -114,76 +117,60 @@ const HomePage = () => {
             return;
           }
           const student_id = String(studentData);
+          console.log(student_id);
           sessionStorage.setItem("studentId", student_id);
+
+          requestRandomParagraph(
+            {
+              interest: primaryInterest,
+              minAtos: minAtos,
+              maxAtos: maxAtos,
+              ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
+              gender: gender,
+              accessToken: code_id,
+            },
+            {
+              // redirect to response page if paragraph is received
+              onSuccess: (paragraphData) => {
+                if (!paragraphData) {
+                  return;
+                }
+
+                // clean paragraph text to make it readable
+                const paragraph = cleanText(paragraphData!.data.paragraph);
+
+                // get preselected name based on ethnicity and gender
+                const selected_name = getNamesByEthnicityAndGender(
+                  ethnicityOptions,
+                  gender,
+                  ethnicSubgroup ? ethnicSubgroup : "white",
+                );
+
+                // creating instruction for the model when editing paragraph
+                const context = createContext(selected_name, gender);
+
+                // temporarily store user data in session storage, later stored in database after questionaire
+                sessionStorage.setItem("context", context);
+                sessionStorage.setItem("name", selected_name);
+                sessionStorage.setItem("paragraph", paragraph);
+                sessionStorage.setItem(
+                  "paragraphId",
+                  "" + paragraphData!.data.id,
+                );
+
+                navigate("/response");
+              },
+            },
+          );
         },
       },
     );
 
     // Request random paragraph using random paragraph api
-    requestRandomParagraph(
-      {
-        interest: primaryInterest,
-        minAtos: minAtos,
-        maxAtos: maxAtos,
-        ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
-        gender: gender,
-        accessToken: "accessToken",
-      },
-      {
-        // redirect to response page if paragraph is received
-        onSuccess: (paragraphData) => {
-          if (!paragraphData) {
-            return;
-          }
-
-          // clean paragraph text to make it readable
-          const paragraph = cleanText(paragraphData!.data.paragraph);
-
-          // get preselected name based on ethnicity and gender
-          const selected_name = getNamesByEthnicityAndGender(
-            ethnicityOptions,
-            gender,
-            ethnicSubgroup ? ethnicSubgroup : "white",
-          );
-
-          // creating instruction for the model when editing paragraph
-          const context = createContext(selected_name, gender);
-
-          // temporarily store user data in session storage, later stored in database after questionaire
-          sessionStorage.setItem("context", context);
-          sessionStorage.setItem("name", selected_name);
-          sessionStorage.setItem("paragraph", paragraph);
-          sessionStorage.setItem("paragraphId", "" + paragraphData!.data.id);
-
-          navigate("/response");
-        },
-      },
-    );
   };
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    // sessionStorage.removeItem("context");
-    // sessionStorage.removeItem("paragraph");
-    // sessionStorage.removeItem("paragraphId");
-    // sessionStorage.removeItem("name");
-    // sessionStorage.removeItem("modifiedParagraph");
-    // sessionStorage.removeItem("studentId");
-    // sessionStorage.removeItem("readingTime");
-    // sessionStorage.removeItem("question1");
-    // sessionStorage.removeItem("question2");
-    // sessionStorage.removeItem("question3");
-    // sessionStorage.removeItem("characterQuestion1");
-    // sessionStorage.removeItem("characterQuestion2");
-    // sessionStorage.removeItem("characterQuestion3");
-    // sessionStorage.removeItem("characterQuestion4");
-    // sessionStorage.removeItem("experienceQuestion1");
-    // sessionStorage.removeItem("endingQuestion1");
-    // sessionStorage.removeItem("endingQuestion2");
-    // sessionStorage.removeItem("endingQuestion3");
-    // sessionStorage.removeItem("endingQuestion4");
-    // sessionStorage.removeItem("blank");
-    // sessionStorage.removeItem("teacher_question1");
     sessionStorage.clear();
 
     queryClient.removeQueries({

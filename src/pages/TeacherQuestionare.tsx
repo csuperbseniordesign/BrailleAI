@@ -56,6 +56,8 @@ const TeacherQuestionare = () => {
     const modified_paragraph_id = 0;
     const cr_avg = 1.0;
 
+    const code_id = sessionStorage.getItem("student-code-id") || "";
+
     addFinalStudentData(
       {
         studentId,
@@ -86,6 +88,7 @@ const TeacherQuestionare = () => {
           modified_paragraph_id: modified_paragraph_id,
           cr_avg: cr_avg,
         },
+        accessToken: code_id,
       },
       {
         onSuccess: (studentData) => {

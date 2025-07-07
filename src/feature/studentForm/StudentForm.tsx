@@ -45,7 +45,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
     defaultValues: {
-      code_id: "1234",
+      code_id: "Z164123",
       gradeLevel: gradeLevelOptions[0],
       readingLevel: gradeLevelOptions[0],
       ethnicity: ethnicityOptions[0],

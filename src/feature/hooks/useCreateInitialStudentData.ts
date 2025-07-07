@@ -5,8 +5,13 @@ import toast from "react-hot-toast";
 
 export const useCreateInitialStudentData = () => {
   return useMutation({
-    mutationFn: ({ studentData }: { studentData: initialUserData }) =>
-      createStudentData(studentData),
+    mutationFn: ({
+      studentData,
+      accessToken,
+    }: {
+      studentData: initialUserData;
+      accessToken: string;
+    }) => createStudentData(studentData, accessToken),
     onSuccess: (data) => {
       toast.success("Created Student Data Successfully");
       return data;

@@ -18,7 +18,7 @@ export const useRequestRandomParagraph = () => {
       maxAtos: number;
       ethnicity: string;
       gender: string;
-      accessToken?: AccessToken;
+      accessToken: AccessToken;
     }) =>
       requestRandomParagraph(
         interest,

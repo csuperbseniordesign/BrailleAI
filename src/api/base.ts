@@ -18,7 +18,7 @@ export async function request<T = any>(
   const headers = config.headers || {};
 
   if (config.accessToken) {
-    headers["x-token-acess"] = config.accessToken;
+    headers["student-code-id"] = config.accessToken;
   }
 
   try {

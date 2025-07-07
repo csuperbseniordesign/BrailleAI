@@ -12,6 +12,7 @@ type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const selectedName = sessionStorage.getItem("name");
+  const code_id = sessionStorage.getItem("student-code-id");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const ParagraphComprehension = () => {
   const { data: paragraphData } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
+    code_id,
   );
 
   const questionList = paragraphData ? paragraphData.questions : [];

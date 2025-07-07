@@ -7,10 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 export function useRequestParagraphQuestions(
   paragraphId: string,
   selectedName: string,
+  accessToken: string,
 ) {
   const query = useQuery<ParagraphQuestions>({
     queryKey: [QueryKeys.PARAGRAPH],
-    queryFn: () => requestParagraph(paragraphId, selectedName),
+    queryFn: () => requestParagraph(paragraphId, selectedName, accessToken),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

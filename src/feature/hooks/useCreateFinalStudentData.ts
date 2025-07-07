@@ -8,10 +8,12 @@ export const useCreateFinalStudentData = () => {
     mutationFn: ({
       studentId,
       studentData,
+      accessToken,
     }: {
       studentId: number;
       studentData: finalUserData;
-    }) => addFinalStudentData(studentId, studentData),
+      accessToken: string;
+    }) => addFinalStudentData(studentId, studentData, accessToken),
     onSuccess: (data) => {
       toast.success("Added Student Data Successfully");
       return data;

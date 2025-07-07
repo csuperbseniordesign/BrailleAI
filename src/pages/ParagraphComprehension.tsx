@@ -12,7 +12,7 @@ type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const selectedName = sessionStorage.getItem("name");
-  const code_id = sessionStorage.getItem("student-code-id");
+  const code_id = String(sessionStorage.getItem("student-code-id"));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,14 +52,28 @@ const ParagraphComprehension = () => {
   }
 
   return (
-    <div className="flex justify-center min-h-screen py-[50px]">
-      <div className="max-w-screen-md">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-bold text-3xl text-center">
-              Paragraph Comprehension Questionaire
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="w-full max-w-4xl">
+        <Card className="border-2 border-gray-300">
+          <CardHeader className="text-center pb-8">
+            <CardTitle className="text-4xl font-bold text-black mb-4">
+              Paragraph Comprehension
             </CardTitle>
           </CardHeader>
+
+          <div className="px-8 pb-6">
+            {/* Instructions */}
+            <div className="bg-gray-100 border-2 border-gray-400 rounded p-6 mb-8">
+              <h2 className="text-3xl font-bold text-black mb-4">
+                Instructions
+              </h2>
+              <div className="space-y-3 text-2xl text-black">
+                <p>Now we will ask some questions about what you just read.</p>
+                <p>When you're ready, choose the answer you think is best!</p>
+              </div>
+            </div>
+          </div>
+
           <CardContent>
             <ComprehensionQuestionaireForm
               onSubmit={onSubmit}

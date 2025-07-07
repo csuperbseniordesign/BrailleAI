@@ -158,7 +158,7 @@ const HomePage = () => {
                   "" + paragraphData!.data.id,
                 );
 
-                navigate("/response");
+                navigate("/sample");
               },
             },
           );

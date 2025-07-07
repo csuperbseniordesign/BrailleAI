@@ -35,8 +35,11 @@ const ComprehensionQuestionaireForm = ({
     <F.Root formMethods={formMethods}>
       <div className="space-y-5">
         {formattedPargraphQuestions?.map((questions, index) => (
-          <div key={index}>
-            <div className="text-2xl font-bold">
+          <div
+            key={index}
+            className="mb-8 p-6 border-2 border-gray-300 rounded-md bg-white shadow-sm"
+          >
+            <div className="text-2xl font-bold mb-4 text-gray-900">
               {questions ? (
                 questions.question
               ) : (
@@ -65,7 +68,7 @@ const ComprehensionQuestionaireForm = ({
                                 value={option}
                                 id={"" + index}
                               />
-                              <Label className="text-lg" htmlFor={"" + index}>
+                              <Label className="text-xl" htmlFor={"" + index}>
                                 {option}
                               </Label>
                             </div>
@@ -83,7 +86,13 @@ const ComprehensionQuestionaireForm = ({
         ))}
       </div>
       <div className="flex justify-end py-[15px]">
-        <Button onClick={handleSubmit}>Next {">"}</Button>
+        <Button
+          onClick={handleSubmit}
+          size="lg"
+          className="text-white text-xl font-bold py-4 px-8 h-auto"
+        >
+          Next {">"}
+        </Button>
       </div>
     </F.Root>
   );

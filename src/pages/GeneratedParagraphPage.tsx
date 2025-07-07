@@ -19,6 +19,7 @@ const GeneratedParagraphPage = () => {
 
   const [startDisabled, setStartDisabled] = useState(false);
   const [stopDisabled, setStopDisabled] = useState(true);
+  const [canProceed, setCanProceed] = useState(false);
   const startTime = useRef<number | null>(null);
   const elapsedTime = useRef<number>(0);
 
@@ -38,6 +39,7 @@ const GeneratedParagraphPage = () => {
       sessionStorage.setItem("readTime", timeInSec.toString());
       console.log("Time (seconds):", timeInSec);
       setStopDisabled(true);
+      setCanProceed(true);
     }
   };
 
@@ -71,53 +73,61 @@ const GeneratedParagraphPage = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center h-[90vh]">
-        <div className="max-w-screen-md">
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-bold text-3xl">
-                <div className="flex space-x-6 space-y-3">
-                  <h2>AI Modified Paragraph</h2>
-                </div>
+      <div className="min-h-screen bg-white flex items-center justify-center p-6">
+        <div className="w-full max-w-4xl">
+          <Card className="border-2 border-gray-300">
+            <CardHeader className="text-center pb-8">
+              <CardTitle className="text-4xl font-bold text-black mb-4">
+                AI Modified Paragraph
               </CardTitle>
             </CardHeader>
-            <div className="px-6 py-6">
-              <Button
-                onClick={handleStart}
-                disabled={startDisabled}
-                size="lg"
-                className="text-2xl"
-              >
-                Start
-              </Button>
-            </div>
-            <CardContent className="w-[800px]">
-              {responseData != null && !fetching ? (
-                <p className="font-bold text-lg break-words w-[700px]">
-                  {responseData?.choices[0].message.content.trim()}
-                </p>
-              ) : (
-                <Skeleton
-                  className="h-[250px] w-full rounded-xl w-[700px]"
-                  style={{ backgroundColor: "grey" }}
-                />
-              )}
-            </CardContent>
-            <div className="px-6 py-3">
-              <Button
-                onClick={handleStop}
-                disabled={stopDisabled}
-                size="lg"
-                className="text-2xl"
-              >
-                Stop
-              </Button>
-            </div>
-            <CardFooter>
-              <div className="flex justify-end w-full gap-x-4 mt-[25px]">
+
+            <CardContent className="px-8 py-8">
+              {/* Start Button */}
+              <div className="mb-8">
                 <Button
-                  disabled={fetching}
+                  onClick={handleStart}
+                  disabled={startDisabled}
+                  size="lg"
+                  className="bg-green-700 hover:bg-green-800 text-white text-3xl font-bold py-4 px-8 h-auto"
+                >
+                  Start
+                </Button>
+              </div>
+
+              {/* Reading Paragraph */}
+              <div className="bg-gray-50 border-2 border-gray-400 rounded p-8 mb-8">
+                {responseData != null && !fetching ? (
+                  <p className="text-2xl leading-loose text-black text-center font-medium">
+                    {responseData?.choices[0].message.content.trim()}
+                  </p>
+                ) : (
+                  <Skeleton
+                    className="h-[250px] w-full rounded-xl w-[700px]"
+                    style={{ backgroundColor: "grey" }}
+                  />
+                )}
+              </div>
+
+              {/* Stop Button */}
+              <div className="mb-6">
+                <Button
+                  onClick={handleStop}
+                  disabled={stopDisabled}
+                  size="lg"
+                  className="bg-red-700 hover:bg-red-800 text-white text-3xl font-bold py-4 px-8 h-auto"
+                >
+                  Stop
+                </Button>
+              </div>
+            </CardContent>
+            <CardFooter className="px-8 pb-8">
+              <div className="flex justify-end w-full">
+                <Button
+                  disabled={fetching || !canProceed}
                   onClick={() => navigate("/comprehension")}
+                  size="lg"
+                  className="disabled:bg-gray-400 text-white text-xl font-bold py-4 px-8 h-auto"
                 >
                   Next {" >"}
                 </Button>

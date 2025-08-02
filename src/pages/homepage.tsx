@@ -18,6 +18,7 @@ import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParag
 import { createContext } from "@/util/createContext";
 import { useNavigate } from "react-router-dom";
 import { useCreateInitialStudentData } from "@/feature/hooks/useCreateInitialStudentData";
+import IrbFooter from "@/components/IrbFooter";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -143,7 +144,7 @@ const HomePage = () => {
                 const selected_name = getNamesByEthnicityAndGender(
                   ethnicityOptions,
                   gender,
-                  ethnicSubgroup ? ethnicSubgroup : "white",
+                  ethnicSubgroup ? ethnicSubgroup : "white"
                 );
 
                 // creating instruction for the model when editing paragraph
@@ -155,15 +156,15 @@ const HomePage = () => {
                 sessionStorage.setItem("paragraph", paragraph);
                 sessionStorage.setItem(
                   "paragraphId",
-                  "" + paragraphData!.data.id,
+                  "" + paragraphData!.data.id
                 );
 
                 navigate("/sample");
               },
-            },
+            }
           );
         },
-      },
+      }
     );
 
     // Request random paragraph using random paragraph api
@@ -260,6 +261,7 @@ const HomePage = () => {
           </Card>
         </div>
       </div>
+      <IrbFooter />
     </div>
   );
 };

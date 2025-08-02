@@ -154,7 +154,9 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         </div>
 
         <div>
-          <h4 className="text-lg py-[5px]">What year were you born?</h4>
+          <h4 className="text-lg py-[5px]">
+            What year were you born? Please type the year using the keyboard.
+          </h4>
           <F.Field
             name="year"
             control={formMethods.control}
@@ -288,7 +290,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
                               <SelectItem value={ethnicSubgroup} key={index}>
                                 {ethnicSubgroup}
                               </SelectItem>
-                            ),
+                            )
                           )}
                         </SelectContent>
                       </Select>
@@ -645,8 +647,14 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             )}
           />
         </div>
-
-        <Button onClick={handleFormSubmit}>Submit</Button>
+        <div className="flex justify-end w-full">
+          <Button
+            onClick={handleFormSubmit}
+            className="disabled:bg-gray-400 text-white text-xl font-bold py-4 px-8 h-auto"
+          >
+            Submit
+          </Button>{" "}
+        </div>
       </div>
     </F.Root>
   );

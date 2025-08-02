@@ -144,7 +144,7 @@ const HomePage = () => {
                 const selected_name = getNamesByEthnicityAndGender(
                   ethnicityOptions,
                   gender,
-                  ethnicSubgroup ? ethnicSubgroup : "white"
+                  ethnicSubgroup ? ethnicSubgroup : "white",
                 );
 
                 // creating instruction for the model when editing paragraph
@@ -156,15 +156,15 @@ const HomePage = () => {
                 sessionStorage.setItem("paragraph", paragraph);
                 sessionStorage.setItem(
                   "paragraphId",
-                  "" + paragraphData!.data.id
+                  "" + paragraphData!.data.id,
                 );
 
                 navigate("/sample");
               },
-            }
+            },
           );
         },
-      }
+      },
     );
 
     // Request random paragraph using random paragraph api

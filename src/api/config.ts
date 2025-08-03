@@ -1,1 +1,1 @@
-export const baseUrl = "braille-ai-backend-production.up.railway.app";
+export const baseUrl = "https://braille-ai-backend-production.up.railway.app/";

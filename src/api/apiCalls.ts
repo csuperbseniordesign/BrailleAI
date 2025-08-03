@@ -83,7 +83,7 @@ export async function createStudentData(
   accessToken: string,
 ) {
   const response = await request<number>({
-    url: `${baseUrl}/students`,
+    url: `/students`,
     method: "POST",
     data: studentData,
     headers: {

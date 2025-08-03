@@ -8,6 +8,7 @@ import {
   ParagraphQuestions,
   ParagraphResponse,
 } from "./type";
+import { baseUrl } from "./config";
 
 export async function generateResponse(
   context: string,
@@ -82,7 +83,7 @@ export async function createStudentData(
   accessToken: string,
 ) {
   const response = await request<number>({
-    url: `/students`,
+    url: `${baseUrl}/students`,
     method: "POST",
     data: studentData,
     headers: {

@@ -8,7 +8,6 @@ import {
   ParagraphQuestions,
   ParagraphResponse,
 } from "./type";
-import { baseUrl } from "./config";
 
 export async function generateResponse(
   context: string,

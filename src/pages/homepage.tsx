@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ModeToggle } from "@/components/mode-toggle";
 import { useEffect } from "react";
 import { queryClient } from "@/config/queryClient";
 import { QueryKeys } from "@/config/queryKeys";
@@ -144,7 +143,7 @@ const HomePage = () => {
                 const selected_name = getNamesByEthnicityAndGender(
                   ethnicityOptions,
                   gender,
-                  ethnicSubgroup ? ethnicSubgroup : "white",
+                  ethnicSubgroup ? ethnicSubgroup : "white"
                 );
 
                 // creating instruction for the model when editing paragraph
@@ -156,15 +155,15 @@ const HomePage = () => {
                 sessionStorage.setItem("paragraph", paragraph);
                 sessionStorage.setItem(
                   "paragraphId",
-                  "" + paragraphData!.data.id,
+                  "" + paragraphData!.data.id
                 );
 
                 navigate("/sample");
               },
-            },
+            }
           );
         },
-      },
+      }
     );
 
     // Request random paragraph using random paragraph api
@@ -181,9 +180,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="flex justify-end py-[5px] px-[5px]">
-        <ModeToggle />
-      </div>
       <div className="flex justify-center items-center overflow-y-auto py-[25px]">
         <div className="max-w-screen-md">
           <Card>

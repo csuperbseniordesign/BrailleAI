@@ -1,6 +1,6 @@
 const IrbFooter = () => {
   return (
-    <footer className="bg-muted text-muted-foreground text-center text-sm px-6 py-4 border-t mt-8">
+    <footer className="bg-muted text-foreground text-center text-sm px-6 py-4 border-t mt-8">
       <p>
         THIS PROJECT HAS BEEN REVIEWED BY THE CALIFORNIA STATE UNIVERSITY, LOS
         ANGELES INSTITUTIONAL REVIEW BOARD FOR THE PROTECTION OF HUMAN SUBJECTS

@@ -10,6 +10,7 @@ import TeacherForm from "@/feature/teacherForm/teacherForm";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useCreateFinalStudentData } from "@/feature/hooks/useCreateFinalStudentData";
+import IrbFooter from "@/components/IrbFooter";
 
 type FormValues = z.infer<typeof looseTeacherFormSchema>;
 
@@ -50,7 +51,7 @@ const TeacherQuestionare = () => {
     const teacher_blank = data.blank || "";
 
     const comprehension_score = Number(
-      sessionStorage.getItem("comprehension_score") || 0,
+      sessionStorage.getItem("comprehension_score") || 0
     );
     const timeInSeconds = Number(sessionStorage.getItem("readingTime") || 0);
     const modified_paragraph_id = 0;
@@ -104,43 +105,51 @@ const TeacherQuestionare = () => {
             console.error("422 Validation error details:", error.response.data);
           }
         },
-      },
+      }
     );
 
     navigate("/complete");
   };
   return (
-    <div className="flex justify-center items-center overflow-y-auto max-h-90 py-[10px] w-full">
-      <div className="max-w-screen-md">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-bold text-3xl text-center">
-              Exit Questionnaire - Teacher
-            </CardTitle>
-            <CardDescription className="space-y-2 text-card-foreground">
-              <h1 className="text-xl font-bold py-[5px]">
-                Instructions for Teachers/Support Staff:
-              </h1>
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      {/* Main content area */}
+      <main className="flex-grow flex justify-center items-start overflow-y-auto py-4 px-4">
+        <div className="w-full max-w-screen-md">
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-3xl text-center">
+                Exit Questionnaire - Teacher
+              </CardTitle>
 
-              <p className="text-lg">
-                This exit questionnaire is designed to gather your feedback on
-                the reading passage the student just completed. Please consider
-                the student's experience with the passage and respond honestly
-                to each statement. Use the response options provided, and
-                remember to reflect on the passage's accessibility, cultural and
-                linguistic relevance, and engagement level for the student. If
-                you have any additional comments or observations, please share
-                them in the space provided.
-              </p>
+              <CardDescription className="space-y-2 text-card-foreground">
+                <h1 className="text-xl font-bold py-[5px]">
+                  Instructions for Teachers/Support Staff:
+                </h1>
 
-              <p className="text-lg">Thank you for your valuable input!</p>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TeacherForm onSubmit={onSubmit} />
-          </CardContent>
-        </Card>
-      </div>
+                <p className="text-lg">
+                  This exit questionnaire is designed to gather your feedback on
+                  the reading passage the student just completed. Please
+                  consider the student's experience with the passage and respond
+                  honestly to each statement. Use the response options provided,
+                  and remember to reflect on the passage's accessibility,
+                  cultural and linguistic relevance, and engagement level for
+                  the student. If you have any additional comments or
+                  observations, please share them in the space provided.
+                </p>
+
+                <p className="text-lg">Thank you for your valuable input!</p>
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <TeacherForm onSubmit={onSubmit} />
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+
+      {/* Footer outside the card */}
+      <IrbFooter />
     </div>
   );
 };

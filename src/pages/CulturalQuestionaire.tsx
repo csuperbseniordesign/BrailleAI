@@ -35,19 +35,19 @@ const CulturalQuestionaire = () => {
     const endingQuestion4 = data.endingQuestion4;
     const blank = data.blank;
 
-    sessionStorage.setItem("question1", question1);
-    sessionStorage.setItem("question2", question2);
-    sessionStorage.setItem("question3", question3);
-    sessionStorage.setItem("characterQuestion1", characterQuestion1);
-    sessionStorage.setItem("characterQuestion2", characterQuestion2);
-    sessionStorage.setItem("characterQuestion3", characterQuestion3);
-    sessionStorage.setItem("characterQuestion4", characterQuestion4);
-    sessionStorage.setItem("experienceQuestion1", experienceQuestion1);
-    sessionStorage.setItem("endingQuestion1", endingQuestion1);
-    sessionStorage.setItem("endingQuestion2", endingQuestion2);
-    sessionStorage.setItem("endingQuestion3", endingQuestion3);
-    sessionStorage.setItem("endingQuestion4", endingQuestion4);
-    sessionStorage.setItem("blank", blank ? blank : "");
+    sessionStorage.setItem("question1", question1 ?? "");
+    sessionStorage.setItem("question2", question2 ?? "");
+    sessionStorage.setItem("question3", question3 ?? "");
+    sessionStorage.setItem("characterQuestion1", characterQuestion1 ?? "");
+    sessionStorage.setItem("characterQuestion2", characterQuestion2 ?? "");
+    sessionStorage.setItem("characterQuestion3", characterQuestion3 ?? "");
+    sessionStorage.setItem("characterQuestion4", characterQuestion4 ?? "");
+    sessionStorage.setItem("experienceQuestion1", experienceQuestion1 ?? "");
+    sessionStorage.setItem("endingQuestion1", endingQuestion1 ?? "");
+    sessionStorage.setItem("endingQuestion2", endingQuestion2 ?? "");
+    sessionStorage.setItem("endingQuestion3", endingQuestion3 ?? "");
+    sessionStorage.setItem("endingQuestion4", endingQuestion4 ?? "");
+    sessionStorage.setItem("blank", blank ?? "");
 
     // make api call to post the student data here
   };

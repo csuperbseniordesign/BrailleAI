@@ -22,9 +22,6 @@ export async function request<T = any>(
   }
 
   try {
-    console.log("Final Config Used by Axios:", axios.defaults);
-    console.log(" Final Axios baseURL:", axios.defaults.baseURL);
-    console.log(" Full Axios Config.url:", config.url);
     const response: AxiosResponse<T> = await axios({ ...config, headers });
     return response.data;
   } catch (error) {

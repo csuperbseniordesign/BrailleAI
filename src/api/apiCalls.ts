@@ -49,7 +49,7 @@ export async function requestRandomParagraph(
   accessToken: string,
 ) {
   const response = await request<ParagraphResponse>({
-    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}/${ethnicity}/${gender}`,
+    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}/${ethnicity}/${gender}/`,
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export async function requestParagraph(
   accessToken: string,
 ) {
   const response = await request<ParagraphQuestions>({
-    url: `/paragraph/${paragraphId}/${selectedName}`,
+    url: `/paragraph/${paragraphId}/${selectedName}/`,
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export async function addFinalStudentData(
   accessToken: string,
 ) {
   const response = await request<finalUserDataResponse>({
-    url: `/students/${studentId}`,
+    url: `/students/${studentId}/`,
     method: "PUT",
     data: studentData,
     headers: {

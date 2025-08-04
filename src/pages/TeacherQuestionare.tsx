@@ -41,13 +41,13 @@ const TeacherQuestionare = () => {
     const endingQuestion4 = sessionStorage.getItem("endingQuestion1") || "";
     const blank = sessionStorage.getItem("blank") || "";
 
-    const teacher_question1 = data.question1;
-    const teacher_question2 = data.question2;
-    const teacher_question3 = data.question3;
-    const teacher_question4 = data.question4;
-    const teacher_question5 = data.question5;
-    const teacher_question6 = data.question6;
-    const teacher_question7 = data.question7;
+    const teacher_question1 = data.question1 ?? "";
+    const teacher_question2 = data.question2 ?? "";
+    const teacher_question3 = data.question3 ?? "";
+    const teacher_question4 = data.question4 ?? "";
+    const teacher_question5 = data.question5 ?? "";
+    const teacher_question6 = data.question6 ?? "";
+    const teacher_question7 = data.question7 ?? "";
     const teacher_blank = data.blank || "";
 
     const comprehension_score = Number(

@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { teacher_feedback } from "./formData";
 
 export const looseTeacherFormSchema = z.object({
   question1: z.string().optional(),

@@ -39,7 +39,7 @@ const TeacherQuestionare = () => {
     const endingQuestion2 = sessionStorage.getItem("endingQuestion1") || "";
     const endingQuestion3 = sessionStorage.getItem("endingQuestion1") || "";
     const endingQuestion4 = sessionStorage.getItem("endingQuestion1") || "";
-    const blank = sessionStorage.getItem("blank") || "";
+    const feedback = sessionStorage.getItem("feedback") || "";
 
     const teacher_question1 = data.question1 ?? "";
     const teacher_question2 = data.question2 ?? "";
@@ -48,7 +48,7 @@ const TeacherQuestionare = () => {
     const teacher_question5 = data.question5 ?? "";
     const teacher_question6 = data.question6 ?? "";
     const teacher_question7 = data.question7 ?? "";
-    const teacher_blank = data.blank || "";
+    const teacher_feedback = data.teacher_feedback || "";
 
     const comprehension_score = Number(
       sessionStorage.getItem("comprehension_score") || 0
@@ -75,7 +75,7 @@ const TeacherQuestionare = () => {
           endingQuestion2: endingQuestion2,
           endingQuestion3: endingQuestion3,
           endingQuestion4: endingQuestion4,
-          blank: blank,
+          feedback: feedback,
           teacher_question1: teacher_question1,
           teacher_question2: teacher_question2,
           teacher_question3: teacher_question3,
@@ -83,7 +83,7 @@ const TeacherQuestionare = () => {
           teacher_question5: teacher_question5,
           teacher_question6: teacher_question6,
           teacher_question7: teacher_question7,
-          teacher_blank: teacher_blank,
+          teacher_feedback: teacher_feedback,
           comprehension_score: comprehension_score,
           timeInSeconds: timeInSeconds,
           modified_paragraph_id: modified_paragraph_id,

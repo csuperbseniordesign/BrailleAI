@@ -16,7 +16,7 @@ type TeacherFormProps = {
 const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseTeacherFormSchema),
-    defaultValues: { blank: "" },
+    defaultValues: { teacher_feedback: "" },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);
@@ -81,7 +81,7 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
           passage?
         </h4>
         <F.Field
-          name="blank"
+          name="teacher_feedback"
           control={formMethods.control}
           render={({ field }) => (
             <F.Item>

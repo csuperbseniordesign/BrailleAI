@@ -33,7 +33,7 @@ const CulturalQuestionaire = () => {
     const endingQuestion2 = data.endingQuestion2;
     const endingQuestion3 = data.endingQuestion3;
     const endingQuestion4 = data.endingQuestion4;
-    const blank = data.blank;
+    const feedback = data.feedback;
 
     sessionStorage.setItem("question1", question1 ?? "");
     sessionStorage.setItem("question2", question2 ?? "");
@@ -47,7 +47,7 @@ const CulturalQuestionaire = () => {
     sessionStorage.setItem("endingQuestion2", endingQuestion2 ?? "");
     sessionStorage.setItem("endingQuestion3", endingQuestion3 ?? "");
     sessionStorage.setItem("endingQuestion4", endingQuestion4 ?? "");
-    sessionStorage.setItem("blank", blank ?? "");
+    sessionStorage.setItem("feedback", feedback ?? "");
 
     // make api call to post the student data here
   };

@@ -94,7 +94,7 @@ export interface finalUserData {
   endingQuestion2: string;
   endingQuestion3: string;
   endingQuestion4: string;
-  blank: string;
+  feedback: string;
   teacher_question1: string;
   teacher_question2: string;
   teacher_question3: string;
@@ -102,7 +102,7 @@ export interface finalUserData {
   teacher_question5: string;
   teacher_question6: string;
   teacher_question7: string;
-  teacher_blank: string;
+  teacher_feedback: string;
   comprehension_score: number;
   timeInSeconds: number;
   modified_paragraph_id: number;

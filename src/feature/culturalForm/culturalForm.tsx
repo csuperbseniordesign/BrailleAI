@@ -21,7 +21,7 @@ type CulturalFormProps = {
 const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseCulturalFormSchema),
-    defaultValues: { blank: "" },
+    defaultValues: { feedback: "" },
   });
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);
@@ -250,7 +250,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
           passage?
         </h4>
         <F.Field
-          name="blank"
+          name="feedback"
           control={formMethods.control}
           render={({ field }) => (
             <F.Item>

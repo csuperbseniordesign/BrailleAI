@@ -65,6 +65,6 @@ export const endingQuestion = [
     question: "I thought the passage was interesting.",
   },
 ];
-export const blank = [
+export const feedback = [
   "Is there anything you would like to share about this passage?",
 ] as const;

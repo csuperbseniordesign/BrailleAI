@@ -13,5 +13,5 @@ export const looseCulturalFormSchema = z.object({
   endingQuestion2: z.string().optional(),
   endingQuestion3: z.string().optional(),
   endingQuestion4: z.string().optional(),
-  blank: z.string().optional(),
+  feedback: z.string().optional(),
 });

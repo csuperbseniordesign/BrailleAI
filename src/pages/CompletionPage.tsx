@@ -5,31 +5,59 @@ import { useNavigate } from "react-router-dom";
 
 const CompletionPage = () => {
   const navigate = useNavigate();
+  const comprehension_score = Number(
+    sessionStorage.getItem("comprehension_score") || 0
+  );
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/");
-    }, 6000);
+    }, 20000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
   return (
-    <div className="flex justify-center min-h-screen py-[50px]">
-      <div className="max-w-screen-md">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-bold text-3xl text-center">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="w-full max-w-4xl">
+        <Card className="border-2 border-gray-300">
+          <CardHeader className="text-center pb-8">
+            <CardTitle className="text-4xl font-bold text-black mb-4">
               Assessment Completed
             </CardTitle>
+            <p className="text-xl text-gray-800">
+              Thank you for your participation
+            </p>
           </CardHeader>
-          <CardContent>
-            <p className="text-2xl">Thank you for completing this Assessment</p>
-            <div className="flex py-[20px] justify-center">
+
+          <CardContent className="px-8 pb-8">
+            {/* Score Display */}
+            <div className="text-center mb-8">
+              <div className={`inline-block border-2 rounded-lg p-8`}>
+                <h2 className="text-2xl font-bold mb-4">
+                  Your Comprehension Score
+                </h2>
+                <div className="text-6xl font-bold mb-4">
+                  {comprehension_score}/2
+                </div>
+              </div>
+            </div>
+
+            {/* Thank you message */}
+            <div className="bg-gray-100 border-2 border-gray-400 rounded p-6 mb-8 text-center">
+              <p className="text-2xl text-black font-medium">
+                Thank you for completing this assessment.
+              </p>
+            </div>
+
+            {/* Manual navigation button */}
+            <div className="flex justify-center">
               <Button
                 onClick={() => {
                   navigate("/");
                 }}
+                size="lg"
+                className="bg-blue-700 hover:bg-blue-800 text-white text-xl font-bold py-4 px-8 h-auto"
               >
-                Go Back To HomePage
+                Go Back To Homepage
               </Button>
             </div>
           </CardContent>

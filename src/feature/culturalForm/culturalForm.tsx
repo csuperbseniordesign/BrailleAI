@@ -271,7 +271,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                   {...field}
                   value={field.value ?? ""}
                   placeholder="Optional feedback…"
-                  className="min-h-[120px] resize-y"
+                  className="min-h-[120px] resize-y text-base md:text-base"
                   rows={6}
                 />
               </F.Control>

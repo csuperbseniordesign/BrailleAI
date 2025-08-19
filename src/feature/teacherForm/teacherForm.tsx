@@ -100,10 +100,10 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
               <F.Control>
                 <Textarea
                   {...field}
-                  value={field.value ?? ""} // ensure controlled string
+                  value={field.value ?? ""}
                   placeholder="Optional feedback…"
-                  className="min-h-[120px] resize-y" // bigger by default; user can drag taller
-                  rows={6} // also sets initial height
+                  className="min-h-[120px] resize-y text-base md:text-base"
+                  rows={6}
                 />
               </F.Control>
               <F.Message />

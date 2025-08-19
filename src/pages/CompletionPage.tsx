@@ -41,13 +41,6 @@ const CompletionPage = () => {
               </div>
             </div>
 
-            {/* Thank you message */}
-            <div className="bg-gray-100 border-2 border-gray-400 rounded p-6 mb-8 text-center">
-              <p className="text-2xl text-black font-medium">
-                Thank you for completing this assessment.
-              </p>
-            </div>
-
             {/* Manual navigation button */}
             <div className="flex justify-center">
               <Button
@@ -55,7 +48,7 @@ const CompletionPage = () => {
                   navigate("/");
                 }}
                 size="lg"
-                className="bg-blue-700 hover:bg-blue-800 text-white text-xl font-bold py-4 px-8 h-auto"
+                className="text-white text-xl font-bold py-4 px-8 h-auto"
               >
                 Go Back To Homepage
               </Button>

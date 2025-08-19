@@ -184,7 +184,7 @@ export const region = [
   "VI",
 ] as const;
 export const vision = [
-  "I am Sighted",
+  "I don’t have a visual impairment",
   "I am Blind",
   "I have low vision",
 ] as const;

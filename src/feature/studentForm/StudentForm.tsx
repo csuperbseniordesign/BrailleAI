@@ -404,8 +404,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
 
         <div>
           <h4 className="text-lg py-[5px]">
-            What languages do you speak or understand at home? (Check all that
-            apply)
+            What language do you speak or understand at home?
           </h4>
           <F.Field
             name="languages"
@@ -437,7 +436,7 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         {formMethods.watch("languages") == "Other (please specify)" && (
           <div>
             <h4 className="text-lg py-[5px]">
-              What languages do you speak or understand at home?
+              What language do you speak or understand at home?
             </h4>
             <F.Field
               name="otherLanguage"

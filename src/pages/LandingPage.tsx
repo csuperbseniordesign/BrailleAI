@@ -35,13 +35,17 @@ const LandingPage = () => {
               </p>
               <ul className="list-disc list-inside space-y-1">
                 <li>
-                  Cheryl Kamei-Hannan, California State University, Los Angeles
+                  Cheryl Kamei-Hannan, Ph.D., California State University, Los
+                  Angeles
                 </li>
                 <li>
-                  Dr. Navid Amini, California State University, Los Angeles
+                  Dr. Navid Amini, Ph.D., California State University, Los
+                  Angeles
                 </li>
-                <li>Minjeong Jeon, University of California, Los Angeles</li>
-                <li>Michael Tuttle, Florida State University</li>
+                <li>
+                  Minjeong Jeon, Ph.D., University of California, Los Angeles
+                </li>
+                <li>Michael Tuttle, Ph.D., Florida State University</li>
                 <li>Jinwen Luo, Research Team Member</li>
                 <li>Seewoo Li, Research Team Member</li>
                 <li>Yingshi Huang, Research Team Member</li>

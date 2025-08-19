@@ -81,7 +81,7 @@ const GeneratedParagraphPage = () => {
           <Card className="border-2 border-gray-300">
             <CardHeader className="text-center pb-8">
               <CardTitle className="text-4xl font-bold text-black mb-4">
-                AI Modified Paragraph
+                Passage
               </CardTitle>
             </CardHeader>
 

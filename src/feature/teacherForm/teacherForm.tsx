@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import * as F from "@/components/forms";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { teacherQuestions } from "./formData";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormValues = z.infer<typeof looseTeacherFormSchema>;
 type TeacherFormProps = {
@@ -27,7 +27,7 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
       <div>
         <ul className="space-y-3 list-disc list-outside px-[10px]">
           {teacherQuestions.map((question, index) => (
-            <li key={index}>
+            <p key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">
                 {question.question}
               </h4>
@@ -70,7 +70,7 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
                   </F.Item>
                 )}
               />
-            </li>
+            </p>
           ))}
         </ul>
       </div>
@@ -80,13 +80,31 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
           Do you want to tell use anything more about how you felt about this
           passage?
         </h4>
-        <F.Field
+        {/* <F.Field
           name="teacher_feedback"
           control={formMethods.control}
           render={({ field }) => (
             <F.Item>
               <F.Control>
                 {<Input value={field.value} onChange={field.onChange} />}
+              </F.Control>
+              <F.Message />
+            </F.Item>
+          )}
+        /> */}
+        <F.Field
+          name="teacher_feedback"
+          control={formMethods.control}
+          render={({ field }) => (
+            <F.Item>
+              <F.Control>
+                <Textarea
+                  {...field}
+                  value={field.value ?? ""} // ensure controlled string
+                  placeholder="Optional feedback…"
+                  className="min-h-[120px] resize-y" // bigger by default; user can drag taller
+                  rows={6} // also sets initial height
+                />
               </F.Control>
               <F.Message />
             </F.Item>

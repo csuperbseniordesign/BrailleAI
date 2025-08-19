@@ -34,7 +34,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
         <h1 className="py-[10px] text-2xl font-bold">About the Story </h1>
         <ul className="space-y-3 list-disc list-outside px-[10px]">
           {storyQuestions.map((question, index) => (
-            <li key={index}>
+            <p key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">
                 {question.question}
               </h4>
@@ -77,7 +77,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                   </F.Item>
                 )}
               />
-            </li>
+            </p>
           ))}
         </ul>
       </div>
@@ -88,7 +88,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
         <h1 className="py-[10px] text-2xl font-bold">About the Character </h1>
         <ul className="space-y-3 list-disc list-outside">
           {characterQuestions.map((question, index) => (
-            <li key={index}>
+            <p key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">
                 {question.question}
               </h4>
@@ -131,7 +131,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                   </F.Item>
                 )}
               />
-            </li>
+            </p>
           ))}
         </ul>
       </div>
@@ -142,7 +142,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
           <hr className="solid" />
           <h1 className="py-[10px] text-2xl font-bold">Your Experience </h1>
           {experienceQuestion.map((question, index) => (
-            <li key={index}>
+            <p key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">
                 {question.question}
               </h4>
@@ -185,7 +185,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                   </F.Item>
                 )}
               />
-            </li>
+            </p>
           ))}
         </ul>
       </div>
@@ -196,7 +196,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
         <h1 className="py-[10px] text-2xl font-bold">Overall</h1>
         <ul className="space-y-3 list-disc list-outside">
           {endingQuestion.map((question, index) => (
-            <li key={index}>
+            <p key={index}>
               <h4 className="text-lg py-[5px] w-[600px]">
                 {question.question}
               </h4>
@@ -239,7 +239,7 @@ const CulturalForm = ({ onSubmit }: CulturalFormProps) => {
                   </F.Item>
                 )}
               />
-            </li>
+            </p>
           ))}
         </ul>
       </div>

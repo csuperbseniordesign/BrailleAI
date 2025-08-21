@@ -22,7 +22,7 @@ export const characterQuestions = [
   {
     id: "characterQuestion2",
     question:
-      "The way the characters talk in the passage sounds like people I know",
+      "The way the characters talk in the passage sounds like people I know.",
   },
 
   {

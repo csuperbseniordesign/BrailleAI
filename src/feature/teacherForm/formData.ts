@@ -1,7 +1,7 @@
 export const teacherQuestions = [
   {
     id: "question1",
-    question: "The passage was accessible for the student",
+    question: "The passage was accessible for the student.",
   },
   {
     id: "question2",
@@ -14,7 +14,7 @@ export const teacherQuestions = [
   },
   {
     id: "question4",
-    question: "The passage was engaging for the student to read",
+    question: "The passage was engaging for the student to read.",
   },
   {
     id: "question5",

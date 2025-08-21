@@ -81,9 +81,14 @@ const GeneratedParagraphPage = () => {
           <Card className="border-2 border-gray-300">
             <CardHeader className="text-center pb-8">
               <CardTitle className="text-4xl font-bold text-black mb-4">
-                Passage
+                Reading Passage
               </CardTitle>
             </CardHeader>
+            <div className="text-center pb-6">
+              <p className="text-xl text-red-700 font-bold">
+                Disclaimer: Do not go to the previous page.
+              </p>
+            </div>
 
             <CardContent className="px-8 py-8">
               {/* Start Button */}
@@ -99,10 +104,10 @@ const GeneratedParagraphPage = () => {
               </div>
 
               {/* Reading Paragraph */}
-              <div className="bg-gray-50 dark:bg-card border-2 border-gray-400 dark:border rounded p-8 mb-8 min-h-[250px] flex items-center justify-center">
+              <div className="bg-gray-50 dark:bg-card border-2 border-gray-400 dark:border rounded p-8 mb-8 min-h-[250px] flex items-start justify-start">
                 {showParagraph ? (
                   responseData && !fetching ? (
-                    <p className="text-2xl leading-loose text-black dark:text-foreground text-center font-medium">
+                    <p className="text-2xl leading-loose text-black dark:text-foreground text-left font-medium">
                       {responseData.choices[0].message.content.trim()}
                     </p>
                   ) : (

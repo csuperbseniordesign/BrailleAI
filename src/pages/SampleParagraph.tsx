@@ -98,7 +98,7 @@ const SampleParagraphPage = () => {
               {/* Reading Paragraph */}
               <div className="bg-card border-2 border rounded p-8 mb-8 min-h-[200px] flex items-center justify-center">
                 {showParagraph ? (
-                  <p className="text-2xl leading-loose text-center font-medium">
+                  <p className="text-2xl leading-loose text-left font-medium">
                     The puppy ran in the yard. It saw a cat! The dog barked at
                     the cat.
                   </p>

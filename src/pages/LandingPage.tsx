@@ -39,8 +39,7 @@ const LandingPage = () => {
                   Angeles
                 </li>
                 <li>
-                  Dr. Navid Amini, Ph.D., California State University, Los
-                  Angeles
+                  Navid Amini, Ph.D., California State University, Los Angeles
                 </li>
                 <li>
                   Minjeong Jeon, Ph.D., University of California, Los Angeles
@@ -95,7 +94,7 @@ const LandingPage = () => {
 
               <ul className="list-disc list-inside space-y-1">
                 <li>
-                  Dr. Navid Amini –{" "}
+                  Navid Amini –{" "}
                   <a href="mailto:namini@calstatela.edu" className="underline">
                     namini@calstatela.edu
                   </a>

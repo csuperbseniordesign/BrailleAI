@@ -24,7 +24,7 @@ const ParagraphComprehension = () => {
   const { data: paragraphData } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
-    code_id,
+    code_id
   );
 
   const questionList = paragraphData ? paragraphData.questions : [];

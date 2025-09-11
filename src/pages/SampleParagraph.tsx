@@ -54,8 +54,8 @@ const SampleParagraphPage = () => {
                 <h2 className="text-3xl font-bold mb-4">Instructions</h2>
                 <div className="space-y-3 text-2xl">
                   <p>
-                    This practice will show you how to use the test. Read the
-                    paragraph below.
+                    This practice will show you how to complete the test. Read
+                    the paragraph below.
                   </p>
                   <p>
                     When you're ready to read, click <strong>Start</strong>— a

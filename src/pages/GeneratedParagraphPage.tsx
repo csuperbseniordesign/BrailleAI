@@ -86,7 +86,7 @@ const GeneratedParagraphPage = () => {
             </CardHeader>
             <div className="text-center pb-6">
               <p className="text-xl text-red-700 font-bold">
-                Disclaimer: Do not go to the previous page.
+                Please do not return to the previous page during the test.
               </p>
             </div>
 

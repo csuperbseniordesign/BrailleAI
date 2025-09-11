@@ -454,7 +454,9 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
         )}
 
         <div>
-          <h4 className="text-lg py-[5px]">Tell us about your vision.</h4>
+          <h4 className="text-lg py-[5px]">
+            How would you describe your vision?
+          </h4>
           <F.Field
             name="vision"
             control={formMethods.control}

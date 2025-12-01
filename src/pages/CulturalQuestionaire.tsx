@@ -63,7 +63,7 @@ const CulturalQuestionaire = () => {
                 Exit Questionnaire - Student
               </CardTitle>
 
-              <CardDescription className="space-y-2 text-card-foreground">
+              <div className="space-y-2 text-card-foreground">
                 <h1 className="text-xl font-bold py-[5px]">
                   Instructions for Teachers/Support Staff:
                 </h1>
@@ -147,7 +147,7 @@ const CulturalQuestionaire = () => {
                 </p>
 
                 <p className="text-lg">Let's get started when you're ready!</p>
-              </CardDescription>
+              </div>
             </CardHeader>
 
             <CardContent>

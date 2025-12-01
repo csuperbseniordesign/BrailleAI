@@ -53,8 +53,10 @@ const TeacherQuestionare = () => {
     const comprehension_score = Number(
       sessionStorage.getItem("comprehension_score") || 0
     );
-    const timeInSeconds = Number(sessionStorage.getItem("readingTime") || 0);
-    const modified_paragraph_id = 0;
+    const timeInSeconds = Number(sessionStorage.getItem("readTime") || 0);
+    const modified_paragraph_id = Number(
+      sessionStorage.getItem("modified_paragraph_id")
+    );
     const cr_avg = 1.0;
 
     const code_id = sessionStorage.getItem("student-code-id") || "";

@@ -5,6 +5,7 @@ import { QueryKeys } from "@/config/queryKeys";
 import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthHeader } from "@/api/type";
 
 export function useGenerateResponse(context: string, paragraph: string) {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -17,9 +18,13 @@ export function useGenerateResponse(context: string, paragraph: string) {
     }
   });
 
+  const auth: AuthHeader = {
+    Authorization: `Bearer ${apiKey}`,
+  };
+
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],
-    queryFn: () => generateResponse(context, paragraph, apiKey),
+    queryFn: () => generateResponse(context, paragraph, auth),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,
     refetchOnReconnect: false,

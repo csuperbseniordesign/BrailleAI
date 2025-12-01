@@ -31,6 +31,8 @@ const HomePage = () => {
     // Retrieve necesary data from the form
     const code_id = data.code_id;
     const primaryInterest = data.primaryInterest;
+    const mainlabel = data.mainlabel;
+    const sublabel = data.sublabel;
     const gradeLevel = data.gradeLevel;
     const ethnicityOptions = data.ethnicity;
     const gender = data.gender;
@@ -54,6 +56,8 @@ const HomePage = () => {
       .replace(" ", "T");
     //store code-id to retrieve for future endpoints
     sessionStorage.setItem("student-code-id", code_id);
+    sessionStorage.setItem("ethnicity", ethnicityOptions);
+    sessionStorage.setItem("gender", gender);
 
     // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -123,6 +127,8 @@ const HomePage = () => {
           requestRandomParagraph(
             {
               interest: primaryInterest,
+              mainlabel: mainlabel,
+              sublabel: sublabel,
               minAtos: minAtos,
               maxAtos: maxAtos,
               ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
@@ -157,6 +163,11 @@ const HomePage = () => {
                   "paragraphId",
                   "" + paragraphData!.data.id
                 );
+                sessionStorage.setItem("minAtos", minAtos.toString());
+                sessionStorage.setItem("maxAtos", maxAtos.toString());
+                sessionStorage.setItem("mainlabel", mainlabel);
+                sessionStorage.setItem("sublabel", sublabel);
+                sessionStorage.setItem("interest", primaryInterest);
 
                 navigate("/sample");
               },

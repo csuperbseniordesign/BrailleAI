@@ -35,6 +35,37 @@ export const primaryInterestOptions = [
   "Sports and Leisure",
   "Wildlife and Nature",
 ] as const;
+export const labelTree = {
+  Entertainment: {
+    "Animals, Nature & Science": ["Sea Life", "Space & Light"],
+    "Sports, Games & Hobbies": ["Holidays & Celebrations", "Individual Sports", "Travel & Places", "Tricks & Talents", "Video & Digital Games", "Water & Adventure"],
+    "Stories & Media": ["Books & Braille", "Books & Reading", "Everyday Life & Culture", "Fairy & Folk Tales", "Famous People & Creators", "General Media", "Holidays & Celebrations", "Internet & Creators", "Movies & TV & Characters", "Music & Performing Arts"],
+  },
+  "Sports and Leisure": {
+    "Animals, Nature & Science": ["Pets & Pet Care"],
+    "Sports, Games & Hobbies": ["Crafts & Making", "General Sports & Hobbies", "Individual Sports", "Outdoor Recreation", "Team & Target Sports", "Travel & Places", "Tricks & Talents", "Video & Digital Games", "Water & Adventure"],
+    "Stories & Media": ["Fairy & Folk Tales"],
+  },
+  "Wildlife and Nature": {
+    "Animals, Nature & Science": ["General Nature & Science", "Human Body & Health", "Pets & Pet Care", "Plants & Trees", "Science & Technology", "Sea Life", "Space & Light", "Wild Animals"],
+    "Sports, Games & Hobbies": ["Holidays & Celebrations"],
+    "Stories & Media": ["Internet & Creators"],
+  },
+} as const;
+
+export type PrimaryInterest = typeof primaryInterestOptions[number];
+
+export const getMainLabels = (interest: PrimaryInterest) =>
+  Object.keys(labelTree[interest]) as (keyof (typeof labelTree)[PrimaryInterest])[];
+
+export const getSubLabels = (
+  interest: PrimaryInterest,
+  mainlabel: string
+): readonly string[] => {
+  const bucket = (labelTree as any)[interest]?.[mainlabel];
+  return (bucket ?? []) as readonly string[];
+};
+
 export const birthPlace = [
   "United States",
   "Outside of the United States",

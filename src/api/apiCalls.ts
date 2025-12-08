@@ -1,7 +1,5 @@
 import { request } from "./base";
 import {
-  AccessToken,
-  AuthHeader,
   DeepSeekResponse,
   finalUserData,
   finalUserDataResponse,

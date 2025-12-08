@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { finalUserData } from "@/api/type";
 import { addFinalStudentData } from "@/api/apiCalls";
-import toast from "react-hot-toast";
 
 export const useCreateFinalStudentData = () => {
   return useMutation({

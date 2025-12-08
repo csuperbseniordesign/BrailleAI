@@ -5,7 +5,6 @@ import { QueryKeys } from "@/config/queryKeys";
 import { FIVE_MINS_IN_MILLIS } from "@/util/measurements";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthHeader } from "@/api/type";
 
 export function useGenerateResponse(context: string, paragraph: string, accessToken: string) {
   // const apiKey = import.meta.env.VITE_API_KEY;

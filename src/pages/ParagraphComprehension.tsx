@@ -37,7 +37,9 @@ const ParagraphComprehension = () => {
 
     questionList.forEach((question, index) => {
       const userAnswer = data[index.toString() as "0" | "1"];
+      console.log("User Answer for question", index, ":", userAnswer);
       const correctAnswer = question.answer;
+      console.log("Correct Answer for question", index, ":", correctAnswer);
 
       if (userAnswer === correctAnswer) {
         score += 1;

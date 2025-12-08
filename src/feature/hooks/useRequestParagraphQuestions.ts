@@ -11,7 +11,7 @@ export function useRequestParagraphQuestions(
 ) {
   console.log("Hook called with:", { paragraphId, selectedName, accessToken });
   const query = useQuery<ParagraphQuestions>({
-    queryKey: [QueryKeys.PARAGRAPH],
+    queryKey: [QueryKeys.PARAGRAPH, paragraphId, selectedName, accessToken],
     queryFn: () => requestParagraph(paragraphId, selectedName, accessToken),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,

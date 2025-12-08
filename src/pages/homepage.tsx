@@ -18,6 +18,7 @@ import { createContext } from "@/util/createContext";
 import { useNavigate } from "react-router-dom";
 import { useCreateInitialStudentData } from "@/feature/hooks/useCreateInitialStudentData";
 import IrbFooter from "@/components/IrbFooter";
+import { initializeProgress, resetProgress } from "@/util/progressTracker";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -25,6 +26,8 @@ const HomePage = () => {
   const navigate = useNavigate();
   const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
   const { mutate: createStudentData } = useCreateInitialStudentData();
+
+  initializeProgress();
 
   const handleSubmit = async (data: FormValues) => {
     console.log("submit");
@@ -183,6 +186,7 @@ const HomePage = () => {
   // Clears prompt data && query cache on initial render
   useEffect(() => {
     sessionStorage.clear();
+    resetProgress();
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

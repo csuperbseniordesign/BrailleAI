@@ -14,8 +14,8 @@ import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParag
 
 const CompletionPage = () => {
   const navigate = useNavigate();
-  const { mutate: requestRandomParagraph, isPending } =
-    useRequestRandomParagraph();
+  // const { mutate: requestRandomParagraph, isPending } =
+  //   useRequestRandomParagraph();
   const [isLoadingNext, setIsLoadingNext] = useState(false);
 
   const { completed, total } = getProgress();
@@ -47,59 +47,68 @@ const CompletionPage = () => {
     // Clear iteration-specific data
     clearIterationData();
 
+    sessionStorage.setItem("isReturningUser", "true");
+
+    navigate("/demographicsurvey");
+
     // Get data needed for next paragraph
-    const code_id = sessionStorage.getItem("student-code-id") || "";
-    const ethnicity = sessionStorage.getItem("ethnicity") || "";
-    const gender = sessionStorage.getItem("gender") || "";
-    const primaryInterest = sessionStorage.getItem("interest") || "";
-    const mainlabel = sessionStorage.getItem("mainlabel") || "";
-    const sublabel = sessionStorage.getItem("sublabel") || "";
-    const minAtos = Number(sessionStorage.getItem("minAtos"));
-    const maxAtos = Number(sessionStorage.getItem("maxAtos"));
-    const ethnicSubgroup = ethnicity;
+    // const code_id = sessionStorage.getItem("student-code-id") || "";
+    // const ethnicity = sessionStorage.getItem("ethnicity") || "";
+    // const gender = sessionStorage.getItem("gender") || "";
+    // const primaryInterest = sessionStorage.getItem("interest") || "";
+    // const mainlabel = sessionStorage.getItem("mainlabel") || "";
+    // const sublabel = sessionStorage.getItem("sublabel") || "";
+    // const minAtos = Number(sessionStorage.getItem("minAtos"));
+    // const maxAtos = Number(sessionStorage.getItem("maxAtos"));
+    // const ethnicSubgroup = ethnicity;
 
     // Request next paragraph
-    requestRandomParagraph(
-      {
-        interest: primaryInterest,
-        mainlabel: mainlabel,
-        sublabel: sublabel,
-        minAtos: minAtos,
-        maxAtos: maxAtos,
-        ethnicity: ethnicSubgroup,
-        gender: gender,
-        accessToken: code_id,
-      },
-      {
-        onSuccess: (paragraphData) => {
-          if (!paragraphData) {
-            setIsLoadingNext(false);
-            return;
-          }
+    // requestRandomParagraph(
+    //   {
+    //     interest: primaryInterest,
+    //     mainlabel: mainlabel,
+    //     sublabel: sublabel,
+    //     minAtos: minAtos,
+    //     maxAtos: maxAtos,
+    //     ethnicity: ethnicSubgroup,
+    //     gender: gender,
+    //     accessToken: code_id,
+    //   },
+    //   {
+    //     onSuccess: (paragraphData) => {
+    //       if (!paragraphData) {
+    //         setIsLoadingNext(false);
+    //         return;
+    //       }
 
-          const paragraph = cleanText(paragraphData.data.paragraph);
-          const selected_name = getNamesByEthnicityAndGender(
-            ethnicity,
-            gender,
-            ethnicSubgroup
-          );
-          const context = createContext(selected_name, gender);
+    //       const paragraph = cleanText(paragraphData.data.paragraph);
+    //       const selected_name = getNamesByEthnicityAndGender(
+    //         ethnicity,
+    //         gender,
+    //         ethnicSubgroup
+    //       );
+    //       const context = createContext(selected_name, gender);
 
-          sessionStorage.setItem("context", context);
-          sessionStorage.setItem("name", selected_name);
-          sessionStorage.setItem("paragraph", paragraph);
-          sessionStorage.setItem("paragraphId", String(paragraphData.data.id));
+    //       sessionStorage.setItem("context", context);
+    //       sessionStorage.setItem("name", selected_name);
+    //       sessionStorage.setItem("paragraph", paragraph);
+    //       sessionStorage.setItem("paragraphId", String(paragraphData.data.id));
 
-          // Navigate to read the next paragraph
-          navigate("/response");
-        },
-        onError: (error) => {
-          console.error("Failed to fetch next paragraph:", error);
-          setIsLoadingNext(false);
-          alert("Could not load the next paragraph. Please try again.");
-        },
-      }
-    );
+    //       // Navigate to read the next paragraph
+    //       navigate("/response");
+    //     },
+    //     onError: (error) => {
+    //       console.error("Failed to fetch next paragraph:", error);
+    //       setIsLoadingNext(false);
+    //       alert("Could not load the next paragraph. Please try again.");
+    //     },
+    //   }
+    // );
+  };
+
+  const handleFinish = () => {
+    sessionStorage.clear();
+    navigate("/code-entry");
   };
 
   return (
@@ -158,23 +167,23 @@ const CompletionPage = () => {
                 <>
                   <Button
                     onClick={handleContinue}
-                    disabled={isLoadingNext || isPending}
                     size="lg"
                     className="bg-green-700 hover:bg-green-800 text-white text-xl font-bold py-6 px-12 h-auto"
                   >
-                    {isLoadingNext || isPending
-                      ? "Loading..."
-                      : "Continue to Next Paragraph"}
+                    Continue
                   </Button>
+                  <p className="text-gray-600 text-sm mt-2">
+                    You'll review your information before the next paragraph
+                  </p>
                 </>
               ) : (
                 <>
                   <Button
-                    onClick={() => navigate("/")}
+                    onClick={handleFinish}
                     size="lg"
                     className="text-white text-xl font-bold py-6 px-12 h-auto"
                   >
-                    Return to Home
+                    Finish and Return to Home
                   </Button>
                 </>
               )}

@@ -50,8 +50,6 @@ const HomePage = () => {
       } as Partial<FormValues>)
     : {}; // Cast the entire object
 
-  initializeProgress();
-
   const handleSubmit = async (data: FormValues) => {
     console.log("submit");
     // Retrieve necesary data from the form
@@ -80,6 +78,24 @@ const HomePage = () => {
         hour12: false,
       })
       .replace(" ", "T");
+    sessionStorage.setItem("mainlabel", mainlabel);
+    sessionStorage.setItem("sublabel", sublabel);
+    sessionStorage.setItem("interest", primaryInterest);
+    sessionStorage.setItem("primaryInterest", primaryInterest);
+    sessionStorage.setItem("ethnicity", ethnicityOptions);
+    sessionStorage.setItem("gradeLevel", gradeLevel);
+    sessionStorage.setItem("readingLevel", readingLevel);
+    sessionStorage.setItem("familyBackground", familyBackground || "");
+    sessionStorage.setItem("birthPlace", birthPlace);
+    sessionStorage.setItem("region", region);
+    sessionStorage.setItem("languages", languages);
+    sessionStorage.setItem("country", country || "");
+    sessionStorage.setItem("vision", vision);
+    sessionStorage.setItem("preferredMedia", preferredMedia);
+    sessionStorage.setItem("appAccess", appAccess);
+    sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
+    sessionStorage.setItem("year", birthYear);
+    sessionStorage.setItem("gender", gender);
     //store code-id to retrieve for future endpoints
     // sessionStorage.setItem("student-code-id", code_id);
     // sessionStorage.setItem("ethnicity", ethnicityOptions);
@@ -191,9 +207,6 @@ const HomePage = () => {
                 );
                 sessionStorage.setItem("minAtos", minAtos.toString());
                 sessionStorage.setItem("maxAtos", maxAtos.toString());
-                sessionStorage.setItem("mainlabel", mainlabel);
-                sessionStorage.setItem("sublabel", sublabel);
-                sessionStorage.setItem("interest", primaryInterest);
 
                 navigate("/sample");
               },
@@ -208,10 +221,9 @@ const HomePage = () => {
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    if (!isReturningUser) {
-      sessionStorage.clear();
-      resetProgress();
-    }
+    // if (!isReturningUser) {
+    //   sessionStorage.clear();
+    // }
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],

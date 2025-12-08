@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useGetStudentByCode } from "@/feature/hooks/useGetStudentByCode";
 import { Loader } from "@/components/loader/Loader";
+import { initializeProgress, resetProgress } from "@/util/progressTracker";
 
 const CodeVerificationPage = () => {
   const [codeId, setCodeId] = useState("");
@@ -71,9 +72,13 @@ const CodeVerificationPage = () => {
 
           // Navigate to the form (it will auto-fill from sessionStorage)
           navigate("/demographicsurvey");
+          resetProgress();
+          initializeProgress();
         } else {
           // First time user - go to empty form
           sessionStorage.setItem("isReturningUser", "false");
+          resetProgress();
+          initializeProgress();
           navigate("/demographicsurvey");
         }
       }
@@ -126,7 +131,7 @@ const CodeVerificationPage = () => {
 
             <div className="mt-6 text-center">
               <p className="text-lg text-gray-600">
-                Don't have a code? Please contact your administrator.
+                Don't have a code? Please contact your teacher.
               </p>
             </div>
           </CardContent>

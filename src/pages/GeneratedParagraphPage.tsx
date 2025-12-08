@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { Loader } from "@/components/loader/Loader";
 import IrbFooter from "@/components/IrbFooter";
+import { set } from "react-hook-form";
 
 const GeneratedParagraphPage = () => {
   const context = sessionStorage.getItem("context");
@@ -44,6 +45,7 @@ const GeneratedParagraphPage = () => {
       console.log("Time (seconds):", timeInSec);
       setStopDisabled(true);
       setCanProceed(true);
+      setShowParagraph(false);
     }
   };
 

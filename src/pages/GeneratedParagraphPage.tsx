@@ -13,10 +13,12 @@ import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { Loader } from "@/components/loader/Loader";
 import IrbFooter from "@/components/IrbFooter";
+import { set } from "react-hook-form";
 
 const GeneratedParagraphPage = () => {
   const context = sessionStorage.getItem("context");
   const paragraph = sessionStorage.getItem("paragraph");
+  const accessToken = sessionStorage.getItem("student-code-id");
 
   const [startDisabled, setStartDisabled] = useState(false);
   const [stopDisabled, setStopDisabled] = useState(true);
@@ -43,6 +45,7 @@ const GeneratedParagraphPage = () => {
       console.log("Time (seconds):", timeInSec);
       setStopDisabled(true);
       setCanProceed(true);
+      setShowParagraph(false);
     }
   };
 
@@ -56,7 +59,8 @@ const GeneratedParagraphPage = () => {
 
   const { data: responseData, isFetching: fetching } = useGenerateResponse(
     context!,
-    paragraph!
+    paragraph!,
+    accessToken!
   );
 
   // console.log(responseData);

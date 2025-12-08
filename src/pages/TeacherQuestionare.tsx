@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useCreateFinalStudentData } from "@/feature/hooks/useCreateFinalStudentData";
 import IrbFooter from "@/components/IrbFooter";
+import toast from "react-hot-toast";
 
 type FormValues = z.infer<typeof looseTeacherFormSchema>;
 
@@ -50,11 +51,22 @@ const TeacherQuestionare = () => {
     const teacher_question7 = data.question7 ?? "";
     const teacher_feedback = data.teacher_feedback || "";
 
+    // const ethnicity = sessionStorage.getItem("ethnicity") || "";
+    // const gender = sessionStorage.getItem("gender") || "";
+    // const primaryInterest = sessionStorage.getItem("interest") || "";
+    // const mainlabel = sessionStorage.getItem("mainlabel") || "";
+    // const sublabel = sessionStorage.getItem("sublabel") || "";
+    // const minAtos = Number(sessionStorage.getItem("minAtos"));
+    // const maxAtos = Number(sessionStorage.getItem("maxAtos"));
+    // const ethnicSubgroup = ethnicity;
+
     const comprehension_score = Number(
       sessionStorage.getItem("comprehension_score") || 0
     );
-    const timeInSeconds = Number(sessionStorage.getItem("readingTime") || 0);
-    const modified_paragraph_id = 0;
+    const timeInSeconds = Number(sessionStorage.getItem("readTime") || 0);
+    const modified_paragraph_id = Number(
+      sessionStorage.getItem("modified_paragraph_id")
+    );
     const cr_avg = 1.0;
 
     const code_id = sessionStorage.getItem("student-code-id") || "";
@@ -93,11 +105,14 @@ const TeacherQuestionare = () => {
       },
       {
         onSuccess: (studentData) => {
+          toast.success("Student data saved successfully!");
           if (!studentData) {
             return;
           }
+          navigate("/complete");
         },
         onError: (error: any) => {
+          toast.error("Failed to save student data \n" + error);
           console.error("Update student failed:", error);
 
           // If using Axios or a fetch wrapper with .response:
@@ -107,8 +122,6 @@ const TeacherQuestionare = () => {
         },
       }
     );
-
-    navigate("/complete");
   };
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">

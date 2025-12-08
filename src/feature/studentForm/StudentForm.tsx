@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   birthPlace,
@@ -21,6 +21,8 @@ import {
   gradeLevelOptions,
   languages,
   primaryInterestOptions,
+  getMainLabels,
+  getSubLabels,
   regionOptions,
   vision,
   preferredMedia,
@@ -32,6 +34,7 @@ import { Input } from "@/components/ui/input";
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 type StudentFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseStudentFormSchema>>;
+  defaultValues?: Partial<FormValues>; // Add this line
 };
 
 /**
@@ -41,32 +44,75 @@ type StudentFormProps = {
  * The collected data is used to determine the appropriate paragraph to
  * generate for a specific student.
  */
-const StudentForm = ({ onSubmit }: StudentFormProps) => {
+const StudentForm = ({ onSubmit, defaultValues }: StudentFormProps) => {
+  // Add defaultValues here
+  // Create the base default values
+  const baseDefaults: FormValues = {
+    code_id: "",
+    gradeLevel: gradeLevelOptions[0],
+    readingLevel: gradeLevelOptions[0],
+    ethnicity: ethnicityOptions[0],
+    ethnicSubgroup: ethnicSubgroupOptions[0],
+    gender: genderOptions[0],
+    birthPlace: birthPlace[0],
+    region: regionOptions[1],
+    year: "",
+    country: "",
+    languages: languages[1],
+    otherLanguage: "",
+    primaryInterest: primaryInterestOptions[0],
+    mainlabel: getMainLabels(primaryInterestOptions[0])[0],
+    sublabel: getSubLabels(
+      primaryInterestOptions[0],
+      getMainLabels(primaryInterestOptions[0])[0]
+    )[0],
+    familyBackground: familyBackgroundOptions[0],
+    vision: vision[0],
+    preferredMedia: preferredMedia[0],
+    appAccess: appAccess[0],
+    digitalTextAccess: digitalTextAccess[1],
+    otherAppAccess: "",
+    otherDigitalAccess: "",
+  };
+
+  // Merge base defaults with provided defaults
+  const mergedDefaults: FormValues = {
+    ...baseDefaults,
+    ...defaultValues, // This will override base defaults with any provided values
+  };
+
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
-    defaultValues: {
-      code_id: "",
-      // gradeLevel: gradeLevelOptions[0],
-      // readingLevel: gradeLevelOptions[0],
-      // ethnicity: ethnicityOptions[0],
-      // ethnicSubgroup: ethnicSubgroupOptions[0],
-      // gender: genderOptions[0],
-      // birthPlace: birthPlace[0],
-      // region: regionOptions[1],
-      year: "",
-      country: "",
-      // languages: languages[1],
-      otherLanguage: "",
-      // primaryInterest: primaryInterestOptions[0],
-      // familyBackground: familyBackgroundOptions[0],
-      // vision: vision[0],
-      // preferredMedia: preferredMedia[0],
-      // appAccess: appAccess[0],
-      // digitalTextAccess: digitalTextAccess[1],
-      otherAppAccess: "",
-      otherDigitalAccess: "",
-    },
+    defaultValues: mergedDefaults, // Use merged defaults instead of baseDefaults
   });
+
+  const interest = formMethods.watch("primaryInterest");
+  const mainlabel = formMethods.watch("mainlabel");
+
+  const mainLabelOptions = getMainLabels(interest as any);
+  const subLabelOptions = getSubLabels(
+    interest as any,
+    mainlabel || mainLabelOptions[0]
+  );
+
+  useEffect(() => {
+    const nextMain = mainLabelOptions[0];
+    formMethods.setValue("mainlabel", nextMain);
+    formMethods.setValue(
+      "sublabel",
+      getSubLabels(interest as any, nextMain)[0]
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interest]);
+
+  useEffect(() => {
+    const nextSub = getSubLabels(
+      interest as any,
+      mainlabel || mainLabelOptions[0]
+    )[0];
+    formMethods.setValue("sublabel", nextSub);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainlabel]);
 
   const handleFormSubmit = formMethods.handleSubmit(onSubmit);
 
@@ -648,6 +694,62 @@ const StudentForm = ({ onSubmit }: StudentFormProps) => {
             )}
           />
         </div>
+        {/* Main label (dependent on primaryInterest) */}
+        <div>
+          <h4 className="text-lg py-[5px]">Pick a main label</h4>
+          <F.Field
+            name="mainlabel"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={field.value} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {mainLabelOptions.map((label) => (
+                        <SelectItem value={label} key={label}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
+        {/* Sub label (dependent on primaryInterest + mainlabel) */}
+        <div>
+          <h4 className="text-lg py-[5px]">Pick a sub label</h4>
+          <F.Field
+            name="sublabel"
+            control={formMethods.control}
+            render={({ field }) => (
+              <F.Item>
+                <F.Control>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={field.value} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {subLabelOptions.map((label) => (
+                        <SelectItem value={label} key={label}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </F.Control>
+                <F.Message />
+              </F.Item>
+            )}
+          />
+        </div>
+
         <div className="flex justify-end w-full">
           <Button
             onClick={handleFormSubmit}

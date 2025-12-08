@@ -14,6 +14,7 @@ import {
   appAccess,
   digitalTextAccess,
 } from "./studentFormOptions";
+import {labelTree} from "./studentFormOptions";
 
 export const looseStudentFormSchema = z
   .object({
@@ -45,6 +46,12 @@ export const looseStudentFormSchema = z
     primaryInterest: z.enum(primaryInterestOptions, {
       errorMap: () => ({ message: "Please select your primary interest." }),
     }),
+    mainlabel: z
+      .string({ required_error: "Please select a main label." })
+      .min(1, "Please select a main label."),
+    sublabel: z
+      .string({ required_error: "Please select a sub label." })
+      .min(1, "Please select a sub label."),
     languages: z.enum(languages, {
       errorMap: () => ({ message: "Please select your language." }),
     }),
@@ -161,4 +168,25 @@ export const looseStudentFormSchema = z
       message: "Please specify about any digital text access you may use.",
       path: ["otherDigitalAccess"],
     },
-  );
+  ).superRefine((data, ctx) => {
+    // Optional: enforce that mainlabel/sublabel match the selected interest
+    const interest = data.primaryInterest as keyof typeof labelTree;
+    const mains = Object.keys(labelTree[interest] ?? {});
+    if (!mains.includes(data.mainlabel)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["mainlabel"],
+        message: "Main label does not match the selected interest.",
+      });
+      return; // avoid double error if mainlabel is invalid
+    }
+    // @ts-ignore – runtime guard
+    const subs: string[] = labelTree[interest]?.[data.mainlabel] ?? [];
+    if (!subs.includes(data.sublabel)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["sublabel"],
+        message: "Sub label does not match the selected main label.",
+      });
+    }
+  });

@@ -18,6 +18,7 @@ import { createContext } from "@/util/createContext";
 import { useNavigate } from "react-router-dom";
 import { useCreateInitialStudentData } from "@/feature/hooks/useCreateInitialStudentData";
 import IrbFooter from "@/components/IrbFooter";
+import { initializeProgress, resetProgress } from "@/util/progressTracker";
 
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 
@@ -26,11 +27,36 @@ const HomePage = () => {
   const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
   const { mutate: createStudentData } = useCreateInitialStudentData();
 
+  const isReturningUser = sessionStorage.getItem("isReturningUser") === "true";
+
+  const defaultFormValues = isReturningUser
+    ? ({
+        code_id: sessionStorage.getItem("student-code-id") || "",
+        gradeLevel: sessionStorage.getItem("gradeLevel") || "",
+        readingLevel: sessionStorage.getItem("readingLevel") || "",
+        year: sessionStorage.getItem("year") || "",
+        ethnicity: sessionStorage.getItem("ethnicity") || "",
+        gender: sessionStorage.getItem("gender") || "",
+        familyBackground: sessionStorage.getItem("familyBackground") || "",
+        birthPlace: sessionStorage.getItem("birthPlace") || "",
+        region: sessionStorage.getItem("region") || "",
+        primaryInterest: sessionStorage.getItem("primaryInterest") || "",
+        languages: sessionStorage.getItem("languages") || "",
+        country: sessionStorage.getItem("country") || "",
+        vision: sessionStorage.getItem("vision") || "",
+        preferredMedia: sessionStorage.getItem("preferredMedia") || "",
+        appAccess: sessionStorage.getItem("appAccess") || "",
+        digitalTextAccess: sessionStorage.getItem("digitalTextAccess") || "",
+      } as Partial<FormValues>)
+    : {}; // Cast the entire object
+
   const handleSubmit = async (data: FormValues) => {
     console.log("submit");
     // Retrieve necesary data from the form
     const code_id = data.code_id;
     const primaryInterest = data.primaryInterest;
+    const mainlabel = data.mainlabel;
+    const sublabel = data.sublabel;
     const gradeLevel = data.gradeLevel;
     const ethnicityOptions = data.ethnicity;
     const gender = data.gender;
@@ -52,8 +78,28 @@ const HomePage = () => {
         hour12: false,
       })
       .replace(" ", "T");
+    sessionStorage.setItem("mainlabel", mainlabel);
+    sessionStorage.setItem("sublabel", sublabel);
+    sessionStorage.setItem("interest", primaryInterest);
+    sessionStorage.setItem("primaryInterest", primaryInterest);
+    sessionStorage.setItem("ethnicity", ethnicityOptions);
+    sessionStorage.setItem("gradeLevel", gradeLevel);
+    sessionStorage.setItem("readingLevel", readingLevel);
+    sessionStorage.setItem("familyBackground", familyBackground || "");
+    sessionStorage.setItem("birthPlace", birthPlace);
+    sessionStorage.setItem("region", region);
+    sessionStorage.setItem("languages", languages);
+    sessionStorage.setItem("country", country || "");
+    sessionStorage.setItem("vision", vision);
+    sessionStorage.setItem("preferredMedia", preferredMedia);
+    sessionStorage.setItem("appAccess", appAccess);
+    sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
+    sessionStorage.setItem("year", birthYear);
+    sessionStorage.setItem("gender", gender);
     //store code-id to retrieve for future endpoints
-    sessionStorage.setItem("student-code-id", code_id);
+    // sessionStorage.setItem("student-code-id", code_id);
+    // sessionStorage.setItem("ethnicity", ethnicityOptions);
+    // sessionStorage.setItem("gender", gender);
 
     // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -123,6 +169,8 @@ const HomePage = () => {
           requestRandomParagraph(
             {
               interest: primaryInterest,
+              mainlabel: mainlabel,
+              sublabel: sublabel,
               minAtos: minAtos,
               maxAtos: maxAtos,
               ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
@@ -157,6 +205,8 @@ const HomePage = () => {
                   "paragraphId",
                   "" + paragraphData!.data.id
                 );
+                sessionStorage.setItem("minAtos", minAtos.toString());
+                sessionStorage.setItem("maxAtos", maxAtos.toString());
 
                 navigate("/sample");
               },
@@ -171,7 +221,9 @@ const HomePage = () => {
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    sessionStorage.clear();
+    // if (!isReturningUser) {
+    //   sessionStorage.clear();
+    // }
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
@@ -252,7 +304,10 @@ const HomePage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <StudentForm onSubmit={handleSubmit} />
+              <StudentForm
+                onSubmit={handleSubmit}
+                defaultValues={defaultFormValues}
+              />
             </CardContent>
           </Card>
         </div>

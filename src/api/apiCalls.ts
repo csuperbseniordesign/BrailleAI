@@ -1,25 +1,73 @@
-import { deepseekRequest, request } from "./base";
+import { request } from "./base";
 import {
   AccessToken,
+  AuthHeader,
   DeepSeekResponse,
   finalUserData,
   finalUserDataResponse,
   initialUserData,
   ParagraphQuestions,
   ParagraphResponse,
+  ModifiedParagraphCreate,
+  ModifiedParagraphResponse,
+  GetStudentByCodeResponse,
 } from "./type";
+
+// export async function generateResponse(
+//   context: string,
+//   paragraph: string,
+//   auth: AuthHeader,
+// ) {
+//   const response = await deepseekRequest<DeepSeekResponse>({
+//     url: "/proxy/deepseek",
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       ...auth,
+//     },
+//     data: {
+//       model: "deepseek-chat",
+//       messages: [
+//         {
+//           role: "system",
+//           content: context,
+//         },
+//         {
+//           role: "user",
+//           content: paragraph,
+//         },
+//       ],
+//       stream: false,
+//     },
+//   });
+
+//   return response;
+// }
+
+export async function getStudentByCode(codeId: string, accessToken: string) {
+  const response = await request<GetStudentByCodeResponse>({
+    url: `/students/by-code/${codeId}`,
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "student-code-id": accessToken,
+    },
+  });
+
+  return response;
+}
 
 export async function generateResponse(
   context: string,
   paragraph: string,
-  accessToken: AccessToken,
+  accessToken: string,
 ) {
-  const response = await deepseekRequest<DeepSeekResponse>({
-    url: "/chat/completions",
+  const response = await request<DeepSeekResponse>({
+    url: "/proxy/deepseek",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      "student-code-id": accessToken,
     },
     data: {
       model: "deepseek-chat",
@@ -42,6 +90,8 @@ export async function generateResponse(
 
 export async function requestRandomParagraph(
   interest: string,
+  mainlabel: string,
+  sublabel: string,
   minAtos: number,
   maxAtos: number,
   ethnicity: string,
@@ -49,7 +99,7 @@ export async function requestRandomParagraph(
   accessToken: string,
 ) {
   const response = await request<ParagraphResponse>({
-    url: `/paragraphs/${interest}/${minAtos}/${maxAtos}/${ethnicity}/${gender}`,
+    url: `/paragraphs/${encodeURIComponent(interest)}/${encodeURIComponent(mainlabel)}/${encodeURIComponent(sublabel)}/${minAtos}/${maxAtos}/${ethnicity}/${gender}`,
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -111,3 +161,21 @@ export async function addFinalStudentData(
 
   return response;
 }
+
+export async function createModifiedParagraph(
+  modifiedParagraph: ModifiedParagraphCreate,
+  accessToken: string,
+) {
+  const response = await request<ModifiedParagraphResponse>({
+    url: `/modified_paragraphs/`,
+    method: "POST",
+    data: modifiedParagraph,
+    headers: {
+      "Content-Type": "application/json",
+      "student-code-id": accessToken, 
+    },
+  });
+
+  return response;
+}
+

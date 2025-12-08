@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ComprehensionQuestionaireForm from "@/feature/comprehensionForm/comprehensionQuestionaireForm";
 import { looseComprehensionQuestionaireFormSchema } from "@/feature/comprehensionForm/looseComprehensionQuestionaireFormSchema";
 import { useRequestParagraphQuestions } from "@/feature/hooks/useRequestParagraphQuestions";
+import { ModifiedParagraphCreate } from "@/api/type";
+import { useCreateModifiedParagraph } from "@/feature/hooks/useCreateModifiedParagraph";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -21,12 +23,27 @@ const ParagraphComprehension = () => {
     }
   });
 
-  const { data: paragraphData } = useRequestParagraphQuestions(
+  const {
+    data: paragraphData,
+    isLoading,
+    error,
+    isError,
+  } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
     code_id
   );
+  console.log("=== DEBUG INFO ===");
+  console.log("paragraphId:", paragraphId);
+  console.log("selectedName:", selectedName);
+  console.log("code_id:", code_id);
+  console.log("isLoading:", isLoading);
+  console.log("isError:", isError);
+  console.log("error:", error);
+  console.log("Paragraph Data:", paragraphData);
+  console.log("==================");
 
+  const { mutate: createModifiedParagraph } = useCreateModifiedParagraph();
   const questionList = paragraphData ? paragraphData.questions : [];
 
   const onSubmit = (data: FormValues) => {
@@ -34,7 +51,9 @@ const ParagraphComprehension = () => {
 
     questionList.forEach((question, index) => {
       const userAnswer = data[index.toString() as "0" | "1"];
+      console.log("User Answer for question", index, ":", userAnswer);
       const correctAnswer = question.answer;
+      console.log("Correct Answer for question", index, ":", correctAnswer);
 
       if (userAnswer === correctAnswer) {
         score += 1;
@@ -44,7 +63,62 @@ const ParagraphComprehension = () => {
     console.log("User answers:", data);
     console.log("Score:", score);
     sessionStorage.setItem("comprehension_score", score.toString());
-    navigate("/cultural-questionaire");
+    const ethnicity = sessionStorage.getItem("ethnicity") || undefined;
+    const gender = sessionStorage.getItem("gender") || undefined;
+    const interest = sessionStorage.getItem("interest") || undefined;
+    const modifiedParagraph = sessionStorage.getItem("modifiedParagraph");
+
+    const q1 = questionList[0]?.question;
+    const q1Options = questionList[0]?.options || [];
+    const q2 = questionList[1]?.question;
+    const q2Options = questionList[1]?.options || [];
+
+    const modifiedParagraphData: ModifiedParagraphCreate = {
+      paragraph: modifiedParagraph || "",
+      ethnicity,
+      gender,
+      interest,
+      q1,
+      q1a1: q1Options[0],
+      q1a2: q1Options[1],
+      q1a3: q1Options[2],
+      q1a4: q1Options[3],
+      q2,
+      q2a1: q2Options[0],
+      q2a2: q2Options[1],
+      q2a3: q2Options[2],
+      q2a4: q2Options[3],
+      used: 1,
+      cr_avg: 0,
+      code_id,
+      minAtos: Number(sessionStorage.getItem("minAtos")) || undefined,
+      maxAtos: Number(sessionStorage.getItem("maxAtos")) || undefined,
+      original_paragraph_id: Number(paragraphId),
+    };
+
+    console.log("Modified Paragraph Data:", modifiedParagraphData);
+    console.log("Session Storage Check:", {
+      paragraphId,
+      modifiedParagraph,
+      ethnicity,
+      gender,
+      interest,
+      minAtos: sessionStorage.getItem("minAtos"),
+      maxAtos: sessionStorage.getItem("maxAtos"),
+    });
+
+    createModifiedParagraph(
+      {
+        modifiedParagraph: modifiedParagraphData,
+        accessToken: code_id,
+      },
+      {
+        onSuccess: (response) => {
+          sessionStorage.setItem("modified_paragraph_id", response.id);
+          navigate("/cultural-questionaire");
+        },
+      }
+    );
   };
 
   if (!paragraphData) {

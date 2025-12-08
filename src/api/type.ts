@@ -4,6 +4,13 @@ export interface AuthRequestHeader {
   accessToken?: AccessToken;
 }
 
+export type Bearer = `Bearer ${string}`;
+
+export interface AuthHeader {
+  Authorization: Bearer;
+  "Content-Type"?: string;
+}
+
 export interface ApiResponse<T> {
   message: string;
   folio: string;
@@ -22,6 +29,29 @@ export interface deepseekChoices {
 export interface DeepSeekResponse {
   model: string;
   choices: deepseekChoices[];
+}
+
+export interface StudentDemographicData {
+  gradeLevel: string;
+  readingLevel: string;
+  year: string;
+  ethnicity: string;
+  gender: string;
+  familyBackground: string;
+  birthPlace: string;
+  region: string;
+  primaryInterest: string;
+  languages: string;
+  country: string;
+  vision: string;
+  preferredMedia: string;
+  appAccess: string;
+  digitalTextAccess: string;
+}
+
+export interface GetStudentByCodeResponse {
+  exists: boolean;
+  student: StudentDemographicData | null;
 }
 
 export interface ParagraphData {
@@ -47,6 +77,8 @@ export interface ParagraphResponse {
 
 export interface RequestParagraph {
   interest: string;
+  mainlabel: string;
+  sublabel: string;
   minAtos: number;
   maxAtos: number;
 }
@@ -108,6 +140,35 @@ export interface finalUserData {
   modified_paragraph_id: number;
   cr_avg: number;
 }
+
+export interface ModifiedParagraphCreate {
+  paragraph: string;
+  ethnicity?: string;
+  gender?: string;
+  q1?: string;
+  q1a1?: string;
+  q1a2?: string;
+  q1a3?: string;
+  q1a4?: string;
+  q2?: string;
+  q2a1?: string;
+  q2a2?: string;
+  q2a3?: string;
+  q2a4?: string;
+  interest?: string;
+  used?: number;
+  cr_avg?: number;
+  code_id?: string;
+  minAtos?: number;
+  maxAtos?: number;
+  original_paragraph_id: number;
+}
+
+
+export interface ModifiedParagraphResponse extends ModifiedParagraphCreate {
+  id: string;
+}
+
 
 export interface finalUserDataResponse {
   id: string;

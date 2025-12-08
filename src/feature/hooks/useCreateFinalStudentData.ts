@@ -14,12 +14,5 @@ export const useCreateFinalStudentData = () => {
       studentData: finalUserData;
       accessToken: string;
     }) => addFinalStudentData(studentId, studentData, accessToken),
-    onSuccess: (data) => {
-      toast.success("Added Student Data Successfully");
-      return data;
-    },
-    onError: (error) => {
-      toast.error("Failed to add student data \n" + error);
-    },
   });
 };

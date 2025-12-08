@@ -7,6 +7,8 @@ export const useRequestRandomParagraph = () => {
   return useMutation({
     mutationFn: ({
       interest,
+      mainlabel,
+      sublabel,
       minAtos,
       maxAtos,
       ethnicity,
@@ -14,6 +16,8 @@ export const useRequestRandomParagraph = () => {
       accessToken,
     }: {
       interest: string;
+      mainlabel: string;  
+      sublabel: string;
       minAtos: number;
       maxAtos: number;
       ethnicity: string;
@@ -22,6 +26,8 @@ export const useRequestRandomParagraph = () => {
     }) =>
       requestRandomParagraph(
         interest,
+        mainlabel,
+        sublabel,
         minAtos,
         maxAtos,
         ethnicity,

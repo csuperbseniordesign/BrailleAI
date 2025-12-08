@@ -17,6 +17,7 @@ import IrbFooter from "@/components/IrbFooter";
 const GeneratedParagraphPage = () => {
   const context = sessionStorage.getItem("context");
   const paragraph = sessionStorage.getItem("paragraph");
+  const accessToken = sessionStorage.getItem("student-code-id");
 
   const [startDisabled, setStartDisabled] = useState(false);
   const [stopDisabled, setStopDisabled] = useState(true);
@@ -56,7 +57,8 @@ const GeneratedParagraphPage = () => {
 
   const { data: responseData, isFetching: fetching } = useGenerateResponse(
     context!,
-    paragraph!
+    paragraph!,
+    accessToken!
   );
 
   // console.log(responseData);

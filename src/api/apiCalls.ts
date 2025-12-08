@@ -1,4 +1,4 @@
-import { deepseekRequest, request } from "./base";
+import { request } from "./base";
 import {
   AccessToken,
   AuthHeader,
@@ -10,19 +10,64 @@ import {
   ParagraphResponse,
   ModifiedParagraphCreate,
   ModifiedParagraphResponse,
+  GetStudentByCodeResponse,
 } from "./type";
+
+// export async function generateResponse(
+//   context: string,
+//   paragraph: string,
+//   auth: AuthHeader,
+// ) {
+//   const response = await deepseekRequest<DeepSeekResponse>({
+//     url: "/proxy/deepseek",
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       ...auth,
+//     },
+//     data: {
+//       model: "deepseek-chat",
+//       messages: [
+//         {
+//           role: "system",
+//           content: context,
+//         },
+//         {
+//           role: "user",
+//           content: paragraph,
+//         },
+//       ],
+//       stream: false,
+//     },
+//   });
+
+//   return response;
+// }
+
+export async function getStudentByCode(codeId: string, accessToken: string) {
+  const response = await request<GetStudentByCodeResponse>({
+    url: `/students/by-code/${codeId}`,
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "student-code-id": accessToken,
+    },
+  });
+
+  return response;
+}
 
 export async function generateResponse(
   context: string,
   paragraph: string,
-  auth: AuthHeader,
+  accessToken: string,
 ) {
-  const response = await deepseekRequest<DeepSeekResponse>({
-    url: "/chat/completions",
+  const response = await request<DeepSeekResponse>({
+    url: "/proxy/deepseek",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...auth,
+      "student-code-id": accessToken,
     },
     data: {
       model: "deepseek-chat",

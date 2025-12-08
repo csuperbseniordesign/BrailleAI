@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  sessionStorage.clear();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -152,7 +153,7 @@ const LandingPage = () => {
             <CardFooter className="px-8 pb-8">
               <div className="flex justify-end w-full">
                 <Button
-                  onClick={() => navigate("/demographicsurvey")}
+                  onClick={() => navigate("/code-entry")}
                   size="lg"
                   className="disabled:bg-gray-400 text-white text-xl font-bold py-4 px-8 h-auto"
                 >

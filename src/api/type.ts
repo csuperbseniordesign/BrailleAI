@@ -31,6 +31,29 @@ export interface DeepSeekResponse {
   choices: deepseekChoices[];
 }
 
+export interface StudentDemographicData {
+  gradeLevel: string;
+  readingLevel: string;
+  year: string;
+  ethnicity: string;
+  gender: string;
+  familyBackground: string;
+  birthPlace: string;
+  region: string;
+  primaryInterest: string;
+  languages: string;
+  country: string;
+  vision: string;
+  preferredMedia: string;
+  appAccess: string;
+  digitalTextAccess: string;
+}
+
+export interface GetStudentByCodeResponse {
+  exists: boolean;
+  student: StudentDemographicData | null;
+}
+
 export interface ParagraphData {
   id: number;
   title: string;

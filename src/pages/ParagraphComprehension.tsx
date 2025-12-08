@@ -23,11 +23,25 @@ const ParagraphComprehension = () => {
     }
   });
 
-  const { data: paragraphData } = useRequestParagraphQuestions(
+  const {
+    data: paragraphData,
+    isLoading,
+    error,
+    isError,
+  } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
     code_id
   );
+  console.log("=== DEBUG INFO ===");
+  console.log("paragraphId:", paragraphId);
+  console.log("selectedName:", selectedName);
+  console.log("code_id:", code_id);
+  console.log("isLoading:", isLoading);
+  console.log("isError:", isError);
+  console.log("error:", error);
+  console.log("Paragraph Data:", paragraphData);
+  console.log("==================");
 
   const { mutate: createModifiedParagraph } = useCreateModifiedParagraph();
   const questionList = paragraphData ? paragraphData.questions : [];

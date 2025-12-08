@@ -7,24 +7,20 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthHeader } from "@/api/type";
 
-export function useGenerateResponse(context: string, paragraph: string) {
-  const apiKey = import.meta.env.VITE_API_KEY;
+export function useGenerateResponse(context: string, paragraph: string, accessToken: string) {
+  // const apiKey = import.meta.env.VITE_API_KEY;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!apiKey) {
+    if (!accessToken) {
       navigate("/");
     }
   });
 
-  const auth: AuthHeader = {
-    Authorization: `Bearer ${apiKey}`,
-  };
-
   const query = useQuery<DeepSeekResponse>({
     queryKey: [QueryKeys.RESPONSE],
-    queryFn: () => generateResponse(context, paragraph, auth),
+    queryFn: () => generateResponse(context, paragraph, accessToken),
     staleTime: FIVE_MINS_IN_MILLIS,
     refetchOnMount: false,
     refetchOnReconnect: false,

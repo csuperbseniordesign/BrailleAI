@@ -34,6 +34,7 @@ import { Input } from "@/components/ui/input";
 type FormValues = z.infer<typeof looseStudentFormSchema>;
 type StudentFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseStudentFormSchema>>;
+  defaultValues?: Partial<FormValues>; // Add this line
 };
 
 /**
@@ -43,37 +44,46 @@ type StudentFormProps = {
  * The collected data is used to determine the appropriate paragraph to
  * generate for a specific student.
  */
-const StudentForm = ({ onSubmit }: StudentFormProps) => {
+const StudentForm = ({ onSubmit, defaultValues }: StudentFormProps) => {
+  // Add defaultValues here
+  // Create the base default values
+  const baseDefaults: FormValues = {
+    code_id: "",
+    gradeLevel: gradeLevelOptions[0],
+    readingLevel: gradeLevelOptions[0],
+    ethnicity: ethnicityOptions[0],
+    ethnicSubgroup: ethnicSubgroupOptions[0],
+    gender: genderOptions[0],
+    birthPlace: birthPlace[0],
+    region: regionOptions[1],
+    year: "",
+    country: "",
+    languages: languages[1],
+    otherLanguage: "",
+    primaryInterest: primaryInterestOptions[0],
+    mainlabel: getMainLabels(primaryInterestOptions[0])[0],
+    sublabel: getSubLabels(
+      primaryInterestOptions[0],
+      getMainLabels(primaryInterestOptions[0])[0]
+    )[0],
+    familyBackground: familyBackgroundOptions[0],
+    vision: vision[0],
+    preferredMedia: preferredMedia[0],
+    appAccess: appAccess[0],
+    digitalTextAccess: digitalTextAccess[1],
+    otherAppAccess: "",
+    otherDigitalAccess: "",
+  };
+
+  // Merge base defaults with provided defaults
+  const mergedDefaults: FormValues = {
+    ...baseDefaults,
+    ...defaultValues, // This will override base defaults with any provided values
+  };
+
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseStudentFormSchema),
-    defaultValues: {
-      code_id: "",
-      gradeLevel: gradeLevelOptions[0],
-      readingLevel: gradeLevelOptions[0],
-      ethnicity: ethnicityOptions[0],
-      ethnicSubgroup: ethnicSubgroupOptions[0],
-      gender: genderOptions[0],
-      birthPlace: birthPlace[0],
-      region: regionOptions[1],
-      year: "",
-      country: "",
-      languages: languages[1],
-      otherLanguage: "",
-      primaryInterest: primaryInterestOptions[0],
-      // pick sensible initial main/sub from the tree
-      mainlabel: getMainLabels(primaryInterestOptions[0])[0],
-      sublabel: getSubLabels(
-        primaryInterestOptions[0],
-        getMainLabels(primaryInterestOptions[0])[0]
-      )[0],
-      familyBackground: familyBackgroundOptions[0],
-      vision: vision[0],
-      preferredMedia: preferredMedia[0],
-      appAccess: appAccess[0],
-      digitalTextAccess: digitalTextAccess[1],
-      otherAppAccess: "",
-      otherDigitalAccess: "",
-    },
+    defaultValues: mergedDefaults, // Use merged defaults instead of baseDefaults
   });
 
   const interest = formMethods.watch("primaryInterest");

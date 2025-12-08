@@ -27,6 +27,29 @@ const HomePage = () => {
   const { mutate: requestRandomParagraph } = useRequestRandomParagraph();
   const { mutate: createStudentData } = useCreateInitialStudentData();
 
+  const isReturningUser = sessionStorage.getItem("isReturningUser") === "true";
+
+  const defaultFormValues = isReturningUser
+    ? ({
+        code_id: sessionStorage.getItem("student-code-id") || "",
+        gradeLevel: sessionStorage.getItem("gradeLevel") || "",
+        readingLevel: sessionStorage.getItem("readingLevel") || "",
+        year: sessionStorage.getItem("year") || "",
+        ethnicity: sessionStorage.getItem("ethnicity") || "",
+        gender: sessionStorage.getItem("gender") || "",
+        familyBackground: sessionStorage.getItem("familyBackground") || "",
+        birthPlace: sessionStorage.getItem("birthPlace") || "",
+        region: sessionStorage.getItem("region") || "",
+        primaryInterest: sessionStorage.getItem("primaryInterest") || "",
+        languages: sessionStorage.getItem("languages") || "",
+        country: sessionStorage.getItem("country") || "",
+        vision: sessionStorage.getItem("vision") || "",
+        preferredMedia: sessionStorage.getItem("preferredMedia") || "",
+        appAccess: sessionStorage.getItem("appAccess") || "",
+        digitalTextAccess: sessionStorage.getItem("digitalTextAccess") || "",
+      } as Partial<FormValues>)
+    : {}; // Cast the entire object
+
   initializeProgress();
 
   const handleSubmit = async (data: FormValues) => {
@@ -58,9 +81,9 @@ const HomePage = () => {
       })
       .replace(" ", "T");
     //store code-id to retrieve for future endpoints
-    sessionStorage.setItem("student-code-id", code_id);
-    sessionStorage.setItem("ethnicity", ethnicityOptions);
-    sessionStorage.setItem("gender", gender);
+    // sessionStorage.setItem("student-code-id", code_id);
+    // sessionStorage.setItem("ethnicity", ethnicityOptions);
+    // sessionStorage.setItem("gender", gender);
 
     // convert reading level into ATOS range for paragraph request
     const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -185,8 +208,10 @@ const HomePage = () => {
 
   // Clears prompt data && query cache on initial render
   useEffect(() => {
-    sessionStorage.clear();
-    resetProgress();
+    if (!isReturningUser) {
+      sessionStorage.clear();
+      resetProgress();
+    }
 
     queryClient.removeQueries({
       queryKey: [QueryKeys.RESPONSE],
@@ -267,7 +292,10 @@ const HomePage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <StudentForm onSubmit={handleSubmit} />
+              <StudentForm
+                onSubmit={handleSubmit}
+                defaultValues={defaultFormValues}
+              />
             </CardContent>
           </Card>
         </div>

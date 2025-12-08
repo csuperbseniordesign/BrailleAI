@@ -5,6 +5,7 @@ import HomePage from "@/pages/homepage";
 import TeacherQuestionare from "@/pages/TeacherQuestionare";
 import ParagraphComprehension from "@/pages/ParagraphComprehension";
 import LandingPage from "@/pages/LandingPage";
+import CodeVerificationPage from "@/pages/CodeVerificationPage";
 import { RouteObject } from "react-router-dom";
 import SampleParagraphPage from "@/pages/SampleParagraph";
 
@@ -13,6 +14,7 @@ export const routerConfig: RouteObject[] = [
     path: "/",
     element: <LandingPage />,
   },
+  { path: "/code-entry", element: <CodeVerificationPage /> },
   { path: "/demographicsurvey", element: <HomePage /> },
   { path: "/sample", element: <SampleParagraphPage /> },
   { path: "/response", element: <GeneratedParagraphPage /> },

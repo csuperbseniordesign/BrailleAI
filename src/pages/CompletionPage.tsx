@@ -1,22 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { cleanText } from "@/util/utils";
-import { getNamesByEthnicityAndGender } from "@/util/preselectNames";
-import { createContext } from "@/util/createContext";
 import {
   getProgress,
   incrementProgress,
   clearIterationData,
 } from "@/util/progressTracker";
-import { useRequestRandomParagraph } from "@/feature/hooks/useRequestRandomParagraph";
 
 const CompletionPage = () => {
   const navigate = useNavigate();
   // const { mutate: requestRandomParagraph, isPending } =
   //   useRequestRandomParagraph();
-  const [isLoadingNext, setIsLoadingNext] = useState(false);
+  //const [setIsLoadingNext] = useState(false);
 
   const { completed, total } = getProgress();
 
@@ -39,8 +35,6 @@ const CompletionPage = () => {
   }, [navigate, isLastParagraph]);
 
   const handleContinue = () => {
-    setIsLoadingNext(true);
-
     // Increment progress
     incrementProgress();
 

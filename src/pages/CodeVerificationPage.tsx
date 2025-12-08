@@ -12,7 +12,7 @@ const CodeVerificationPage = () => {
   const [shouldVerify, setShouldVerify] = useState(false);
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useGetStudentByCode(
+  const { data, isLoading, isError } = useGetStudentByCode(
     shouldVerify ? codeId : null,
     codeId
   );

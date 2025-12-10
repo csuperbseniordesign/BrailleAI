@@ -81,12 +81,12 @@ const HomePage = () => {
       const appAccess =
         appAccessRaw === "Other (please specify)"
           ? data.otherAppAccess?.trim() || ""
-          : "";
+          : appAccessRaw;
 
       const digitalAccess =
         digitalTextAccessRaw === "Other (please specify)"
           ? data.otherDigitalAccess?.trim() || ""
-          : "";
+          : digitalTextAccessRaw;
       const birthYear = data.year;
 
       const timeStamp = new Date()

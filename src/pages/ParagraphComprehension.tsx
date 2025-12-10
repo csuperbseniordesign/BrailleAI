@@ -14,6 +14,7 @@ type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const selectedName = sessionStorage.getItem("name");
+  const selectedGender = sessionStorage.getItem("gender");
   const code_id = String(sessionStorage.getItem("student-code-id"));
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ const ParagraphComprehension = () => {
   } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
+    selectedGender!,
     code_id
   );
   console.log("=== DEBUG INFO ===");
@@ -48,12 +50,27 @@ const ParagraphComprehension = () => {
 
   const onSubmit = (data: FormValues) => {
     let score = 0;
+    let cr1UserAnswer = "";
+    let cr1IsCorrect = false;
+
+    let cr2UserAnswer = "";
+    let cr2IsCorrect = false;
 
     questionList.forEach((question, index) => {
       const userAnswer = data[index.toString() as "0" | "1"];
       console.log("User Answer for question", index, ":", userAnswer);
       const correctAnswer = question.answer;
       console.log("Correct Answer for question", index, ":", correctAnswer);
+      if (index === 0) {
+        cr1UserAnswer = userAnswer || "";
+        cr1IsCorrect = userAnswer === correctAnswer;
+      }
+
+      // Track CR2 (question 1)
+      if (index === 1) {
+        cr2UserAnswer = userAnswer || "";
+        cr2IsCorrect = userAnswer === correctAnswer;
+      }
 
       if (userAnswer === correctAnswer) {
         score += 1;
@@ -67,17 +84,31 @@ const ParagraphComprehension = () => {
     const gender = sessionStorage.getItem("gender") || undefined;
     const interest = sessionStorage.getItem("interest") || undefined;
     const modifiedParagraph = sessionStorage.getItem("modifiedParagraph");
+    const mainlabel = sessionStorage.getItem("mainlabel") || undefined;
+    const sublabel = sessionStorage.getItem("sublabel") || undefined;
 
     const q1 = questionList[0]?.question;
     const q1Options = questionList[0]?.options || [];
     const q2 = questionList[1]?.question;
     const q2Options = questionList[1]?.options || [];
 
+    sessionStorage.setItem("cr1_question", q1 || "");
+    sessionStorage.setItem("cr1_result", cr1IsCorrect ? "1" : "0");
+    sessionStorage.setItem("cr1_user_answer", cr1UserAnswer);
+    sessionStorage.setItem("cr1_correct_answer", questionList[0]?.answer || "");
+
+    sessionStorage.setItem("cr2_question", q2 || "");
+    sessionStorage.setItem("cr2_result", cr2IsCorrect ? "1" : "0");
+    sessionStorage.setItem("cr2_user_answer", cr2UserAnswer);
+    sessionStorage.setItem("cr2_correct_answer", questionList[1]?.answer || "");
+
     const modifiedParagraphData: ModifiedParagraphCreate = {
       paragraph: modifiedParagraph || "",
       ethnicity,
       gender,
       interest,
+      mainlabel,
+      sublabel,
       q1,
       q1a1: q1Options[0],
       q1a2: q1Options[1],

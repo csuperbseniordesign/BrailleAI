@@ -37,9 +37,9 @@ const TeacherQuestionare = () => {
     const experienceQuestion1 =
       sessionStorage.getItem("experienceQuestion1") || "";
     const endingQuestion1 = sessionStorage.getItem("endingQuestion1") || "";
-    const endingQuestion2 = sessionStorage.getItem("endingQuestion1") || "";
-    const endingQuestion3 = sessionStorage.getItem("endingQuestion1") || "";
-    const endingQuestion4 = sessionStorage.getItem("endingQuestion1") || "";
+    const endingQuestion2 = sessionStorage.getItem("endingQuestion2") || "";
+    const endingQuestion3 = sessionStorage.getItem("endingQuestion3") || "";
+    const endingQuestion4 = sessionStorage.getItem("endingQuestion4") || "";
     const feedback = sessionStorage.getItem("feedback") || "";
 
     const teacher_question1 = data.question1 ?? "";
@@ -59,6 +59,17 @@ const TeacherQuestionare = () => {
     // const minAtos = Number(sessionStorage.getItem("minAtos"));
     // const maxAtos = Number(sessionStorage.getItem("maxAtos"));
     // const ethnicSubgroup = ethnicity;
+    const cr1_question = sessionStorage.getItem("cr1_question") || "";
+    const cr1_result = Number(sessionStorage.getItem("cr1_result"));
+    const cr1_user_answer = sessionStorage.getItem("cr1_user_answer") || "";
+    const cr1_correct_answer =
+      sessionStorage.getItem("cr1_correct_answer") || "";
+
+    const cr2_question = sessionStorage.getItem("cr2_question") || "";
+    const cr2_result = Number(sessionStorage.getItem("cr2_result"));
+    const cr2_user_answer = sessionStorage.getItem("cr2_user_answer") || "";
+    const cr2_correct_answer =
+      sessionStorage.getItem("cr2_correct_answer") || "";
 
     const comprehension_score = Number(
       sessionStorage.getItem("comprehension_score") || 0
@@ -96,6 +107,14 @@ const TeacherQuestionare = () => {
           teacher_question6: teacher_question6,
           teacher_question7: teacher_question7,
           teacher_feedback: teacher_feedback,
+          cr1_question: cr1_question,
+          cr1_result: cr1_result,
+          cr1_user_answer: cr1_user_answer,
+          cr1_correct_answer: cr1_correct_answer,
+          cr2_question: cr2_question,
+          cr2_result: cr2_result,
+          cr2_user_answer: cr2_user_answer,
+          cr2_correct_answer: cr2_correct_answer,
           comprehension_score: comprehension_score,
           timeInSeconds: timeInSeconds,
           modified_paragraph_id: modified_paragraph_id,

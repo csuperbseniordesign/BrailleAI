@@ -38,8 +38,21 @@ export const useRequestRandomParagraph = () => {
       toast.success("Paragraph Fetched Successfully");
       return data;
     },
-    onError: (error) => {
-      toast.error("Failed to fetch paragraph \n" + error);
+    onError: (error: any) => {
+       if (error?.response?.status === 404 || error?.status === 404) {
+        toast.error(
+          "No reading passage found for this interest and reading level.\nPlease try different options.",
+          {
+            duration: 5000, // Show for 5 seconds
+          }
+        );
+      } 
+      // Generic error for all other cases
+      else {
+        toast.error("Failed to fetch paragraph.\n" + (error?.message || error), {
+          duration: 4000,
+        });
+      }
     },
   });
 };

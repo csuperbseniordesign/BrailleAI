@@ -13,6 +13,73 @@ type TeacherFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof looseTeacherFormSchema>>;
 };
 
+// Reusable radio options component
+const RadioOptions = ({
+  field,
+  questionId,
+}: {
+  field: any;
+  questionId: string;
+}) => (
+  <RadioGroup
+    value={field.value}
+    onValueChange={field.onChange}
+    key={questionId}
+  >
+    <div className="flex flex-wrap items-center gap-4 py-4">
+      <div className="flex flex-row items-center gap-x-2 min-w-fit">
+        <RadioGroupItem value="0" id={`${questionId}-r0`} />
+        <label
+          htmlFor={`${questionId}-r0`}
+          className="text-sm whitespace-nowrap cursor-pointer"
+        >
+          Does Not Apply
+        </label>
+      </div>
+
+      <div className="flex flex-row items-center gap-x-2 min-w-fit">
+        <RadioGroupItem value="1" id={`${questionId}-r1`} />
+        <label
+          htmlFor={`${questionId}-r1`}
+          className="text-sm whitespace-nowrap cursor-pointer"
+        >
+          Strongly Disagree
+        </label>
+      </div>
+
+      <div className="flex flex-row items-center gap-x-2 min-w-fit">
+        <RadioGroupItem value="2" id={`${questionId}-r2`} />
+        <label
+          htmlFor={`${questionId}-r2`}
+          className="text-sm whitespace-nowrap cursor-pointer"
+        >
+          Disagree
+        </label>
+      </div>
+
+      <div className="flex flex-row items-center gap-x-2 min-w-fit">
+        <RadioGroupItem value="3" id={`${questionId}-r3`} />
+        <label
+          htmlFor={`${questionId}-r3`}
+          className="text-sm whitespace-nowrap cursor-pointer"
+        >
+          Agree
+        </label>
+      </div>
+
+      <div className="flex flex-row items-center gap-x-2 min-w-fit">
+        <RadioGroupItem value="4" id={`${questionId}-r4`} />
+        <label
+          htmlFor={`${questionId}-r4`}
+          className="text-sm whitespace-nowrap cursor-pointer"
+        >
+          Strongly Agree
+        </label>
+      </div>
+    </div>
+  </RadioGroup>
+);
+
 const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
   const formMethods = useForm<FormValues>({
     resolver: zodResolver(looseTeacherFormSchema),
@@ -25,10 +92,10 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
     <F.Root formMethods={formMethods}>
       {/** Question set 1 */}
       <div>
-        <ul className="space-y-3 list-disc list-outside px-[10px]">
+        <ul className="space-y-6 list-none px-0">
           {teacherQuestions.map((question, index) => (
-            <p key={index}>
-              <h4 className="text-lg py-[5px] w-[600px]">
+            <li key={index}>
+              <h4 className="text-lg py-[5px] max-w-3xl">
                 {question.question}
               </h4>
               <F.Field
@@ -37,61 +104,21 @@ const TeacherForm = ({ onSubmit }: TeacherFormProps) => {
                 render={({ field }) => (
                   <F.Item>
                     <F.Control>
-                      {
-                        <RadioGroup
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          key={question.id}
-                        >
-                          <div className="flex item-center space-x-20 py-[15px] text-center">
-                            <div className="flex flex-row items-center gap-x-2">
-                              <RadioGroupItem value="1" id="r1" />
-                              <p>Strongly Disagree</p>
-                            </div>
-
-                            <div className="flex flex-row items-center gap-x-2">
-                              <RadioGroupItem value="2" id="r2" />
-                              <p>Disagree</p>
-                            </div>
-
-                            <div className="flex flex-row items-center gap-x-2">
-                              <RadioGroupItem value="3" id="r3" />
-                              <p>Agree</p>
-                            </div>
-
-                            <div className="flex flex-row items-center gap-x-2">
-                              <RadioGroupItem value="4" id="r4" />
-                              <p>Strongly Agree</p>
-                            </div>
-                          </div>
-                        </RadioGroup>
-                      }
+                      <RadioOptions field={field} questionId={question.id} />
                     </F.Control>
                   </F.Item>
                 )}
               />
-            </p>
+            </li>
           ))}
         </ul>
       </div>
 
-      <div>
+      <div className="mt-6">
         <h4 className="text-lg py-[5px]">
-          Do you want to tell use anything more about how you felt about this
+          Do you want to tell us anything more about how you felt about this
           passage?
         </h4>
-        {/* <F.Field
-          name="teacher_feedback"
-          control={formMethods.control}
-          render={({ field }) => (
-            <F.Item>
-              <F.Control>
-                {<Input value={field.value} onChange={field.onChange} />}
-              </F.Control>
-              <F.Message />
-            </F.Item>
-          )}
-        /> */}
         <F.Field
           name="teacher_feedback"
           control={formMethods.control}

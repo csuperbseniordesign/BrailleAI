@@ -128,7 +128,7 @@ export const regionOptions = [
   "PR",
   "VI",
 ] as const;
-export const familyBackgroundOptions = ["Yes", "No", "I'm not sure"] as const;
+export const hispanicLatinoOptions = ["Yes", "No", "I'm not sure"] as const;
 export const languages = [
   "English",
   "Spanish",

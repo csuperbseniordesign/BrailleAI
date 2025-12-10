@@ -3,7 +3,7 @@ import {
   birthPlace,
   ethnicityOptions,
   ethnicSubgroupOptions,
-  familyBackgroundOptions,
+  hispanicLatinoOptions,
   genderOptions,
   gradeLevelOptions,
   languages,
@@ -30,11 +30,14 @@ export const looseStudentFormSchema = z
     ethnicity: z.enum(ethnicityOptions, {
       errorMap: () => ({ message: "Please select your ethnicity." }),
     }),
-    ethnicSubgroup: z.enum(ethnicSubgroupOptions).optional(),
+    ethnicSubgroup: z
+    .union([z.enum(ethnicSubgroupOptions), z.literal("")])
+    .transform((val) => (val === "" ? undefined : val))
+    .optional(),
     gender: z.enum(genderOptions, {
       errorMap: () => ({ message: "Please select your gender." }),
     }),
-    familyBackground: z.enum(familyBackgroundOptions, {
+    hispanicLatino: z.enum(hispanicLatinoOptions, {
       errorMap: () => ({ message: "Please select your family background." }),
     }),
     birthPlace: z.enum(birthPlace, {

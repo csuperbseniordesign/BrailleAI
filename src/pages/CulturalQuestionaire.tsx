@@ -83,12 +83,14 @@ const CulturalQuestionaire = () => {
                         <strong>Examples:</strong> For each statement below, I
                         want to know how much you agree with it. The four
                         options are: Strongly Agree, Agree, Disagree, Strongly
-                        Disagree. If you read the statement “I like lasagna” and
-                        lasagna is your favorite meal, then you would probably
-                        respond “Strongly Agree.” If you enjoy lasagna but
-                        prefer other food, maybe “Agree.” If you don’t like
-                        lasagna but would eat it, maybe “Disagree.” If the idea
-                        seems gross, then “Strongly Disagree.”
+                        Disagree, Does Not Apply. If you read the statement “I
+                        like lasagna” and lasagna is your favorite meal, then
+                        you would probably respond “Strongly Agree.” If you
+                        enjoy lasagna but prefer other food, maybe “Agree.” If
+                        you don’t like lasagna but would eat it, maybe
+                        “Disagree.” If the idea seems gross, then “Strongly
+                        Disagree.” If you feel that it does not apply to you,
+                        then "Does Not Apply".
                       </li>
                     </ul>
                   </li>

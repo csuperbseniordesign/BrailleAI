@@ -50,172 +50,149 @@ const HomePage = () => {
     : {}; // Cast the entire object
 
   const handleSubmit = async (data: FormValues) => {
-    console.log("submit");
-    // Retrieve necesary data from the form
-    const code_id = data.code_id;
-    const primaryInterest = data.primaryInterest;
-    const mainlabel = data.mainlabel;
-    const sublabel = data.sublabel;
-    const gradeLevel = data.gradeLevel;
-    const ethnicityOptions = data.ethnicity;
-    const gender = data.gender;
-    const ethnicSubgroup = data.ethnicSubgroup;
-    const readingLevel = data.readingLevel;
-    const familyBackground = data.familyBackground;
-    const birthPlace = data.birthPlace;
-    const region = data.region;
-    const languages = data.languages;
-    const country = data.country;
-    const vision = data.vision;
-    const preferredMedia = data.preferredMedia;
-    const appAccess = data.appAccess;
-    const digitalTextAccess = data.digitalTextAccess;
-    const birthYear = data.year;
-    const timeStamp = new Date()
-      .toLocaleString("sv-SE", {
-        timeZone: "America/Los_Angeles",
-        hour12: false,
-      })
-      .replace(" ", "T");
-    sessionStorage.setItem("mainlabel", mainlabel);
-    sessionStorage.setItem("sublabel", sublabel);
-    sessionStorage.setItem("interest", primaryInterest);
-    sessionStorage.setItem("primaryInterest", primaryInterest);
-    sessionStorage.setItem("ethnicity", ethnicityOptions);
-    sessionStorage.setItem("gradeLevel", gradeLevel);
-    sessionStorage.setItem("readingLevel", readingLevel);
-    sessionStorage.setItem("familyBackground", familyBackground || "");
-    sessionStorage.setItem("birthPlace", birthPlace);
-    sessionStorage.setItem("region", region);
-    sessionStorage.setItem("languages", languages);
-    sessionStorage.setItem("country", country || "");
-    sessionStorage.setItem("vision", vision);
-    sessionStorage.setItem("preferredMedia", preferredMedia);
-    sessionStorage.setItem("appAccess", appAccess);
-    sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
-    sessionStorage.setItem("year", birthYear);
-    sessionStorage.setItem("gender", gender);
-    //store code-id to retrieve for future endpoints
-    // sessionStorage.setItem("student-code-id", code_id);
-    // sessionStorage.setItem("ethnicity", ethnicityOptions);
-    // sessionStorage.setItem("gender", gender);
+    try {
+      console.log("submit");
 
-    // convert reading level into ATOS range for paragraph request
-    const [minAtos, maxAtos] = AtosMapper(readingLevel);
+      // Extract and prepare data
+      const code_id = data.code_id;
+      const primaryInterest = data.primaryInterest;
+      const mainlabel = data.mainlabel;
+      const sublabel = data.sublabel;
+      const gradeLevel = data.gradeLevel;
+      const ethnicityOptions = data.ethnicity;
+      const gender = data.gender;
+      const ethnicSubgroup = data.ethnicSubgroup;
+      const readingLevel = data.readingLevel;
+      const familyBackground = data.familyBackground;
+      const birthPlace = data.birthPlace;
+      const region = data.region;
+      const languages = data.languages;
+      const country = data.country;
+      const vision = data.vision;
+      const preferredMedia = data.preferredMedia;
+      const appAccess = data.appAccess;
+      const digitalTextAccess = data.digitalTextAccess;
+      const birthYear = data.year;
 
-    // temporarily for test deployment
-    // console.log(primaryInterest);
-    // console.log(gradeLevel);
-    // console.log(ethnicityOptions);
-    // console.log(gender);
-    // console.log(ethnicSubgroup);
-    // console.log(readingLevel);
-    // console.log(familyBackground);
-    // console.log(birthPlace);
-    // console.log(minAtos, maxAtos);
-    console.log({
-      code_id: code_id,
-      gradeLevel: gradeLevel,
-      readingLevel: readingLevel,
-      ethnicity: ethnicityOptions,
-      gender: gender,
-      familyBackground: familyBackground,
-      birthPlace: birthPlace,
-      region: region,
-      primaryInterest: primaryInterest,
-      languages: languages,
-      country: country ? country : "United States",
-      vision: vision,
-      preferredMedia: preferredMedia,
-      appAccess: appAccess,
-      digitalTextAccess: digitalTextAccess,
-      year: birthYear,
-      timeStamp: timeStamp,
-    });
+      const timeStamp = new Date()
+        .toLocaleString("sv-SE", {
+          timeZone: "America/Los_Angeles",
+          hour12: false,
+        })
+        .replace(" ", "T");
 
-    createStudentData(
-      {
-        studentData: {
-          code_id: code_id,
-          gradeLevel: gradeLevel,
-          readingLevel: readingLevel,
-          ethnicity: ethnicityOptions,
-          gender: gender,
-          familyBackground: familyBackground,
-          birthPlace: birthPlace,
-          region: region,
-          primaryInterest: primaryInterest,
-          languages: languages,
-          country: country ? country : "United States",
-          vision: vision,
-          preferredMedia: preferredMedia,
-          appAccess: appAccess,
-          digitalTextAccess: digitalTextAccess,
-          year: birthYear,
-          timeStamp: timeStamp,
-        },
-        accessToken: code_id,
-      },
-      {
-        onSuccess: (studentData) => {
-          if (!studentData) {
-            return;
+      // Update sessionStorage (all demographic data)
+      sessionStorage.setItem("student-code-id", code_id);
+      sessionStorage.setItem("gradeLevel", gradeLevel);
+      sessionStorage.setItem("readingLevel", readingLevel);
+      sessionStorage.setItem("year", birthYear);
+      sessionStorage.setItem("ethnicity", ethnicityOptions);
+      sessionStorage.setItem("gender", gender);
+      sessionStorage.setItem("familyBackground", familyBackground || "");
+      sessionStorage.setItem("birthPlace", birthPlace);
+      sessionStorage.setItem("region", region);
+      sessionStorage.setItem("primaryInterest", primaryInterest);
+      sessionStorage.setItem("languages", languages);
+      sessionStorage.setItem("country", country || "");
+      sessionStorage.setItem("vision", vision);
+      sessionStorage.setItem("preferredMedia", preferredMedia);
+      sessionStorage.setItem("appAccess", appAccess);
+      sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
+      sessionStorage.setItem("mainlabel", mainlabel);
+      sessionStorage.setItem("sublabel", sublabel);
+      sessionStorage.setItem("interest", primaryInterest);
+
+      const [minAtos, maxAtos] = AtosMapper(readingLevel);
+
+      // STEP 1: Check if paragraph exists FIRST (using Promise wrapper)
+      const paragraphData = await new Promise<any>((resolve, reject) => {
+        requestRandomParagraph(
+          {
+            interest: primaryInterest,
+            mainlabel: mainlabel,
+            sublabel: sublabel,
+            minAtos: minAtos,
+            maxAtos: maxAtos,
+            ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
+            gender: gender,
+            accessToken: code_id,
+          },
+          {
+            onSuccess: resolve,
+            onError: reject,
           }
-          const student_id = String(studentData);
-          console.log(student_id);
-          sessionStorage.setItem("studentId", student_id);
+        );
+      });
 
-          requestRandomParagraph(
-            {
-              interest: primaryInterest,
-              mainlabel: mainlabel,
-              sublabel: sublabel,
-              minAtos: minAtos,
-              maxAtos: maxAtos,
-              ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
-              gender: gender,
-              accessToken: code_id,
-            },
-            {
-              // redirect to response page if paragraph is received
-              onSuccess: (paragraphData) => {
-                if (!paragraphData) {
-                  return;
-                }
-
-                // clean paragraph text to make it readable
-                const paragraph = cleanText(paragraphData!.data.paragraph);
-
-                // get preselected name based on ethnicity and gender
-                const selected_name = getNamesByEthnicityAndGender(
-                  ethnicityOptions,
-                  gender,
-                  ethnicSubgroup ? ethnicSubgroup : "white"
-                );
-
-                // creating instruction for the model when editing paragraph
-                const context = createContext(selected_name, gender);
-
-                // temporarily store user data in session storage, later stored in database after questionaire
-                sessionStorage.setItem("context", context);
-                sessionStorage.setItem("name", selected_name);
-                sessionStorage.setItem("paragraph", paragraph);
-                sessionStorage.setItem(
-                  "paragraphId",
-                  "" + paragraphData!.data.id
-                );
-                sessionStorage.setItem("minAtos", minAtos.toString());
-                sessionStorage.setItem("maxAtos", maxAtos.toString());
-
-                navigate("/sample");
-              },
-            }
-          );
-        },
+      if (!paragraphData) {
+        alert(
+          "No suitable reading passage found for these criteria. Please try different options."
+        );
+        return;
       }
-    );
 
-    // Request random paragraph using random paragraph api
+      // STEP 2: Paragraph exists! Now create student data
+      const studentData = await new Promise<any>((resolve, reject) => {
+        createStudentData(
+          {
+            studentData: {
+              code_id: code_id,
+              gradeLevel: gradeLevel,
+              readingLevel: readingLevel,
+              ethnicity: ethnicityOptions,
+              gender: gender,
+              familyBackground: familyBackground,
+              birthPlace: birthPlace,
+              region: region,
+              primaryInterest: primaryInterest,
+              languages: languages,
+              country: country ? country : "United States",
+              vision: vision,
+              preferredMedia: preferredMedia,
+              appAccess: appAccess,
+              digitalTextAccess: digitalTextAccess,
+              year: birthYear,
+              timeStamp: timeStamp,
+            },
+            accessToken: code_id,
+          },
+          {
+            onSuccess: resolve,
+            onError: reject,
+          }
+        );
+      });
+
+      if (!studentData) {
+        return;
+      }
+
+      // STEP 3: Prepare paragraph data
+      const student_id = String(studentData);
+      console.log("Student created:", student_id);
+      sessionStorage.setItem("studentId", student_id);
+
+      const paragraph = cleanText(paragraphData.data.paragraph);
+      const selected_name = getNamesByEthnicityAndGender(
+        ethnicityOptions,
+        gender,
+        ethnicSubgroup ? ethnicSubgroup : "white"
+      );
+      const context = createContext(selected_name, gender);
+
+      // Store paragraph data
+      sessionStorage.setItem("context", context);
+      sessionStorage.setItem("name", selected_name);
+      sessionStorage.setItem("paragraph", paragraph);
+      sessionStorage.setItem("paragraphId", String(paragraphData.data.id));
+      sessionStorage.setItem("minAtos", minAtos.toString());
+      sessionStorage.setItem("maxAtos", maxAtos.toString());
+
+      // STEP 4: Navigate to next page
+      navigate("/sample");
+    } catch (error) {
+      console.error("Error in form submission:", error);
+    }
   };
 
   // Clears prompt data && query cache on initial render

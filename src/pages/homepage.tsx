@@ -76,8 +76,17 @@ const HomePage = () => {
       const country = data.country;
       const vision = data.vision;
       const preferredMedia = data.preferredMedia;
-      const appAccess = data.appAccess;
-      const digitalTextAccess = data.digitalTextAccess;
+      const appAccessRaw = data.appAccess;
+      const digitalTextAccessRaw = data.digitalTextAccess;
+      const appAccess =
+        appAccessRaw === "Other (please specify)"
+          ? data.otherAppAccess?.trim() || ""
+          : "";
+
+      const digitalAccess =
+        digitalTextAccessRaw === "Other (please specify)"
+          ? data.otherDigitalAccess?.trim() || ""
+          : "";
       const birthYear = data.year;
 
       const timeStamp = new Date()
@@ -106,7 +115,7 @@ const HomePage = () => {
       sessionStorage.setItem("vision", vision);
       sessionStorage.setItem("preferredMedia", preferredMedia);
       sessionStorage.setItem("appAccess", appAccess);
-      sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
+      sessionStorage.setItem("digitalTextAccess", digitalAccess);
       sessionStorage.setItem("interest", primaryInterest);
 
       const [minAtos, maxAtos] = AtosMapper(readingLevel);
@@ -162,7 +171,7 @@ const HomePage = () => {
               vision: vision,
               preferredMedia: preferredMedia,
               appAccess: appAccess,
-              digitalTextAccess: digitalTextAccess,
+              digitalTextAccess: digitalAccess,
               year: birthYear,
               timeStamp: timeStamp,
             },

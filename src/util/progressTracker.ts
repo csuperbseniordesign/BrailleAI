@@ -42,7 +42,7 @@ export const clearIterationData = () => {
     "year",
     "gradeLevel",
     "readingLevel",
-    "familyBackground",
+    "hispanicLatino",
     "birthPlace",
     "region",
     "languages",

@@ -43,17 +43,23 @@ const CodeVerificationPage = () => {
 
           sessionStorage.setItem("year", student.year?.toString() || "");
           sessionStorage.setItem("gender", student.gender || "");
+          sessionStorage.setItem(
+            "hispanicLatino",
+            student.hispanic_latino_origin || ""
+          );
           sessionStorage.setItem("ethnicity", student.ethnicity || "");
+          sessionStorage.setItem(
+            "ethnicSubgroup",
+            student.ethnic_subgroup || ""
+          );
           sessionStorage.setItem(
             "primaryInterest",
             student.primaryInterest || ""
           );
+          sessionStorage.setItem("mainlabel", student.mainlabel || "");
+          sessionStorage.setItem("sublabel", student.sublabel || "");
           sessionStorage.setItem("gradeLevel", student.gradeLevel || "");
           sessionStorage.setItem("readingLevel", student.readingLevel || "");
-          sessionStorage.setItem(
-            "familyBackground",
-            student.familyBackground || ""
-          );
           sessionStorage.setItem("birthPlace", student.birthPlace || "");
           sessionStorage.setItem("region", student.region || "");
           sessionStorage.setItem("languages", student.languages || "");

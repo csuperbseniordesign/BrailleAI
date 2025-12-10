@@ -16,7 +16,7 @@ import {
   birthPlace,
   ethnicityOptions,
   ethnicSubgroupOptions,
-  familyBackgroundOptions,
+  hispanicLatinoOptions,
   genderOptions,
   gradeLevelOptions,
   languages,
@@ -66,7 +66,7 @@ const StudentForm = ({ onSubmit, defaultValues }: StudentFormProps) => {
       primaryInterestOptions[0],
       getMainLabels(primaryInterestOptions[0])[0]
     )[0],
-    familyBackground: familyBackgroundOptions[0],
+    hispanicLatino: hispanicLatinoOptions[0],
     vision: vision[0],
     preferredMedia: preferredMedia[0],
     appAccess: appAccess[0],
@@ -256,7 +256,7 @@ const StudentForm = ({ onSubmit, defaultValues }: StudentFormProps) => {
             Do you identify as Hispanic, Latino or of Spanish origin?
           </h4>
           <F.Field
-            name="familyBackground"
+            name="hispanicLatino"
             control={formMethods.control}
             render={({ field }) => (
               <F.Item>
@@ -267,7 +267,7 @@ const StudentForm = ({ onSubmit, defaultValues }: StudentFormProps) => {
                         <SelectValue placeholder={field.value} />
                       </SelectTrigger>
                       <SelectContent>
-                        {familyBackgroundOptions.map((background, index) => (
+                        {hispanicLatinoOptions.map((background, index) => (
                           <SelectItem value={background} key={index}>
                             {background}
                           </SelectItem>

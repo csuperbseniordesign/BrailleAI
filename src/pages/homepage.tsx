@@ -34,12 +34,16 @@ const HomePage = () => {
         gradeLevel: sessionStorage.getItem("gradeLevel") || "",
         readingLevel: sessionStorage.getItem("readingLevel") || "",
         year: sessionStorage.getItem("year") || "",
+        hispanicLatino: sessionStorage.getItem("hispanicLatino") || "",
         ethnicity: sessionStorage.getItem("ethnicity") || "",
+        ethnicSubgroup: sessionStorage.getItem("ethnicSubgroup") || "",
         gender: sessionStorage.getItem("gender") || "",
-        familyBackground: sessionStorage.getItem("familyBackground") || "",
+
         birthPlace: sessionStorage.getItem("birthPlace") || "",
         region: sessionStorage.getItem("region") || "",
         primaryInterest: sessionStorage.getItem("primaryInterest") || "",
+        mainlabel: sessionStorage.getItem("mainlabel") || "",
+        sublabel: sessionStorage.getItem("sublabel") || "",
         languages: sessionStorage.getItem("languages") || "",
         country: sessionStorage.getItem("country") || "",
         vision: sessionStorage.getItem("vision") || "",
@@ -59,11 +63,13 @@ const HomePage = () => {
       const mainlabel = data.mainlabel;
       const sublabel = data.sublabel;
       const gradeLevel = data.gradeLevel;
+      const hispanic_latino_origin = data.hispanicLatino;
       const ethnicityOptions = data.ethnicity;
+      const isAsian = ethnicityOptions === "Asian";
+      const ethnic_subgroup = isAsian ? data.ethnicSubgroup?.trim() || "" : "";
       const gender = data.gender;
-      const ethnicSubgroup = data.ethnicSubgroup;
+
       const readingLevel = data.readingLevel;
-      const familyBackground = data.familyBackground;
       const birthPlace = data.birthPlace;
       const region = data.region;
       const languages = data.languages;
@@ -86,23 +92,26 @@ const HomePage = () => {
       sessionStorage.setItem("gradeLevel", gradeLevel);
       sessionStorage.setItem("readingLevel", readingLevel);
       sessionStorage.setItem("year", birthYear);
+      sessionStorage.setItem("hispanicLatino", hispanic_latino_origin);
       sessionStorage.setItem("ethnicity", ethnicityOptions);
+      sessionStorage.setItem("ethnicSubgroup", ethnic_subgroup || "");
       sessionStorage.setItem("gender", gender);
-      sessionStorage.setItem("familyBackground", familyBackground || "");
       sessionStorage.setItem("birthPlace", birthPlace);
       sessionStorage.setItem("region", region);
       sessionStorage.setItem("primaryInterest", primaryInterest);
+      sessionStorage.setItem("mainlabel", mainlabel);
+      sessionStorage.setItem("sublabel", sublabel);
       sessionStorage.setItem("languages", languages);
       sessionStorage.setItem("country", country || "");
       sessionStorage.setItem("vision", vision);
       sessionStorage.setItem("preferredMedia", preferredMedia);
       sessionStorage.setItem("appAccess", appAccess);
       sessionStorage.setItem("digitalTextAccess", digitalTextAccess);
-      sessionStorage.setItem("mainlabel", mainlabel);
-      sessionStorage.setItem("sublabel", sublabel);
       sessionStorage.setItem("interest", primaryInterest);
 
       const [minAtos, maxAtos] = AtosMapper(readingLevel);
+
+      const ethnicityforRequest = ethnic_subgroup || ethnicityOptions;
 
       // STEP 1: Check if paragraph exists FIRST (using Promise wrapper)
       const paragraphData = await new Promise<any>((resolve, reject) => {
@@ -113,7 +122,7 @@ const HomePage = () => {
             sublabel: sublabel,
             minAtos: minAtos,
             maxAtos: maxAtos,
-            ethnicity: ethnicSubgroup ? ethnicSubgroup : ethnicityOptions,
+            ethnicity: ethnicityforRequest,
             gender: gender,
             accessToken: code_id,
           },
@@ -139,12 +148,15 @@ const HomePage = () => {
               code_id: code_id,
               gradeLevel: gradeLevel,
               readingLevel: readingLevel,
+              hispanic_latino_origin: hispanic_latino_origin,
               ethnicity: ethnicityOptions,
+              ethnic_subgroup: ethnic_subgroup,
               gender: gender,
-              familyBackground: familyBackground,
               birthPlace: birthPlace,
               region: region,
               primaryInterest: primaryInterest,
+              mainlabel: mainlabel,
+              sublabel: sublabel,
               languages: languages,
               country: country ? country : "United States",
               vision: vision,
@@ -176,7 +188,7 @@ const HomePage = () => {
       const selected_name = getNamesByEthnicityAndGender(
         ethnicityOptions,
         gender,
-        ethnicSubgroup ? ethnicSubgroup : "white"
+        ethnic_subgroup || "White"
       );
       const context = createContext(selected_name, gender);
 

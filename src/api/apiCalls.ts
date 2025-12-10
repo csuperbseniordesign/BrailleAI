@@ -111,10 +111,11 @@ export async function requestRandomParagraph(
 export async function requestParagraph(
   paragraphId: string,
   selectedName: string,
+  selectedGender: string,
   accessToken: string,
 ) {
   const response = await request<ParagraphQuestions>({
-    url: `/paragraph/${paragraphId}/${selectedName}`,
+    url: `/paragraph/${paragraphId}/${selectedName}/${selectedGender}`,
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -14,6 +14,7 @@ type FormValues = z.infer<typeof looseComprehensionQuestionaireFormSchema>;
 const ParagraphComprehension = () => {
   const paragraphId = sessionStorage.getItem("paragraphId");
   const selectedName = sessionStorage.getItem("name");
+  const selectedGender = sessionStorage.getItem("gender");
   const code_id = String(sessionStorage.getItem("student-code-id"));
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ const ParagraphComprehension = () => {
   } = useRequestParagraphQuestions(
     paragraphId ? paragraphId : "1",
     selectedName!,
+    selectedGender!,
     code_id
   );
   console.log("=== DEBUG INFO ===");
